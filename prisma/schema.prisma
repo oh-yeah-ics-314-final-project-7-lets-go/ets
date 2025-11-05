@@ -18,15 +18,15 @@ datasource db {
 }
 
 enum Role {
-  USER
-  ADMIN
+  VENDOR
+  ETS
 }
 
 model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
-  role     Role   @default(USER)
+  role     Role   @default(VENDOR)
 }
 
 enum Condition {
