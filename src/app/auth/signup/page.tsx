@@ -8,6 +8,8 @@ import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { createUser } from '@/lib/dbActions';
 
 type SignUpForm = {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -17,6 +19,8 @@ type SignUpForm = {
 /** The sign up page. */
 const SignUp = () => {
   const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('First name is required'),
+    lastName: Yup.string().required('Last name is required'),
     email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string()
       .required('Password is required')
@@ -52,6 +56,30 @@ const SignUp = () => {
             <Card>
               <Card.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
+                  <Row>
+                    <Col>
+                      <Form.Group className="form-group">
+                        <Form.Label>First Name</Form.Label>
+                        <input
+                          type="text"
+                          {...register('firstName')}
+                          className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                        />
+                        <div className="invalid-feedback">{errors.firstName?.message}</div>
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group className="form-group">
+                        <Form.Label>Last Name</Form.Label>
+                        <input
+                          type="text"
+                          {...register('lastName')}
+                          className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                        />
+                        <div className="invalid-feedback">{errors.lastName?.message}</div>
+                      </Form.Group>
+                    </Col>
+                  </Row>
                   <Form.Group className="form-group">
                     <Form.Label>Email</Form.Label>
                     <input
