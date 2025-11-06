@@ -2,6 +2,7 @@
 
 'use client';
 
+import { Role } from '@prisma/client';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
@@ -11,8 +12,8 @@ import Image from 'next/image';
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
   const currentUser = session?.user?.email;
-  const userWithRole = session?.user as { email: string; randomKey: string };
-  const role = userWithRole?.randomKey;
+  const userWithRole = session?.user as { firstName: string; lastName: string; email: string; randomKey: string };
+  const role = userWithRole?.randomKey as Role;
   const pathName = usePathname();
   return (
     <Navbar
@@ -56,7 +57,7 @@ const NavBar: React.FC = () => {
           )}
 
             {currentUser && role === 'ETS' ? (
-              <Nav.Link id="ets-stuff-nav" href="/ets" key="ets" active={pathName === '/admin'}>
+              <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
               </Nav.Link>
             ) : (
@@ -72,7 +73,7 @@ const NavBar: React.FC = () => {
           </Nav>
           <Nav>
             {session ? (
-              <NavDropdown id="login-dropdown" title={currentUser}>
+              <NavDropdown id="login-dropdown" title={`${userWithRole.firstName} ${userWithRole.lastName}`}>
                 <NavDropdown.Item id="login-dropdown-sign-out" href="/api/auth/signout">
                   <BoxArrowRight />
                   Sign Out
