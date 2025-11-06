@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
+import Image from 'next/image';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession();
@@ -14,29 +15,60 @@ const NavBar: React.FC = () => {
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar
+      bg="light"
+      expand="lg"
+      style={{
+      backgroundColor: 'rgba(248, 249, 250, 1)',
+      }}
+    >
       <Container>
-        <Navbar.Brand href="/">Next.js Application Template</Navbar.Brand>
+        <Navbar.Brand href="/" className="d-flex align-items-center">
+          <Image
+            src="/HACC-with-Flag-final-1.png" // <-- just the path
+            alt="HACC Logo"
+            width={150}
+            height={60}
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {currentUser
-              ? [
-                  <Nav.Link id="add-stuff-nav" href="/add" key="add" active={pathName === '/add'}>
-                    Add Stuff
-                  </Nav.Link>,
-                  <Nav.Link id="list-stuff-nav" href="/list" key="list" active={pathName === '/list'}>
-                    List Stuff
-                  </Nav.Link>,
-                ]
-              : ''}
-            {currentUser && role === 'ADMIN' ? (
-              <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
+            {currentUser && (
+              <Nav.Link id="profile-nav" href="/profile" active={pathName === '/profile'}>
+                Profile
+              </Nav.Link>
+            )}
+
+            <Nav.Link id="list-stuff-nav" href="/list" active={pathName === '/list'}>
+              Reports
+            </Nav.Link>
+
+            {currentUser && (
+              <Nav.Link id="add-stuff-nav" href="/add" active={pathName === '/add'}>
+                Add Report
+              </Nav.Link>
+        )}
+            {currentUser && (
+              <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>
+                Dashboard
+              </Nav.Link>
+          )}
+
+            {currentUser && role === 'ETS' ? (
+              <Nav.Link id="ets-stuff-nav" href="/ets" key="ets" active={pathName === '/admin'}>
                 Admin
               </Nav.Link>
             ) : (
               ''
             )}
+            <Nav.Link id="about-nav" href="/about" active={pathName === '/about'}>
+              About
+            </Nav.Link>
+
+            <Nav.Link id="help-nav" href="/help" active={pathName === '/help'}>
+              Help
+            </Nav.Link>
           </Nav>
           <Nav>
             {session ? (
