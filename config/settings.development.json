@@ -1,7 +1,7 @@
 {
   "defaultAccounts": [
-    { "email": "admin@hawaii.gov", "password": "changeme", "role": "ETS" },
-    { "email": "vendor@site.com", "password": "changeme" }
+    { "firstName": "Sample", "lastName": "Admin", "email": "admin@hawaii.gov", "password": "changeme", "role": "ETS" },
+    { "firstName": "Sample", "lastName": "Vendor", "email": "vendor@site.com", "password": "changeme" }
   ],
 
   "defaultData": [
