@@ -39,6 +39,8 @@ const authOptions: NextAuthOptions = {
 
         return {
           id: `${user.id}`,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           randomKey: user.role,
         };
@@ -54,22 +56,26 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     session: ({ session, token }) => {
-      // console.log('Session Callback', { session, token })
+      // console.log('Session Callback', { session, token });
       return {
         ...session,
         user: {
           ...session.user,
+          firstName: token.firstName,
+          lastName: token.lastName,
           id: token.id,
           randomKey: token.randomKey,
         },
       };
     },
     jwt: ({ token, user }) => {
-      // console.log('JWT Callback', { token, user })
+      // console.log('JWT Callback', { token, user });
       if (user) {
         const u = user as unknown as any;
         return {
           ...token,
+          firstName: u.firstName,
+          lastName: u.lastName,
           id: u.id,
           randomKey: u.randomKey,
         };
