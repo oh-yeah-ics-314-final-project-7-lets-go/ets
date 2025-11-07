@@ -59,34 +59,20 @@ const Home = () => (
             </Col>
           </Row>
 
-          {/* Graphs */}
-          <Row className="text-center">
-            <Col md={6} className="p-3">
-              <div
-                style={{
-                  width: '100%',
-                  height: '200px',
-                  backgroundColor: '#dcdcdc',
-                  borderRadius: '8px',
-                }}
-              />
-              <p className="mt-2">Placeholder for future graph 1 and description</p>
-            </Col>
-
-            <Col md={6} className="p-3">
-              <div
-                style={{
-                  width: '100%',
-                  height: '200px',
-                  backgroundColor: '#dcdcdc',
-                  borderRadius: '8px',
-                }}
-              />
-              <p className="mt-2">Placeholder for future graph 2 and description</p>
+          {/* Summary Section */}
+          <Row className="my-4">
+            <Col className="text-center">
+              <h4 style={{ fontWeight: '600' }}>Welcome to the ETS Report Cnter</h4>
+              <p style={{ fontSize: '16px', maxWidth: '800px', margin: '0 auto' }}>
+                This site is for the submission and viewing of IV&V Vendor&apos;s monthly project report.
+                The goal is to organize and change all the data from the reports
+                to a standardized form for easier access and viewing.
+              </p>
             </Col>
           </Row>
 
-          <Row className="text-center">
+          {/* Graphs */}
+          <Row className="text-center align-items-center">
             <Col md={6} className="p-3">
               <div
                 style={{
@@ -96,9 +82,21 @@ const Home = () => (
                   borderRadius: '8px',
                 }}
               />
-              <p className="mt-2">Placeholder for future graph 3 and description</p>
             </Col>
+            <Col md={6} className="p-3 d-flex flex-column justify-content-center">
+              <p className="mt-2">
+                Placeholder for future graph 1 and description
+              </p>
+            </Col>
+          </Row>
 
+          <Row className="text-center align-items-center">
+            {/* Row 2: Text left, Graph right */}
+            <Col md={6} className="p-3 d-flex flex-column justify-content-center">
+              <p className="mt-2">
+                Placeholder for future graph 2 and description
+              </p>
+            </Col>
             <Col md={6} className="p-3">
               <div
                 style={{
@@ -108,7 +106,43 @@ const Home = () => (
                   borderRadius: '8px',
                 }}
               />
-              <p className="mt-2">Placeholder for future graph 4 and description</p>
+            </Col>
+          </Row>
+
+          <Row className="text-center align-items-center">
+            <Col md={6} className="p-3">
+              <div
+                style={{
+                  width: '100%',
+                  height: '200px',
+                  backgroundColor: '#dcdcdc',
+                  borderRadius: '8px',
+                }}
+              />
+            </Col>
+            <Col md={6} className="p-3 d-flex flex-column justify-content-center">
+              <p className="mt-2">
+                Placeholder for future graph 3 and description
+              </p>
+            </Col>
+          </Row>
+
+          <Row className="text-center align-items-center">
+            {/* Row 2: Text left, Graph right */}
+            <Col md={6} className="p-3 d-flex flex-column justify-content-center">
+              <p className="mt-2">
+                Placeholder for future graph 4 and description
+              </p>
+            </Col>
+            <Col md={6} className="p-3">
+              <div
+                style={{
+                  width: '100%',
+                  height: '200px',
+                  backgroundColor: '#dcdcdc',
+                  borderRadius: '8px',
+                }}
+              />
             </Col>
           </Row>
 
