@@ -29,6 +29,72 @@ model User {
   firstName String
   lastName  String
   role      Role   @default(VENDOR)
+
+  issues    Issue[]
+}
+
+enum Severity {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+// yes, these are the same thing (for now)
+enum Likelihood {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum Status {
+  OPEN
+  CLOS
+}
+
+model Issue {
+  id          Int         @id @default(autoincrement())
+  projectId   Int
+  project     Project     @relation(fields: [projectId], references: [id])
+  creatorId   Int
+  creator     User        @relation(fields: [creatorId], references: [id])
+  description String
+  remedy      String
+  severity    Severity
+  likelihood  Likelihood
+  firstRaised DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  status      Status      @default(OPEN)
+  // risk can be calculated after retriving from database
+}
+
+model Event {
+  id        Int     @id @default(autoincrement())
+
+  // force prisma to work
+  actualProjectId Int
+  actualProject   Project? @relation(name: "actual", fields: [actualProjectId], references: [id])
+  originalProjectId Int?
+  originalProject   Project? @relation(name: "original", fields: [originalProjectId], references: [id])
+  
+  name      String
+  start     DateTime
+  end       DateTime
+}
+
+model Project {
+  id          Int     @id @default(autoincrement())
+  name        String
+  firstRaised DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  issues      Issue[]
+
+  originalContractAward  Float
+  totalPaidOut           Float
+
+  progress               Float
+
+  originalSchedule       Event[] @relation(name: "original")
+  actualSchedule         Event[] @relation(name: "actual")
 }
 
 enum Condition {
