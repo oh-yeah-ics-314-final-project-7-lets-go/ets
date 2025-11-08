@@ -1,6 +1,6 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
+import { Stuff, Condition, Project, Event, Issue, Severity, Likelihood, Status } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -29,6 +29,224 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
   });
   // After adding, redirect to the list page
   redirect('/list');
+}
+
+/**
+ * Adds a new project to the database
+ */
+export async function addProject(project: {
+  name: string;
+  originalContractAward: number;
+  totalPaidOut: number;
+  creator: number;
+}) {
+  await prisma.project.create({
+    data: {
+      name: project.name,
+      creatorId: project.creator,
+      originalContractAward: project.originalContractAward,
+      totalPaidOut: project.totalPaidOut,
+      progress: 0,
+    },
+  });
+  // After adding, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Edits an existing project in the database.
+ */
+export async function editProject(project: Project) {
+  await prisma.project.update({
+    where: { id: project.id },
+    data: {
+      name: project.name,
+      creatorId: project.creatorId,
+      originalContractAward: project.originalContractAward,
+      totalPaidOut: project.totalPaidOut,
+    },
+  });
+  // After updating, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Deletes an existing project from the database.
+ * ALSO DELETED ASSOCIATED ISSUES AND EVENTS
+ * @param id, the id of the project to delete.
+ */
+export async function deleteProject(id: number) {
+  await prisma.project.delete({
+    where: { id },
+  });
+  await prisma.event.deleteMany({
+    where: { projectId: id },
+  });
+  await prisma.issue.deleteMany({
+    where: { projectId: id },
+  });
+  // After deleting, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Adds a new event to the database
+ */
+export async function addEvent(event: {
+  name: string;
+  description: string;
+  projectId: number;
+
+  plannedStart: Date;
+  plannedEnd: Date;
+
+  completed: boolean;
+  actualStart?: Date;
+  actualEnd?: Date;
+}) {
+  await prisma.event.create({
+    data: {
+      projectId: event.projectId,
+
+      name: event.name,
+      description: event.description,
+
+      plannedStart: event.plannedStart,
+      plannedEnd: event.plannedEnd,
+
+      completed: event.completed,
+      actualStart: event.actualStart,
+      actualEnd: event.actualEnd,
+    },
+  });
+  // After adding, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Edits an existing event in the database.
+ */
+export async function editEvent(event: Event) {
+  await prisma.event.update({
+    where: { id: event.id },
+    data: {
+      name: event.name,
+      description: event.description,
+
+      plannedStart: event.plannedStart,
+      plannedEnd: event.plannedEnd,
+
+      completed: event.completed,
+      actualStart: event.actualStart,
+      actualEnd: event.actualEnd,
+    },
+  });
+  // After updating, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Deletes an existing event from the database.
+ * @param id, the id of the event to delete.
+ */
+export async function deleteEvent(id: number) {
+  await prisma.event.delete({
+    where: { id },
+  });
+  // After deleting, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Adds a new issue to the database
+ */
+export async function addIssue(issue: {
+  projectId: number;
+  creatorId: number;
+  description: string;
+  remedy: string;
+  severity: string;
+  likelihood: string;
+  status: string;
+}) {
+  let severity: Severity = 'HIGH';
+  switch (issue.severity) {
+    case 'medium':
+      severity = 'MEDIUM';
+      break;
+    case 'low':
+      severity = 'LOW';
+      break;
+    default:
+      severity = 'HIGH';
+      break;
+  }
+
+  let likelihood: Likelihood = 'HIGH';
+  switch (issue.likelihood) {
+    case 'medium':
+      likelihood = 'MEDIUM';
+      break;
+    case 'low':
+      likelihood = 'LOW';
+      break;
+    default:
+      likelihood = 'HIGH';
+      break;
+  }
+
+  let status: Status = 'CLOSED';
+  switch (issue.likelihood) {
+    case 'open':
+      status = 'OPEN';
+      break;
+    default:
+      status = 'CLOSED';
+      break;
+  }
+  await prisma.issue.create({
+    data: {
+      projectId: issue.projectId,
+      creatorId: issue.creatorId,
+      description: issue.description,
+      remedy: issue.remedy,
+      severity,
+      likelihood,
+      status,
+    },
+  });
+  // After adding, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Edits an existing event in the database.
+ */
+export async function editIssue(issue: Issue) {
+  await prisma.issue.update({
+    where: { id: issue.id },
+    data: {
+      description: issue.description,
+      remedy: issue.remedy,
+      severity: issue.severity,
+      likelihood: issue.likelihood,
+      status: issue.status,
+    },
+  });
+  // After updating, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
+ * Deletes an existing issue from the database.
+ * @param id, the id of the issue to delete.
+ */
+export async function deleteIssue(id: number) {
+  await prisma.issue.delete({
+    where: { id },
+  });
+  // After deleting, redirect to the projects page
+  redirect('/projects');
 }
 
 /**
