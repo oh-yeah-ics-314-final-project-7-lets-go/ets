@@ -2,6 +2,7 @@
 
 import { Col, Container, Row } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
+import Image from 'next/image';
 
 /** The Home page. */
 const Home = () => (
@@ -18,14 +19,6 @@ const Home = () => (
             className="align-items-center mb-3"
             style={{ height: '16.66vh', backgroundColor: '#F5D25A', padding: '0.5rem' }}
           >
-            {/* Logo */}
-            <Col xs="auto" className="d-flex align-items-center">
-              <img
-                src="/HACC-with-Flag-final-1.png"
-                alt="Logo"
-                style={{ height: '60px', objectFit: 'contain' }}
-              />
-            </Col>
 
             {/* Header Text */}
             <Col className="d-flex align-items-center">
@@ -74,11 +67,15 @@ const Home = () => (
           {/* Graphs */}
           <Row className="text-center align-items-center">
             <Col md={6} className="p-3">
-              <div
+              <Image
+                src="/41-e1731705856149.png"
+                alt="Graph placeholder"
+                width={600}
+                height={200}
                 style={{
                   width: '100%',
                   height: '200px',
-                  backgroundColor: '#dcdcdc',
+                  objectFit: 'cover',
                   borderRadius: '8px',
                 }}
               />
@@ -91,18 +88,22 @@ const Home = () => (
           </Row>
 
           <Row className="text-center align-items-center">
-            {/* Row 2: Text left, Graph right */}
             <Col md={6} className="p-3 d-flex flex-column justify-content-center">
               <p className="mt-2">
                 Placeholder for future graph 2 and description
               </p>
             </Col>
+
             <Col md={6} className="p-3">
-              <div
+              <Image
+                src="/Screenshot 2025-11-08 071927.png"
+                alt="Graph 2"
+                width={600}
+                height={220}
                 style={{
                   width: '100%',
                   height: '200px',
-                  backgroundColor: '#dcdcdc',
+                  objectFit: 'cover',
                   borderRadius: '8px',
                 }}
               />
