@@ -314,3 +314,64 @@ export async function changePassword(credentials: { email: string; password: str
     },
   });
 }
+
+/**
+ * Adds a new project to the database for IV&V reporting.
+ * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
+ */
+export async function addProject(project: {
+  name: string;
+  originalContractAward: number;
+  totalPaidOut: number;
+  progress: number;
+}) {
+  // console.log(`addProject data: ${JSON.stringify(project, null, 2)}`);
+  await prisma.project.create({
+    data: {
+      name: project.name,
+      originalContractAward: project.originalContractAward,
+      totalPaidOut: project.totalPaidOut,
+      progress: project.progress,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/list');
+}
+
+/**
+ * Deletes an existing project from the database.
+ * @param id, the id of the project to delete.
+ */
+export async function deleteProject(id: number) {
+  // console.log(`deleteProject id: ${id}`);
+  await prisma.project.delete({
+    where: { id },
+  });
+  // After deleting, redirect to the list page
+  redirect('/list');
+}
+
+/**
+ * Edits an existing project in the database.
+ * @param project, an object with the project data to update.
+ */
+export async function editProject(project: {
+  id: number;
+  name: string;
+  originalContractAward: number;
+  totalPaidOut: number;
+  progress: number;
+}) {
+  // console.log(`editProject data: ${JSON.stringify(project, null, 2)}`);
+  await prisma.project.update({
+    where: { id: project.id },
+    data: {
+      name: project.name,
+      originalContractAward: project.originalContractAward,
+      totalPaidOut: project.totalPaidOut,
+      progress: project.progress,
+    },
+  });
+  // After updating, redirect to the list page
+  redirect('/list');
+}
