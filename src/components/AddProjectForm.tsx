@@ -25,7 +25,7 @@ const onSubmit = async (data: AddProjectFormData) => {
 };
 
 const AddProjectForm: React.FC = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const {
     register,
     handleSubmit,
