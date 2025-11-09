@@ -97,7 +97,7 @@ export async function addEvent(event: {
     },
   });
   // After adding, redirect to the projects page
-  redirect('/projects');
+  redirect(`/project/${event.projectId}`);
 }
 
 /**
@@ -119,7 +119,7 @@ export async function editEvent(event: Event) {
     },
   });
   // After updating, redirect to the projects page
-  redirect('/projects');
+  redirect(`/project/${event.projectId}`);
 }
 
 /**
@@ -127,11 +127,11 @@ export async function editEvent(event: Event) {
  * @param id, the id of the event to delete.
  */
 export async function deleteEvent(id: number) {
-  await prisma.event.delete({
+  const event = await prisma.event.delete({
     where: { id },
   });
   // After deleting, redirect to the projects page
-  redirect('/projects');
+  redirect(`/project/${event.projectId}`);
 }
 
 /**
@@ -193,7 +193,7 @@ export async function addIssue(issue: {
     },
   });
   // After adding, redirect to the projects page
-  redirect('/projects');
+  redirect(`/project/${issue.projectId}`);
 }
 
 /**
@@ -211,7 +211,7 @@ export async function editIssue(issue: Issue) {
     },
   });
   // After updating, redirect to the projects page
-  redirect('/projects');
+  redirect(`/project/${issue.projectId}`);
 }
 
 /**
@@ -219,11 +219,11 @@ export async function editIssue(issue: Issue) {
  * @param id, the id of the issue to delete.
  */
 export async function deleteIssue(id: number) {
-  await prisma.issue.delete({
+  const issue = await prisma.issue.delete({
     where: { id },
   });
   // After deleting, redirect to the projects page
-  redirect('/projects');
+  redirect(`/project/${issue.projectId}`);
 }
 
 /**
