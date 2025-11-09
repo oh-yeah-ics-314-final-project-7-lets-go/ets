@@ -5,11 +5,14 @@ export const AddEventSchema = Yup.object({
   description: Yup.string().required(),
   projectId: Yup.number().required(),
 
-  completed: Yup.boolean(),
+  completed: Yup.boolean().required(),
   plannedStart: Yup.date().required(),
-  plannedEnd: Yup.date().required(),
-  actualStart: Yup.date().optional(),
-  actualEnd: Yup.date().optional(),
+  plannedEnd: Yup.date().required().min(Yup.ref('plannedStart'), 'End date must be later than start date.'),
+  actualStart: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional(),
+  actualEnd: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional()
+    .when('actualStart', (startDate, schema) => (startDate
+      ? schema.min(startDate, 'End date must be later than start date.')
+      : schema)),
 });
 
 export const EditEventSchema = Yup.object({
@@ -17,11 +20,14 @@ export const EditEventSchema = Yup.object({
   name: Yup.string().required(),
   description: Yup.string().required(),
 
-  completed: Yup.boolean(),
+  completed: Yup.boolean().required(),
   plannedStart: Yup.date().required(),
-  plannedEnd: Yup.date().required(),
-  actualStart: Yup.date().optional(),
-  actualEnd: Yup.date().optional(),
+  plannedEnd: Yup.date().required().min(Yup.ref('plannedStart'), 'End date must be later than start date.'),
+  actualStart: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional(),
+  actualEnd: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional()
+    .when('actualStart', (startDate, schema) => (startDate
+      ? schema.min(startDate, 'End date must be later than start date.')
+      : schema)),
 });
 
 export const AddIssueSchema = Yup.object({
@@ -29,18 +35,18 @@ export const AddIssueSchema = Yup.object({
   creatorId: Yup.number().required(),
   description: Yup.string().required(),
   remedy: Yup.string().required(),
-  severity: Yup.string().oneOf(['low', 'medium', 'high']).required(),
-  likelihood: Yup.string().oneOf(['low', 'medium', 'high']).required(),
-  status: Yup.string().oneOf(['open', 'closed']).required(),
+  severity: Yup.string().oneOf(['LOW', 'MEDIUM', 'HIGH']).required(),
+  likelihood: Yup.string().oneOf(['LOW', 'MEDIUM', 'HIGH']).required(),
+  status: Yup.string().oneOf(['OPEN', 'CLOSED']).required(),
 });
 
 export const EditIssueSchema = Yup.object({
   id: Yup.number().required(),
   description: Yup.string().required(),
   remedy: Yup.string().required(),
-  severity: Yup.string().oneOf(['low', 'medium', 'high']).required(),
-  likelihood: Yup.string().oneOf(['low', 'medium', 'high']).required(),
-  status: Yup.string().oneOf(['open', 'closed']).required(),
+  severity: Yup.string().oneOf(['LOW', 'MEDIUM', 'HIGH']).required(),
+  likelihood: Yup.string().oneOf(['LOW', 'MEDIUM', 'HIGH']).required(),
+  status: Yup.string().oneOf(['OPEN', 'CLOSED']).required(),
 });
 
 export const AddStuffSchema = Yup.object({

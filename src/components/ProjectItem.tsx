@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button, Badge, ProgressBar, Modal } from 'react-bootstrap';
 import { Project } from '@prisma/client';
-import { deleteProject } from '@/lib/dbActions';
+// import { deleteProject } from '@/lib/dbActions';
 
 const ProjectItem = ({
   id,
@@ -20,7 +20,7 @@ const ProjectItem = ({
   };
 
   const handleDeleteConfirm = async () => {
-    await deleteProject(id);
+    // await deleteProject(id);
     setShowDeleteModal(false);
   };
 

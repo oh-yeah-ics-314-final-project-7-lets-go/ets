@@ -1,12 +1,12 @@
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { Project } from '@prisma/client';
+import { Event, Issue, Project } from '@prisma/client';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import EditProjectForm from '@/components/project/EditProjectForm';
+import ProjectPage from '@/components/project/ProjectPage';
 
-export default async function EditProjectPage({ params }: { params: { id: string | string[] } }) {
+export default async function ViewProjectPage({ params }: { params: { project: string | string[] } }) {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
@@ -15,19 +15,29 @@ export default async function EditProjectPage({ params }: { params: { id: string
       // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
-  const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-  // console.log(id);
+  const id = Number(Array.isArray(params?.project) ? params?.project[0] : params?.project);
+  if (!id) {
+    return notFound();
+  }
   const project: Project | null = await prisma.project.findUnique({
     where: { id },
   });
-  // console.log(project);
+
   if (!project) {
     return notFound();
   }
 
+  const issues: Issue[] = await prisma.issue.findMany({
+    where: { projectId: id },
+  });
+
+  const events: Event[] = await prisma.event.findMany({
+    where: { projectId: id },
+  });
+
   return (
     <main>
-      <EditProjectForm project={project} />
+      <ProjectPage {...project} issues={issues} events={events} />
     </main>
   );
 }
