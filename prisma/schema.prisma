@@ -31,7 +31,6 @@ model User {
   role      Role   @default(VENDOR)
 
   issues    Issue[]
-  projects  Project[]
 }
 
 enum Severity {
@@ -88,8 +87,6 @@ model Event {
 model Project {
   id          Int     @id @default(autoincrement())
   name        String
-  creatorId   Int
-  creator     User        @relation(fields: [creatorId], references: [id])
   firstRaised DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   issues      Issue[]

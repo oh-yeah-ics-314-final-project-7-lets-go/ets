@@ -35,6 +35,7 @@ export const AddIssueSchema = Yup.object({
 });
 
 export const EditIssueSchema = Yup.object({
+  id: Yup.number().required(),
   description: Yup.string().required(),
   remedy: Yup.string().required(),
   severity: Yup.string().oneOf(['low', 'medium', 'high']).required(),

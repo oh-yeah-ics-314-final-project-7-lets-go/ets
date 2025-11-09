@@ -6,28 +6,44 @@ import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 
 /**
- * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, condition.
+ * Adds a new project to the database for IV&V reporting.
+ * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
  */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
-  // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let condition: Condition = 'good';
-  if (stuff.condition === 'poor') {
-    condition = 'poor';
-  } else if (stuff.condition === 'excellent') {
-    condition = 'excellent';
-  } else {
-    condition = 'fair';
-  }
-  await prisma.stuff.create({
+export async function addProject(project: {
+  name: string;
+  originalContractAward: number;
+  totalPaidOut: number;
+  progress: number;
+}) {
+  // console.log(`addProject data: ${JSON.stringify(project, null, 2)}`);
+  await prisma.project.create({
     data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition,
+      name: project.name,
+      originalContractAward: project.originalContractAward,
+      totalPaidOut: project.totalPaidOut,
+      progress: project.progress,
     },
   });
   // After adding, redirect to the list page
+  redirect('/list');
+}
+
+/**
+ * Edits an existing project in the database.
+ * @param project, an object with the project data to update.
+ */
+export async function editProject(project: Project) {
+  // console.log(`editProject data: ${JSON.stringify(project, null, 2)}`);
+  await prisma.project.update({
+    where: { id: project.id },
+    data: {
+      name: project.name,
+      originalContractAward: project.originalContractAward,
+      totalPaidOut: project.totalPaidOut,
+      progress: project.progress,
+    },
+  });
+  // After updating, redirect to the list page
   redirect('/list');
 }
 
@@ -85,6 +101,28 @@ export async function addEvent(event: {
 }
 
 /**
+ * Edits an existing event in the database.
+ */
+export async function editEvent(event: Event) {
+  await prisma.event.update({
+    where: { id: event.id },
+    data: {
+      name: event.name,
+      description: event.description,
+
+      plannedStart: event.plannedStart,
+      plannedEnd: event.plannedEnd,
+
+      completed: event.completed,
+      actualStart: event.actualStart,
+      actualEnd: event.actualEnd,
+    },
+  });
+  // After updating, redirect to the projects page
+  redirect('/projects');
+}
+
+/**
  * Deletes an existing event from the database.
  * @param id, the id of the event to delete.
  */
@@ -134,13 +172,13 @@ export async function addIssue(issue: {
       break;
   }
 
-  let status: Status = 'CLOS';
+  let status: Status = 'CLOSED';
   switch (issue.likelihood) {
     case 'open':
       status = 'OPEN';
       break;
     default:
-      status = 'CLOS';
+      status = 'CLOSED';
       break;
   }
   await prisma.issue.create({
@@ -186,6 +224,32 @@ export async function deleteIssue(id: number) {
   });
   // After deleting, redirect to the projects page
   redirect('/projects');
+}
+
+/**
+ * Adds a new stuff to the database.
+ * @param stuff, an object with the following properties: name, quantity, owner, condition.
+ */
+export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
+  // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
+  let condition: Condition = 'good';
+  if (stuff.condition === 'poor') {
+    condition = 'poor';
+  } else if (stuff.condition === 'excellent') {
+    condition = 'excellent';
+  } else {
+    condition = 'fair';
+  }
+  await prisma.stuff.create({
+    data: {
+      name: stuff.name,
+      quantity: stuff.quantity,
+      owner: stuff.owner,
+      condition,
+    },
+  });
+  // After adding, redirect to the list page
+  redirect('/list');
 }
 
 /**
@@ -252,65 +316,4 @@ export async function changePassword(credentials: { email: string; password: str
       password,
     },
   });
-}
-
-/**
- * Adds a new project to the database for IV&V reporting.
- * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
- */
-export async function addProject(project: {
-  name: string;
-  originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
-}) {
-  // console.log(`addProject data: ${JSON.stringify(project, null, 2)}`);
-  await prisma.project.create({
-    data: {
-      name: project.name,
-      originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
-    },
-  });
-  // After adding, redirect to the list page
-  redirect('/list');
-}
-
-/**
- * Deletes an existing project from the database.
- * @param id, the id of the project to delete.
- */
-export async function deleteProject(id: number) {
-  // console.log(`deleteProject id: ${id}`);
-  await prisma.project.delete({
-    where: { id },
-  });
-  // After deleting, redirect to the list page
-  redirect('/list');
-}
-
-/**
- * Edits an existing project in the database.
- * @param project, an object with the project data to update.
- */
-export async function editProject(project: {
-  id: number;
-  name: string;
-  originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
-}) {
-  // console.log(`editProject data: ${JSON.stringify(project, null, 2)}`);
-  await prisma.project.update({
-    where: { id: project.id },
-    data: {
-      name: project.name,
-      originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
-    },
-  });
-  // After updating, redirect to the list page
-  redirect('/list');
 }
