@@ -32,62 +32,23 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
 }
 
 /**
- * Adds a new project to the database
- */
-export async function addProject(project: {
-  name: string;
-  originalContractAward: number;
-  totalPaidOut: number;
-  creator: number;
-}) {
-  await prisma.project.create({
-    data: {
-      name: project.name,
-      creatorId: project.creator,
-      originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: 0,
-    },
-  });
-  // After adding, redirect to the projects page
-  redirect('/projects');
-}
-
-/**
- * Edits an existing project in the database.
- */
-export async function editProject(project: Project) {
-  await prisma.project.update({
-    where: { id: project.id },
-    data: {
-      name: project.name,
-      creatorId: project.creatorId,
-      originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-    },
-  });
-  // After updating, redirect to the projects page
-  redirect('/projects');
-}
-
-/**
  * Deletes an existing project from the database.
  * ALSO DELETED ASSOCIATED ISSUES AND EVENTS
  * @param id, the id of the project to delete.
  */
-export async function deleteProject(id: number) {
-  await prisma.project.delete({
-    where: { id },
-  });
-  await prisma.event.deleteMany({
-    where: { projectId: id },
-  });
-  await prisma.issue.deleteMany({
-    where: { projectId: id },
-  });
-  // After deleting, redirect to the projects page
-  redirect('/projects');
-}
+// export async function deleteProject(id: number) {
+//   await prisma.project.delete({
+//     where: { id },
+//   });
+//   await prisma.event.deleteMany({
+//     where: { projectId: id },
+//   });
+//   await prisma.issue.deleteMany({
+//     where: { projectId: id },
+//   });
+//   // After deleting, redirect to the projects page
+//   redirect('/projects');
+// }
 
 /**
  * Adds a new event to the database
@@ -120,28 +81,6 @@ export async function addEvent(event: {
     },
   });
   // After adding, redirect to the projects page
-  redirect('/projects');
-}
-
-/**
- * Edits an existing event in the database.
- */
-export async function editEvent(event: Event) {
-  await prisma.event.update({
-    where: { id: event.id },
-    data: {
-      name: event.name,
-      description: event.description,
-
-      plannedStart: event.plannedStart,
-      plannedEnd: event.plannedEnd,
-
-      completed: event.completed,
-      actualStart: event.actualStart,
-      actualEnd: event.actualEnd,
-    },
-  });
-  // After updating, redirect to the projects page
   redirect('/projects');
 }
 
@@ -195,13 +134,13 @@ export async function addIssue(issue: {
       break;
   }
 
-  let status: Status = 'CLOSED';
+  let status: Status = 'CLOS';
   switch (issue.likelihood) {
     case 'open':
       status = 'OPEN';
       break;
     default:
-      status = 'CLOSED';
+      status = 'CLOS';
       break;
   }
   await prisma.issue.create({

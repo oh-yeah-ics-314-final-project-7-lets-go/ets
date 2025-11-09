@@ -1,20 +1,5 @@
 import * as Yup from 'yup';
 
-export const AddProjectSchema = Yup.object({
-  name: Yup.string().required(),
-  creator: Yup.number().required(),
-  originalContractAward: Yup.number().required(),
-  totalPaidOut: Yup.number().required(),
-});
-
-export const EditProjectSchema = Yup.object({
-  id: Yup.number().required(),
-  name: Yup.string().required(),
-  creator: Yup.number().required(),
-  originalContractAward: Yup.number().required(),
-  totalPaidOut: Yup.number().required(),
-});
-
 export const AddEventSchema = Yup.object({
   name: Yup.string().required(),
   description: Yup.string().required(),
