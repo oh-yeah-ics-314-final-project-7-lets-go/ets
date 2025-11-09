@@ -82,7 +82,10 @@ const Home = () => (
             </Col>
             <Col md={6} className="p-3 d-flex flex-column justify-content-center">
               <p className="mt-2">
-                Placeholder for future graph 1 and description
+                This site is designed with the purpose of making submitting IV&V Vendor&apos;s monthly
+                project report more standardized and straightforward.
+                It is to help create a set of details so a different report from different vendors can
+                be read in the same format making the process more streamlined.
               </p>
             </Col>
           </Row>
@@ -102,7 +105,7 @@ const Home = () => (
                 height={220}
                 style={{
                   width: '100%',
-                  height: '200px',
+                  height: '230px',
                   objectFit: 'cover',
                   borderRadius: '8px',
                 }}
@@ -112,11 +115,15 @@ const Home = () => (
 
           <Row className="text-center align-items-center">
             <Col md={6} className="p-3">
-              <div
+              <Image
+                src="/Screenshot 2025-11-08 224257.png"
+                alt="Graph 3"
+                width={600}
+                height={300}
                 style={{
                   width: '100%',
-                  height: '200px',
-                  backgroundColor: '#dcdcdc',
+                  height: '260px',
+                  objectFit: 'cover',
                   borderRadius: '8px',
                 }}
               />
@@ -129,18 +136,21 @@ const Home = () => (
           </Row>
 
           <Row className="text-center align-items-center">
-            {/* Row 2: Text left, Graph right */}
             <Col md={6} className="p-3 d-flex flex-column justify-content-center">
               <p className="mt-2">
                 Placeholder for future graph 4 and description
               </p>
             </Col>
             <Col md={6} className="p-3">
-              <div
+              <Image
+                src="/Screenshot 2025-11-08 072936.png"
+                alt="Graph 4"
+                width={600}
+                height={250}
                 style={{
                   width: '100%',
-                  height: '200px',
-                  backgroundColor: '#dcdcdc',
+                  height: '240px',
+                  objectFit: 'cover',
                   borderRadius: '8px',
                 }}
               />
@@ -149,11 +159,15 @@ const Home = () => (
 
           <Row className="text-center">
             <Col className="p-3">
-              <div
+              <Image
+                src="/Screenshot 2025-11-08 224333.png"
+                alt="Graph 5"
+                width={600}
+                height={300}
                 style={{
                   width: '100%',
-                  height: '200px',
-                  backgroundColor: '#dcdcdc',
+                  height: '300px',
+                  objectFit: 'cover',
                   borderRadius: '8px',
                 }}
               />
