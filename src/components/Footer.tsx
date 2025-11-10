@@ -1,20 +1,77 @@
-import { Col, Container } from 'react-bootstrap';
+'use client';
+
+import { Col, Container, Nav } from 'react-bootstrap';
+import { usePathname } from 'next/navigation';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
-const Footer = () => (
-  <footer className="mt-auto py-3 bg-light">
-    <Container>
-      <Col className="text-center">
-        Department of Information and Computer Sciences
-        <br />
-        University of Hawaii
-        <br />
-        Honolulu, HI 96822
-        <br />
-        <a href="http://ics-software-engineering.github.io/nextjs-application-template">Template Home Page</a>
-      </Col>
-    </Container>
-  </footer>
-);
+const Footer = () => {
+  const pathName = usePathname();
+
+  return (
+    <footer className="mt-auto py-3 bg-light border-top">
+      <Container>
+        <Col className="text-center">
+          <Nav className="justify-content-center">
+            <Nav.Link
+              href="/profile"
+              active={pathName === '/profile'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              Profile
+            </Nav.Link>
+            <Nav.Link
+              href="/list"
+              active={pathName === '/list'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              Report
+            </Nav.Link>
+            <Nav.Link
+              href="/add"
+              active={pathName === '/add'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              Add Report
+            </Nav.Link>
+            <Nav.Link
+              href="/dashboard"
+              active={pathName === '/dashboard'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              Dashboard
+            </Nav.Link>
+            <Nav.Link
+              href="/admin"
+              active={pathName === '/admin'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              Admin
+            </Nav.Link>
+            <Nav.Link
+              href="/about"
+              active={pathName === '/about'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              About
+            </Nav.Link>
+            <Nav.Link
+              href="/help"
+              active={pathName === '/help'}
+              className="text-decoration-none text-secondary mx-2"
+            >
+              Help
+            </Nav.Link>
+          </Nav>
+
+          <br />
+
+          <a href="https://github.com/oh-yeah-ics-314-final-project-7-lets-go/ets.git">
+            Project Homepage
+          </a>
+        </Col>
+      </Container>
+    </footer>
+  );
+};
 
 export default Footer;
