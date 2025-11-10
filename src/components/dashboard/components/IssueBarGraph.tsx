@@ -5,14 +5,88 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
+import { Issue, Severity } from '@prisma/client';
+
+const severityKeys = Object.keys(Severity);
+const severityList = severityKeys.map((key) => Severity[key as keyof typeof Severity]);
+
+console.log('Severity List:', severityList);
+
+// Temporary testing data
+const issues: Issue[] = [
+  {
+    id: 1,
+    firstRaised: new Date(),
+    updatedAt: new Date(),
+    projectId: 1,
+    creatorId: 1,
+    description: "Issue with Project Alpha",
+    remedy: "Fix the problem",
+    severity: "HIGH",
+    likelihood: "MEDIUM",
+    status: "OPEN"
+  },
+  {
+    id: 2,
+    firstRaised: new Date(),
+    updatedAt: new Date(),
+    projectId: 1,
+    creatorId: 1,
+    description: "Another Issue with Project Alpha",
+    remedy: "Address the concern",
+    severity: "LOW",
+    likelihood: "HIGH",
+    status: "OPEN"
+  },
+  {
+    id: 3,
+    firstRaised: new Date(),
+    updatedAt: new Date(),
+    projectId: 1,
+    creatorId: 1,
+    description: "Another Issue with Project Alpha",
+    remedy: "Address the concern",
+    severity: "MEDIUM",
+    likelihood: "HIGH",
+    status: "OPEN"
+  },
+  {
+    id: 4,
+    firstRaised: new Date(),
+    updatedAt: new Date(),
+    projectId: 1,
+    creatorId: 1,
+    description: "Another Issue with Project Alpha",
+    remedy: "Address the concern",
+    severity: "MEDIUM",
+    likelihood: "HIGH",
+    status: "OPEN"
+  },
+];
+const severityCountsDict: { [key in Severity]: number } = {
+  LOW: 0,
+  MEDIUM: 0,
+  HIGH: 0,
+};
+console.log('Initial Severity Counts:', severityCountsDict);
+
+for (const issue of issues) {
+  severityCountsDict[issue.severity]++;
+}
+const severityCountValues: number[] = Object.values(severityCountsDict);
+
+const severityValues = issues.map((issue) => issue.severity);
+console.log('Severity Values:', severityValues);
 
 export default function PageViewsBarChart() {
+
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
     (theme.vars || theme).palette.primary.main,
     (theme.vars || theme).palette.primary.light,
   ];
+  
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
@@ -29,7 +103,7 @@ export default function PageViewsBarChart() {
             }}
           >
             <Typography variant="h4" component="p">
-              1.3M
+              {issues.length} Issues
             </Typography>
             <Chip size="small" color="error" label="-8%" />
           </Stack>
@@ -44,28 +118,13 @@ export default function PageViewsBarChart() {
             {
               scaleType: 'band',
               categoryGapRatio: 0.5,
-              data: ['People', 'Process', 'Technology'],
+              data: severityValues,
               height: 24,
             },
           ]}
+          
           yAxis={[{ width: 50 }]}
-          series={[
-            {
-              id: 'People',
-              label: 'Low',
-              data: [4, 2, 3],
-            },
-            {
-              id: 'Process',
-              label: 'Medium',
-              data: [10, 3, 8],
-            },
-            {
-              id: 'Technology',
-              label: 'High',
-              data: [3, 5, 1],
-            },
-          ]}
+          series={[{ type: 'bar', id: 'base', data: severityCountValues }]}
           height={250}
           margin={{ left: 0, right: 0, top: 20, bottom: 0 }}
           grid={{ horizontal: true }}

@@ -6,7 +6,7 @@ import ChartUserByCountry from './ChartUserByCountry';
 import CustomizedTreeView from './CustomizedTreeView';
 import CustomizedDataGrid from './CustomizedDataGrid';
 import HighlightedCard from './HighlightedCard';
-import PageViewsBarChart from './PageViewsBarChart';
+import IssueBarGraph from './IssueBarGraph';
 import SessionsChart from './SessionsChart';
 import StatCard, { StatCardProps } from './StatCard';
 
@@ -68,7 +68,7 @@ export default function MainGrid() {
           <SessionsChart />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <PageViewsBarChart />
+          <IssueBarGraph />
         </Grid>
       </Grid>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
