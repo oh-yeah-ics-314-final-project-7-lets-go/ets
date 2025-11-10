@@ -63,7 +63,7 @@ const ProjectItem = ({
 
   return (
     <>
-      <tr>
+      <tr style={{ cursor: 'pointer' }} onClick={() => window.location.href = `/projects/${id}`}>
         <td>
           <strong>{name}</strong>
         </td>
@@ -85,7 +85,7 @@ const ProjectItem = ({
             {formatDate(updatedAt)}
           </small>
         </td>
-        <td>
+        <td onClick={(e) => e.stopPropagation()}>
           <div className="d-flex gap-2">
             <Button
               variant="outline-secondary"

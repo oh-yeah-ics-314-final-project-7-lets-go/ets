@@ -5,7 +5,7 @@ const Footer = () => (
   <footer className="mt-auto py-3 bg-light">
     <Container>
       <Col className="text-center">
-        Department of Information and Computer Sciences
+        Department of Information and Computer Sciences - Test Change
         <br />
         University of Hawaii
         <br />

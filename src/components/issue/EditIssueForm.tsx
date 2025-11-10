@@ -45,10 +45,21 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
       <Row className="justify-content-center">
         <Col xs={8}>
           <Col className="text-center">
-            <h2>Edit Issue</h2>
-            <p className="text-muted">
-              {`Editing an issue for ${project.name}`}
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <a 
+                href={`/project/${project.id}`}
+                className="btn btn-outline-secondary"
+              >
+                ← Back to Overview
+              </a>
+              <div>
+                <h2 className="mb-0">Edit Issue</h2>
+                <p className="text-muted mb-0">
+                  {`Editing an issue for ${project.name}`}
+                </p>
+              </div>
+              <div style={{ width: '140px' }}></div> {/* Spacer for centering */}
+            </div>
           </Col>
           <Card>
             <Card.Body>

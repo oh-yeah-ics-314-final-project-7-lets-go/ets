@@ -19,7 +19,7 @@ const ProjectPage = ({
   <Container>
     <Row>
       <Col>
-        <h1>{`About ${name} (${id})`}</h1>
+        <h1 className="mb-0">{`About ${name} (${id})`}</h1>
         <p>{firstRaised.toLocaleString()}</p>
         <h2>first raised</h2>
         <p>{firstRaised.toLocaleString()}</p>
@@ -109,25 +109,31 @@ const ProjectPage = ({
             {e.plannedEnd.toDateString()}
             <br />
             {e.actualStart && (
-            <>
-              Actually starts
-              {' '}
-              {e.actualStart.toDateString()}
-              <br />
-            </>
+              <>
+                Actually starts
+                {' '}
+                {e.actualStart.toDateString()}
+                <br />
+              </>
             )}
             {e.actualEnd && (
-            <>
-              Actually ends
-              {' '}
-              {e.actualEnd.toDateString()}
-              <br />
-            </>
+              <>
+                Actually ends
+                {' '}
+                {e.actualEnd.toDateString()}
+                <br />
+              </>
             )}
           </CardFooter>
         </Card>
       ))}
     </Row>
+    <div className="d-flex justify-content-between align-items-center mb-3">
+      <Button variant="outline-secondary" href={`/projects/${id}`}>
+        ← Back to Overview
+      </Button>
+      <div style={{ width: '140px' }}></div>
+    </div>
   </Container>
 );
 

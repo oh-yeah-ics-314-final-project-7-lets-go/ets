@@ -8,11 +8,13 @@ export const AddEventSchema = Yup.object({
   completed: Yup.boolean().required(),
   plannedStart: Yup.date().required(),
   plannedEnd: Yup.date().required().min(Yup.ref('plannedStart'), 'End date must be later than start date.'),
-  actualStart: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional(),
-  actualEnd: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional()
-    .when('actualStart', (startDate, schema) => (startDate
-      ? schema.min(startDate, 'End date must be later than start date.')
-      : schema)),
+  actualStart: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional().nullable(),
+  actualEnd: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional().nullable()
+    .when('actualStart', {
+      is: (val: any) => val != null && val !== undefined,
+      then: (schema) => schema.min(Yup.ref('actualStart'), 'End date must be later than start date.'),
+      otherwise: (schema) => schema
+    }),
 });
 
 export const EditEventSchema = Yup.object({
@@ -23,11 +25,13 @@ export const EditEventSchema = Yup.object({
   completed: Yup.boolean().required(),
   plannedStart: Yup.date().required(),
   plannedEnd: Yup.date().required().min(Yup.ref('plannedStart'), 'End date must be later than start date.'),
-  actualStart: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional(),
-  actualEnd: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional()
-    .when('actualStart', (startDate, schema) => (startDate
-      ? schema.min(startDate, 'End date must be later than start date.')
-      : schema)),
+  actualStart: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional().nullable(),
+  actualEnd: Yup.date().transform((v, o) => (o === '' ? undefined : v)).optional().nullable()
+    .when('actualStart', {
+      is: (val: any) => val != null && val !== undefined,
+      then: (schema) => schema.min(Yup.ref('actualStart'), 'End date must be later than start date.'),
+      otherwise: (schema) => schema
+    }),
 });
 
 export const AddIssueSchema = Yup.object({
