@@ -35,9 +35,16 @@ export default async function ViewProjectPage({ params }: { params: { project: s
     where: { projectId: id },
   });
 
+  const comments = await prisma.comment.findMany({
+    where: { projectId: id },
+    include: {
+      author: true,
+    },
+  });
+
   return (
     <main>
-      <ProjectPage {...project} issues={issues} events={events} />
+      <ProjectPage {...project} issues={issues} events={events} comments={comments} />
     </main>
   );
 }
