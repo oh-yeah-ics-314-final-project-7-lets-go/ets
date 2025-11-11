@@ -20,11 +20,11 @@ const issues: Issue[] = [
     updatedAt: new Date(),
     projectId: 1,
     creatorId: 1,
-    description: "Issue with Project Alpha",
-    remedy: "Fix the problem",
-    severity: "HIGH",
-    likelihood: "MEDIUM",
-    status: "OPEN"
+    description: 'Issue with Project Alpha',
+    remedy: 'Fix the problem',
+    severity: 'HIGH',
+    likelihood: 'MEDIUM',
+    status: 'OPEN',
   },
   {
     id: 2,
@@ -32,11 +32,11 @@ const issues: Issue[] = [
     updatedAt: new Date(),
     projectId: 1,
     creatorId: 1,
-    description: "Another Issue with Project Alpha",
-    remedy: "Address the concern",
-    severity: "LOW",
-    likelihood: "HIGH",
-    status: "OPEN"
+    description: 'Another Issue with Project Alpha',
+    remedy: 'Address the concern',
+    severity: 'LOW',
+    likelihood: 'HIGH',
+    status: 'OPEN',
   },
   {
     id: 3,
@@ -44,11 +44,11 @@ const issues: Issue[] = [
     updatedAt: new Date(),
     projectId: 1,
     creatorId: 1,
-    description: "Another Issue with Project Alpha",
-    remedy: "Address the concern",
-    severity: "MEDIUM",
-    likelihood: "HIGH",
-    status: "OPEN"
+    description: 'Another Issue with Project Alpha',
+    remedy: 'Address the concern',
+    severity: 'MEDIUM',
+    likelihood: 'HIGH',
+    status: 'OPEN',
   },
   {
     id: 4,
@@ -56,11 +56,11 @@ const issues: Issue[] = [
     updatedAt: new Date(),
     projectId: 1,
     creatorId: 1,
-    description: "Another Issue with Project Alpha",
-    remedy: "Address the concern",
-    severity: "MEDIUM",
-    likelihood: "HIGH",
-    status: "OPEN"
+    description: 'Another Issue with Project Alpha',
+    remedy: 'Address the concern',
+    severity: 'MEDIUM',
+    likelihood: 'HIGH',
+    status: 'OPEN',
   },
 ];
 const severityCountsDict: { [key in Severity]: number } = {
@@ -79,14 +79,13 @@ const severityValues = issues.map((issue) => issue.severity);
 console.log('Severity Values:', severityValues);
 
 export default function PageViewsBarChart() {
-
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
     (theme.vars || theme).palette.primary.main,
     (theme.vars || theme).palette.primary.light,
   ];
-  
+
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
@@ -103,7 +102,9 @@ export default function PageViewsBarChart() {
             }}
           >
             <Typography variant="h4" component="p">
-              {issues.length} Issues
+              {issues.length}
+              {' '}
+              Issues
             </Typography>
             <Chip size="small" color="error" label="-8%" />
           </Stack>
@@ -122,7 +123,7 @@ export default function PageViewsBarChart() {
               height: 24,
             },
           ]}
-          
+
           yAxis={[{ width: 50 }]}
           series={[{ type: 'bar', id: 'base', data: severityCountValues }]}
           height={250}

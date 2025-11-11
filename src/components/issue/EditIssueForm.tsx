@@ -46,7 +46,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
         <Col xs={8}>
           <Col className="text-center">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <a 
+              <a
                 href={`/project/${project.id}`}
                 className="btn btn-outline-secondary"
               >
@@ -58,7 +58,9 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                   {`Editing an issue for ${project.name}`}
                 </p>
               </div>
-              <div style={{ width: '140px' }}></div> {/* Spacer for centering */}
+              <div style={{ width: '140px' }} />
+              {' '}
+              {/* Spacer for centering */}
             </div>
           </Col>
           <Card>

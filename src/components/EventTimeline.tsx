@@ -11,42 +11,36 @@ interface EventTimelineProps {
 
 const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const [showModal, setShowModal] = useState(false);
-  
+
   const handleTimelineClick = () => {
     setShowModal(true);
   };
-  
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  
+
   // Get severity badge color
   const getSeverityBadge = (severity: string) => {
-    switch(severity) {
+    switch (severity) {
       case 'HIGH': return 'bg-danger';
       case 'MEDIUM': return 'bg-warning';
       case 'LOW': return 'bg-success';
       default: return 'bg-secondary';
     }
   };
-  
+
   // Get status badge color
-  const getStatusBadge = (status: string) => {
-    return status === 'OPEN' ? 'bg-warning' : 'bg-success';
-  };
+  const getStatusBadge = (status: string) => (status === 'OPEN' ? 'bg-warning' : 'bg-success');
   // Sort events by planned start date
-  const sortedEvents = events.sort((a, b) => 
-    new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime()
-  );
+  const sortedEvents = events.sort((a, b) => new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime());
 
   // Format date for display
-  const formatDate = (date: Date | string) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
+  const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 
   // Calculate timeline range and positions based on actual dates
   const getTimelineData = () => {
@@ -54,11 +48,11 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
 
     const startDate = new Date(sortedEvents[0].plannedStart);
     const endDate = new Date(sortedEvents[sortedEvents.length - 1].plannedEnd);
-    
+
     // Add some padding (1 month before and after)
     const paddedStart = new Date(startDate.getFullYear(), startDate.getMonth() - 1, 1);
     const paddedEnd = new Date(endDate.getFullYear(), endDate.getMonth() + 1, 1);
-    
+
     // Generate month markers
     const months = [];
     const current = new Date(paddedStart);
@@ -75,36 +69,36 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   // Calculate position relative to today as center
   const getEventPosition = (eventDate: Date | string) => {
     if (sortedEvents.length === 0) return 50;
-    
+
     const today = new Date();
     const date = new Date(eventDate);
     const center = 50; // Center position as percentage
     const visualCorrectionVariable = 0.01; // Adjust this to control sensitivity
     const sizeOfTheTable = 100; // Full width in percentage
-    
+
     // Calculate days difference from today
     const daysDifference = (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
-    
+
     // Calculate position relative to center
     const position = center + (daysDifference * visualCorrectionVariable * sizeOfTheTable);
-    
+
     return Math.max(0, Math.min(100, position));
   };
 
   const getMonthPosition = (monthDate: Date) => {
     if (sortedEvents.length === 0) return 0;
-    
+
     const today = new Date();
     const center = 50; // Center position as percentage
     const visualCorrectionVariable = 0.1; // Same as event positioning
     const sizeOfTheTable = 100; // Full width in percentage
-    
+
     // Calculate days difference from today
     const daysDifference = (monthDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
-    
+
     // Calculate position relative to center
     const position = center + (daysDifference * visualCorrectionVariable * sizeOfTheTable);
-    
+
     return Math.max(0, Math.min(100, position));
   };
 
@@ -112,34 +106,32 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const getEventLevels = () => {
     const levels: { event: Event; level: number; }[] = [];
     const occupiedRanges: { start: number; end: number; level: number; }[] = [];
-    
+
     sortedEvents.forEach((event) => {
       const startPos = getEventPosition(event.plannedStart);
       const endPos = getEventPosition(event.plannedEnd);
       const eventStart = Math.min(startPos, endPos);
       const eventEnd = Math.max(startPos, endPos);
-      
+
       // Find the lowest available level
       let level = 0;
       let foundLevel = false;
-      
+
       while (!foundLevel) {
-        const conflicts = occupiedRanges.filter(range => 
-          range.level === level && 
-          !(eventEnd < range.start || eventStart > range.end)
-        );
-        
+        const conflicts = occupiedRanges.filter(range => range.level === level
+          && !(eventEnd < range.start || eventStart > range.end));
+
         if (conflicts.length === 0) {
           foundLevel = true;
         } else {
           level++;
         }
       }
-      
+
       levels.push({ event, level });
       occupiedRanges.push({ start: eventStart, end: eventEnd, level });
     });
-    
+
     return levels;
   };
 
@@ -163,13 +155,18 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
     <div className="timeline-container">
       {/* Timeline Header */}
       <div className="mb-3">
-        <h5>Events Timeline ({sortedEvents.length} events)</h5>
+        <h5>
+          Events Timeline (
+          {sortedEvents.length}
+          {' '}
+          events)
+        </h5>
       </div>
 
       {/* Timeline Visualization */}
       <div className="position-relative" style={{ minHeight: `${200 + (maxLevel * 40)}px`, marginBottom: '20px' }}>
         {/* Timeline Line */}
-        <div 
+        <div
           style={{
             position: 'absolute',
             top: `${90 + (centerLevel * 40)}px`,
@@ -177,7 +174,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             right: '20px',
             height: '2px',
             backgroundColor: '#dee2e6',
-            zIndex: 1
+            zIndex: 1,
           }}
         />
 
@@ -189,7 +186,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             top: '20px',
             bottom: '20px',
             transform: 'translateX(-50%)',
-            zIndex: 4
+            zIndex: 4,
           }}
         >
           {/* Vertical Line */}
@@ -202,7 +199,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
               borderRadius: '1.5px'
             }}
           /> */}
-          
+
           {/* Today Label */}
           <div
             style={{
@@ -217,12 +214,12 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
               fontSize: '0.7rem',
               fontWeight: 'bold',
               whiteSpace: 'nowrap',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
             }}
           >
             {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </div>
-          
+
           {/* Arrow Pointer */}
           <div
             style={{
@@ -234,7 +231,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
               height: 0,
               borderLeft: '4px solid transparent',
               borderRight: '4px solid transparent',
-              borderTop: '6px solid #dc3545'
+              borderTop: '6px solid #dc3545',
             }}
           />
         </div>
@@ -242,7 +239,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
         {/* Month Grid */}
         {timelineData.months.map((month, index) => {
           const position = getMonthPosition(month);
-          
+
           return (
             <div
               key={index}
@@ -251,7 +248,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                 left: `${position}%`,
                 top: `${170 + (maxLevel * 40)}px`,
                 transform: 'translateX(-50%)',
-                zIndex: 0
+                zIndex: 0,
               }}
             >
               {/* Month Tick Mark */}
@@ -260,7 +257,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                   width: '1px',
                   height: '15px',
                   backgroundColor: '#adb5bd',
-                  marginLeft: '50%'
+                  marginLeft: '50%',
                 }}
               />
             </div>
@@ -274,12 +271,12 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
           const isCompleted = event.completed;
           const leftPosition = Math.min(startPosition, endPosition);
           const width = Math.abs(endPosition - startPosition);
-          
+
           // Calculate vertical position from center
           const eventTop = 90 + (level * 40);
           const dotTop = eventTop - 9; // Center dot on line
           const labelTop = eventTop - 22; // Label above the event
-          
+
           return (
             <div key={event.id}>
               {/* Event Duration Line */}
@@ -293,10 +290,10 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                   backgroundColor: isCompleted ? '#198754' : '#0d6efd',
                   opacity: 0.7,
                   zIndex: 2,
-                  borderRadius: '2px'
+                  borderRadius: '2px',
                 }}
               />
-              
+
               {/* Start Date Dot */}
               <div
                 style={{
@@ -304,7 +301,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                   left: `${startPosition}%`,
                   top: `${dotTop}px`,
                   transform: 'translateX(-50%)',
-                  zIndex: 3
+                  zIndex: 3,
                 }}
               >
                 <div
@@ -317,7 +314,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                     fontWeight: 'bold',
                     whiteSpace: 'nowrap',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                    border: '2px solid #fff'
+                    border: '2px solid #fff',
                   }}
                   title={`${event.name} - Start: ${formatDate(event.plannedStart)}`}
                 >
@@ -332,7 +329,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                   left: `${endPosition}%`,
                   top: `${dotTop}px`,
                   transform: 'translateX(-50%)',
-                  zIndex: 3
+                  zIndex: 3,
                 }}
               >
                 <div
@@ -345,14 +342,14 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                     fontWeight: 'bold',
                     whiteSpace: 'nowrap',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                    border: '2px solid #fff'
+                    border: '2px solid #fff',
                   }}
                   title={`${event.name} - End: ${formatDate(event.plannedEnd)}`}
                 >
                   {new Date(event.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </div>
               </div>
-              
+
               {/* Issue Dots on Event Bar */}
               {issues
                 .filter(issue => {
@@ -373,7 +370,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                         left: `${issuePosition}%`,
                         top: `${eventTop - 3}px`, // Slightly above the event bar
                         transform: 'translateX(-50%)',
-                        zIndex: 4
+                        zIndex: 4,
                       }}
                     >
                       <div
@@ -384,39 +381,39 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                           borderRadius: '50%',
                           border: '1px solid #fff',
                           boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
                         }}
                         title={`Issue: ${issue.description} - Updated: ${formatDate(issue.updatedAt)}`}
                       />
                     </div>
                   );
                 })}
-              
+
               {/* Event Label */}
-              <div 
+              <div
                 style={{
                   position: 'absolute',
                   left: `${(startPosition + endPosition) / 2}%`,
                   top: `${labelTop}px`,
                   transform: 'translateX(-50%)',
-                  zIndex: 3
+                  zIndex: 3,
                 }}
               >
-                <div 
+                <div
                   className="text-center"
                   style={{
                     fontSize: '0.75rem',
                     width: '100px',
-                    marginLeft: '-50px'
+                    marginLeft: '-50px',
                   }}
                 >
-                  <div 
+                  <div
                     className="fw-bold"
                     style={{
                       cursor: 'pointer',
                       padding: '2px 4px',
                       borderRadius: '3px',
-                      transition: 'background-color 0.2s ease'
+                      transition: 'background-color 0.2s ease',
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -446,8 +443,8 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
 
       {/* Issues Modal */}
       {showModal && (
-        <div 
-          className="modal fade show d-block" 
+        <div
+          className="modal fade show d-block"
           style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
           onClick={handleCloseModal}
         >
@@ -455,23 +452,27 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Project Issues</h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
+                <button
+                  type="button"
+                  className="btn-close"
                   onClick={handleCloseModal}
-                ></button>
+                />
               </div>
               <div className="modal-body">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6>Issues ({issues.length})</h6>
-                  <a 
-                    href={`/project/${projectId}/issue/create`} 
+                  <h6>
+                    Issues (
+                    {issues.length}
+                    )
+                  </h6>
+                  <a
+                    href={`/project/${projectId}/issue/create`}
                     className="btn btn-outline-primary btn-sm"
                   >
                     Add Issue
                   </a>
                 </div>
-                
+
                 {issues.length === 0 ? (
                   <div className="text-center py-4 text-muted">
                     <p>No issues reported yet.</p>
@@ -487,25 +488,35 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                             <p className="mb-1 text-muted">{issue.remedy}</p>
                             <div className="d-flex gap-2 mb-2">
                               <span className={`badge ${getSeverityBadge(issue.severity)}`}>
-                                {issue.severity} Severity
+                                {issue.severity}
+                                {' '}
+                                Severity
                               </span>
                               <span className={`badge ${getSeverityBadge(issue.likelihood)}`}>
-                                {issue.likelihood} Likelihood
+                                {issue.likelihood}
+                                {' '}
+                                Likelihood
                               </span>
                               <span className={`badge ${getStatusBadge(issue.status)}`}>
                                 {issue.status}
                               </span>
                             </div>
                             <small className="text-muted">
-                              Reported: {formatDate(issue.firstRaised)}
+                              Reported:
+                              {' '}
+                              {formatDate(issue.firstRaised)}
                               {issue.updatedAt && issue.updatedAt !== issue.firstRaised && (
-                                <> | Updated: {formatDate(issue.updatedAt)}</>
+                                <>
+                                  {' '}
+                                  | Updated:
+                                  {formatDate(issue.updatedAt)}
+                                </>
                               )}
                             </small>
                           </div>
                           <div className="ms-3">
-                            <a 
-                              href={`/project/${projectId}/issue/${issue.id}/edit`} 
+                            <a
+                              href={`/project/${projectId}/issue/${issue.id}/edit`}
                               className="btn btn-outline-secondary btn-sm"
                             >
                               Edit
@@ -518,9 +529,9 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                 )}
               </div>
               <div className="modal-footer">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary" 
+                <button
+                  type="button"
+                  className="btn btn-secondary"
                   onClick={handleCloseModal}
                 >
                   Close
@@ -548,10 +559,20 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                     </h6>
                     <p className="mb-1">{event.description}</p>
                     <small className="text-muted">
-                      Planned: {formatDate(event.plannedStart)} - {formatDate(event.plannedEnd)}
+                      Planned:
+                      {' '}
+                      {formatDate(event.plannedStart)}
+                      {' '}
+                      -
+                      {' '}
+                      {formatDate(event.plannedEnd)}
                       {event.actualStart && (
-                        <> | Actual: {formatDate(event.actualStart)}
-                        {event.actualEnd && ` - ${formatDate(event.actualEnd)}`}</>
+                        <>
+                          {' '}
+                          | Actual:
+                          {formatDate(event.actualStart)}
+                          {event.actualEnd && ` - ${formatDate(event.actualEnd)}`}
+                        </>
                       )}
                     </small>
                   </div>

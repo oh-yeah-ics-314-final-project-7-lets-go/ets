@@ -3,19 +3,20 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import authOptions from '@/lib/authOptions';
 
+// eslint-disable-next-line import/prefer-default-export
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const session = await getServerSession(authOptions);
-  
+
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const projectId = parseInt(params.id, 10);
 
-  if (isNaN(projectId)) {
+  if (Number.isNaN(projectId)) {
     return NextResponse.json({ error: 'Invalid project ID' }, { status: 400 });
   }
 

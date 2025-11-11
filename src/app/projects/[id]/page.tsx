@@ -35,7 +35,7 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
     try {
       setLoading(true);
       const response = await fetch(`/api/projects/${projectId}`);
-      
+
       if (!response.ok) {
         if (response.status === 404) {
           setError('Project not found');
@@ -78,7 +78,8 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
         <div className="text-center">
           <h3>Project Not Found</h3>
           <p className="text-muted">{error || 'The requested project could not be found.'}</p>
-          <button 
+          <button
+            type="button"
             className="btn btn-primary"
             onClick={() => router.push('/list')}
           >
@@ -92,8 +93,7 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
   return (
     <main>
       <div className="container py-3">
-        <h1>{project.name} - Overview</h1>
-        
+        <h1>{`${project.name} - Overview`}</h1>
         <div className="row mt-4">
           <div className="col">
             <div className="card">
@@ -114,9 +114,18 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
                   <tbody>
                     <tr>
                       <td><strong>{project.name}</strong></td>
-                      <td>${project.originalContractAward?.toLocaleString()}</td>
-                      <td>${project.totalPaidOut?.toLocaleString()}</td>
-                      <td>{project.progress?.toFixed(1)}%</td>
+                      <td>
+                        $
+                        {project.originalContractAward?.toLocaleString()}
+                      </td>
+                      <td>
+                        $
+                        {project.totalPaidOut?.toLocaleString()}
+                      </td>
+                      <td>
+                        {project.progress?.toFixed(1)}
+                        %
+                      </td>
                       <td>{new Date(project.updatedAt).toLocaleDateString()}</td>
                     </tr>
                   </tbody>
@@ -132,8 +141,8 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">Events Timeline</h3>
                 <div className="d-flex gap-2">
-                  <a 
-                    href={`/project/${projectId}/event/create`} 
+                  <a
+                    href={`/project/${projectId}/event/create`}
                     className="btn btn-outline-primary btn-sm"
                   >
                     Add Event

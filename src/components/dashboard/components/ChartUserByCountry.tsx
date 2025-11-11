@@ -103,7 +103,7 @@ function PieCenterLabel({ primaryText, secondaryText }: PieCenterLabelProps) {
   const secondaryY = primaryY + 24;
 
   return (
-    <React.Fragment>
+    <>
       {/* <StyledText variant="primary" x={left + width / 2} y={primaryY}>
         {primaryText}
       </StyledText>
@@ -112,7 +112,7 @@ function PieCenterLabel({ primaryText, secondaryText }: PieCenterLabelProps) {
       </StyledText> */}
       {primaryText}
       {secondaryText}
-    </React.Fragment>
+    </>
   );
 }
 
@@ -178,7 +178,8 @@ export default function ChartUserByCountry() {
                   {country.name}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {country.value}%
+                  {country.value}
+                  %
                 </Typography>
               </Stack>
               <LinearProgress

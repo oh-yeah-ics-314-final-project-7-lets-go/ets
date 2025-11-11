@@ -19,10 +19,9 @@ function ButtonField(props: ButtonFieldProps) {
   const pickerContext = usePickerContext();
   const handleRef = useForkRef(pickerContext.triggerRef, pickerContext.rootRef);
   const parsedFormat = useParsedFormat();
-  const valueStr =
-    pickerContext.value == null
-      ? parsedFormat
-      : pickerContext.value.format(pickerContext.fieldFormat);
+  const valueStr = pickerContext.value == null
+    ? parsedFormat
+    : pickerContext.value.format(pickerContext.fieldFormat);
 
   return (
     <Button

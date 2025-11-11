@@ -104,7 +104,6 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                       <Form.Text className="text-muted">
                         Current:
                         {' '}
-                        {watchedProgress.toFixed(1)}
                         %
                       </Form.Text>
                     </Form.Group>

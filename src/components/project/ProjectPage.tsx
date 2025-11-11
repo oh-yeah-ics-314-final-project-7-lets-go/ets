@@ -132,7 +132,7 @@ const ProjectPage = ({
       <Button variant="outline-secondary" href={`/projects/${id}`}>
         ← Back to Overview
       </Button>
-      <div style={{ width: '140px' }}></div>
+      <div style={{ width: '140px' }} />
     </div>
   </Container>
 );

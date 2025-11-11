@@ -13,7 +13,7 @@ export const AddEventSchema = Yup.object({
     .when('actualStart', {
       is: (val: any) => val != null && val !== undefined,
       then: (schema) => schema.min(Yup.ref('actualStart'), 'End date must be later than start date.'),
-      otherwise: (schema) => schema
+      otherwise: (schema) => schema,
     }),
 });
 
@@ -30,7 +30,7 @@ export const EditEventSchema = Yup.object({
     .when('actualStart', {
       is: (val: any) => val != null && val !== undefined,
       then: (schema) => schema.min(Yup.ref('actualStart'), 'End date must be later than start date.'),
-      otherwise: (schema) => schema
+      otherwise: (schema) => schema,
     }),
 });
 
