@@ -12,7 +12,6 @@ export default function CommentForm({ id, author, projectId, content, createdAt,
   const [edit, setEdit] = useState(false);
   const { data } = useSession();
 
-  console.log('u', data);
   const isOP = (data?.user as { id: string; })?.id === author.id.toString();
   const isETS = (data?.user as { randomKey: string; })?.randomKey === 'ETS';
   return (edit
