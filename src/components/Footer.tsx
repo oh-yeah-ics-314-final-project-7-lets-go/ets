@@ -65,7 +65,7 @@ const Footer = () => {
 
           <br />
 
-          <a href="https://github.com/oh-yeah-ics-314-final-project-7-lets-go/ets.git">
+          <a href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
             Project Homepage
           </a>
         </Col>
