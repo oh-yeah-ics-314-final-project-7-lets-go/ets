@@ -66,6 +66,39 @@ export async function editProject(project: Project) {
 //   redirect('/projects');
 // }
 
+export async function addComment(comment: {
+  authorId: number;
+  content: string;
+  projectId: number;
+}) {
+  await prisma.comment.create({
+    data: {
+      authorId: comment.authorId,
+      projectId: comment.projectId,
+      content: comment.content,
+    },
+  });
+
+  redirect(`/project/${comment.projectId}`);
+}
+
+export async function editComment(comment: Comment) {
+  await prisma.comment.update({
+    where: { id: comment.id },
+    data: {
+      content: comment.content,
+    },
+  });
+}
+
+export async function deleteComment(id: number) {
+  const cmt = await prisma.comment.delete({
+    where: { id },
+  });
+
+  redirect(`/project/${cmt.projectId}`);
+}
+
 /**
  * Adds a new event to the database
  */
@@ -78,8 +111,8 @@ export async function addEvent(event: {
   plannedEnd: Date;
 
   completed: boolean;
-  actualStart?: Date;
-  actualEnd?: Date;
+  actualStart?: Date | null;
+  actualEnd?: Date | null;
 }) {
   await prisma.event.create({
     data: {

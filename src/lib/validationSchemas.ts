@@ -53,6 +53,21 @@ export const EditIssueSchema = Yup.object({
   status: Yup.string().oneOf(['OPEN', 'CLOSED']).required(),
 });
 
+export const AddCommentSchema = Yup.object({
+  authorId: Yup.number().required(),
+  content: Yup.string()
+    .required('You must enter your comment')
+    .min(10, 'Comments must be at least 10 characters long.'),
+  projectId: Yup.number().required(),
+});
+
+export const EditCommentSchema = Yup.object({
+  id: Yup.number().required(),
+  content: Yup.string()
+    .required('You must enter your comment')
+    .min(10, 'Comments must be at least 10 characters long.'),
+});
+
 export const AddProjectSchema = Yup.object({
   name: Yup.string()
     .required('Project name is required')
