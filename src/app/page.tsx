@@ -55,7 +55,7 @@ const Home = () => (
           {/* Summary Section */}
           <Row className="my-4">
             <Col className="text-center">
-              <h4 style={{ fontWeight: '600' }}>Welcome to the ETS Report Cnter</h4>
+              <h4 style={{ fontWeight: '600' }}>Welcome to the ETS Report Center</h4>
               <p style={{ fontSize: '16px', maxWidth: '800px', margin: '0 auto' }}>
                 This site is for the submission and viewing of IV&V Vendor&apos;s monthly project report.
                 The goal is to organize and change all the data from the reports
