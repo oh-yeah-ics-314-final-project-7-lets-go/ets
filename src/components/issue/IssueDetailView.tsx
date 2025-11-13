@@ -1,15 +1,15 @@
 'use client';
 
-import { Event, Project } from '@prisma/client';
+import { Issue, Project } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { deleteEvent } from '@/lib/dbActions';
+import { deleteIssue } from '@/lib/dbActions';
 
-interface EventDetailViewProps {
-  event: Event;
+interface IssueDetailViewProps {
+  issue: Issue;
   project: Project;
 }
 
-const EventDetailView = ({ event, project }: EventDetailViewProps) => {
+const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
   const router = useRouter();
 
   const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
@@ -28,11 +28,11 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
   });
 
   const handleDeleteSubmit = async () => {
-    await deleteEvent(event.id);
+    await deleteIssue(issue.id);
   };
 
   const handleEdit = () => {
-    router.push(`/project/${project.id}/event/${event.id}/edit`);
+    router.push(`/project/${project.id}/issue/${issue.id}/edit`);
   };
 
   const handleBackToProject = () => {
@@ -40,20 +40,40 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
   };
 
   const getStatusBadge = () => {
-    if (event.completed) {
-      return <span className="badge bg-success">Completed</span>;
+    switch (issue.status) {
+      case 'CLOSED':
+        return <span className="badge bg-success">Closed</span>;
+      case 'OPEN':
+        return <span className="badge bg-warning">Open</span>;
+      default:
+        return <span className="badge bg-secondary">Unknown</span>;
     }
+  };
 
-    const now = new Date();
-    const startDate = new Date(event.plannedStart);
-    const endDate = new Date(event.plannedEnd);
-
-    if (now < startDate) {
-      return <span className="badge bg-secondary">Upcoming</span>;
-    } if (now >= startDate && now <= endDate) {
-      return <span className="badge bg-primary">In Progress</span>;
+  const getSeverityBadge = () => {
+    switch (issue.severity) {
+      case 'HIGH':
+        return <span className="badge bg-danger">High</span>;
+      case 'MEDIUM':
+        return <span className="badge bg-warning">Medium</span>;
+      case 'LOW':
+        return <span className="badge bg-success">Low</span>;
+      default:
+        return <span className="badge bg-secondary">Unknown</span>;
     }
-    return <span className="badge bg-warning">Overdue</span>;
+  };
+
+  const getLikelihoodBadge = () => {
+    switch (issue.likelihood) {
+      case 'HIGH':
+        return <span className="badge bg-danger">High</span>;
+      case 'MEDIUM':
+        return <span className="badge bg-warning">Medium</span>;
+      case 'LOW':
+        return <span className="badge bg-success">Low</span>;
+      default:
+        return <span className="badge bg-secondary">Unknown</span>;
+    }
   };
 
   return (
@@ -73,22 +93,30 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                 </button>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                {event.name}
+                Issue #
+                {issue.id}
               </li>
             </ol>
           </nav>
         </div>
       </div>
 
-      {/* Event Details Card */}
+      {/* Issue Details Card */}
       <div className="row">
         <div className="col-lg-8">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
               <div>
-                <h4 className="mb-0">{event.name}</h4>
+                <h4 className="mb-0">
+                  Issue #
+                  {issue.id}
+                </h4>
                 <div className="mt-2">
                   {getStatusBadge()}
+                  {' '}
+                  {getSeverityBadge()}
+                  {' '}
+                  {getLikelihoodBadge()}
                 </div>
               </div>
               <div className="btn-group">
@@ -107,7 +135,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                     className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       // eslint-disable-next-line no-restricted-globals, no-alert
-                      if (!confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+                      if (!confirm('Are you sure you want to delete this issue? This action cannot be undone.')) {
                         e.preventDefault();
                       }
                     }}
@@ -123,62 +151,38 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
               <div className="row">
                 <div className="col-md-12 mb-4">
                   <h6 className="text-muted">Description</h6>
-                  <p className="mb-0">{event.description}</p>
+                  <p className="mb-0">{issue.description}</p>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-12 mb-4">
+                  <h6 className="text-muted">Remedy</h6>
+                  <p className="mb-0">{issue.remedy}</p>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <h6 className="text-muted">Planned Timeline</h6>
-                  <div className="d-flex flex-column">
-                    <div className="mb-2">
-                      <strong>Start:</strong>
-                      {' '}
-                      {formatDate(event.plannedStart)}
-                    </div>
-                    <div>
-                      <strong>End:</strong>
-                      {' '}
-                      {formatDate(event.plannedEnd)}
-                    </div>
-                  </div>
+                  <h6 className="text-muted">First Raised</h6>
+                  <p className="mb-0">{formatDate(issue.firstRaised)}</p>
                 </div>
-
-                {(event.actualStart || event.actualEnd) && (
-                  <div className="col-md-6 mb-3">
-                    <h6 className="text-muted">Actual Timeline</h6>
-                    <div className="d-flex flex-column">
-                      {event.actualStart && (
-                        <div className="mb-2">
-                          <strong>Start:</strong>
-                          {' '}
-                          {formatDate(event.actualStart)}
-                        </div>
-                      )}
-                      {event.actualEnd && (
-                        <div>
-                          <strong>End:</strong>
-                          {' '}
-                          {formatDate(event.actualEnd)}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+                <div className="col-md-6 mb-3">
+                  <h6 className="text-muted">Last Updated</h6>
+                  <p className="mb-0">{formatDate(issue.updatedAt)}</p>
+                </div>
               </div>
 
-              {event.completed && (
+              {issue.status === 'CLOSED' && (
                 <div className="alert alert-success mt-3">
                   <i className="bi bi-check-circle" />
                   {' '}
-                  This event has been completed.
-                  {event.actualEnd && (
+                  This issue has been resolved.
                   <div className="mt-1 small">
-                    Completed on
+                    Closed on
                     {' '}
-                    {formatDateShort(event.actualEnd)}
+                    {formatDateShort(issue.updatedAt)}
                   </div>
-                  )}
                 </div>
               )}
             </div>
@@ -189,7 +193,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
         <div className="col-lg-4">
           <div className="card">
             <div className="card-header">
-              <h6 className="mb-0">Event Information</h6>
+              <h6 className="mb-0">Issue Information</h6>
             </div>
             <div className="card-body">
               <div className="mb-3">
@@ -197,19 +201,27 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                 <div>{project.name}</div>
               </div>
               <div className="mb-3">
-                <small className="text-muted">Duration</small>
+                <small className="text-muted">Status</small>
+                <div>{getStatusBadge()}</div>
+              </div>
+              <div className="mb-3">
+                <small className="text-muted">Severity</small>
+                <div>{getSeverityBadge()}</div>
+              </div>
+              <div className="mb-3">
+                <small className="text-muted">Likelihood</small>
+                <div>{getLikelihoodBadge()}</div>
+              </div>
+              <div className="mb-3">
+                <small className="text-muted">Days Open</small>
                 <div>
                   {Math.ceil(
-                    (new Date(event.plannedEnd).getTime() - new Date(event.plannedStart).getTime())
+                    (new Date().getTime() - new Date(issue.firstRaised).getTime())
                     / (1000 * 60 * 60 * 24),
                   )}
                   {' '}
                   days
                 </div>
-              </div>
-              <div className="mb-3">
-                <small className="text-muted">Status</small>
-                <div>{getStatusBadge()}</div>
               </div>
             </div>
           </div>
@@ -220,4 +232,4 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
   );
 };
 
-export default EventDetailView;
+export default IssueDetailView;

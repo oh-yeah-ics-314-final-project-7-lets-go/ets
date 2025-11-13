@@ -9,8 +9,25 @@ interface EventTimelineProps {
 }
 
 const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
-  // Sort events by planned start date
-  const sortedEvents = events.sort((a, b) => new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime());
+  // Convert issues to event-like objects for timeline display (exclude closed issues)
+  const today = new Date();
+  const issuesAsEvents = issues.filter(issue => issue.status !== 'CLOSED').map((issue) => ({
+    id: issue.id, // Keep issue ID as number
+    name: issue.remedy, // Use remedy as the name
+    projectId: issue.projectId,
+    description: issue.description, // Use issue description
+    plannedStart: issue.firstRaised, // Use firstRaised as start
+    plannedEnd: issue.status === 'CLOSED' ? issue.updatedAt : today, // Use updatedAt if closed, today if open
+    completed: issue.status === 'CLOSED', // Use status to determine completion
+    actualStart: null,
+    actualEnd: null,
+    isIssue: true, // Flag to identify as issue for styling
+    originalIssue: issue, // Keep reference to original issue
+  }));
+
+  // Combine events and issues, then sort by start date
+  const allItems = [...events, ...issuesAsEvents];
+  const sortedEvents = allItems.sort((a, b) => new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime());
 
   // Format date for display
   const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
@@ -43,40 +60,38 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
 
   const timelineData = getTimelineData();
 
-  // Calculate position relative to today as center
+  // Calculate position relative to today's position on timeline
   const getEventPosition = (eventDate: Date | string) => {
     if (sortedEvents.length === 0) return 50;
 
-    const today = new Date();
+    const currentDate = new Date();
     const date = new Date(eventDate);
-    const center = 50; // Center position as percentage
-    const visualCorrectionVariable = 0.01; // Adjust this to control sensitivity
-    const sizeOfTheTable = 100; // Full width in percentage
+    const todayPosition = 50; // Today is always at 50% (center of timeline)
+    const pixelsPerDay = 1; // 1% per day spacing
 
     // Calculate days difference from today
-    const daysDifference = (date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
+    const daysDifference = (date.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-    // Calculate position relative to center
-    const position = center + (daysDifference * visualCorrectionVariable * sizeOfTheTable);
+    // Calculate position: today's position + (days difference * pixels per day)
+    const position = todayPosition + (daysDifference * pixelsPerDay);
 
-    return Math.max(0, Math.min(100, position));
+    return Math.max(5, Math.min(95, position)); // Keep events within visible bounds
   };
 
   const getMonthPosition = (monthDate: Date) => {
     if (sortedEvents.length === 0) return 0;
 
-    const today = new Date();
-    const center = 50; // Center position as percentage
-    const visualCorrectionVariable = 0.1; // Same as event positioning
-    const sizeOfTheTable = 100; // Full width in percentage
+    const currentDate = new Date();
+    const todayPosition = 50; // Today is always at 50% (center of timeline)
+    const pixelsPerDay = 1; // 1% per day spacing (same as events)
 
     // Calculate days difference from today
-    const daysDifference = (monthDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
+    const daysDifference = (monthDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-    // Calculate position relative to center
-    const position = center + (daysDifference * visualCorrectionVariable * sizeOfTheTable);
+    // Calculate position: today's position + (days difference * pixels per day)
+    const position = todayPosition + (daysDifference * pixelsPerDay);
 
-    return Math.max(0, Math.min(100, position));
+    return Math.max(5, Math.min(95, position)); // Keep months within visible bounds
   };
 
   // Calculate event levels to avoid overlaps
@@ -95,7 +110,8 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
       let foundLevel = false;
 
       while (!foundLevel) {
-        const conflicts = occupiedRanges.filter(range => range.level === level
+        const currentLevel = level;
+        const conflicts = occupiedRanges.filter(range => range.level === currentLevel
           && !(eventEnd < range.start || eventStart > range.end));
 
         if (conflicts.length === 0) {
@@ -133,41 +149,64 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
       {/* Timeline Header */}
       <div className="mb-3">
         <h5>
-          Events Timeline (
-          {sortedEvents.length}
+          Timeline (
+          {events.length}
           {' '}
-          events)
+          events,
+          {' '}
+          {issues.filter(issue => issue.status !== 'CLOSED').length}
+          {' '}
+          open issues)
         </h5>
       </div>
 
       {/* Timeline Visualization */}
-      <div className="position-relative" style={{ minHeight: `${200 + (maxLevel * 40)}px`, marginBottom: '20px' }}>
-        {/* Timeline Line */}
+      <div
+        className="position-relative"
+        style={{
+          minHeight: `${200 + (maxLevel * 40)}px`,
+          marginBottom: '20px',
+          overflowX: 'auto',
+          overflowY: 'visible',
+          border: '1px solid #dee2e6',
+          borderRadius: '4px',
+          padding: '10px 0',
+        }}
+      >
         <div
           style={{
-            position: 'absolute',
-            top: `${90 + (centerLevel * 40)}px`,
-            left: '20px',
-            right: '20px',
-            height: '2px',
-            backgroundColor: '#dee2e6',
-            zIndex: 1,
-          }}
-        />
-
-        {/* Today Pointer */}
-        <div
-          style={{
-            position: 'absolute',
-            left: `${todayPosition}%`,
-            top: '20px',
-            bottom: '20px',
-            transform: 'translateX(-50%)',
-            zIndex: 4,
+            width: '300%', // Make timeline 3x wider than container
+            minWidth: '1200px', // Ensure minimum width for small events
+            position: 'relative',
+            height: '100%',
           }}
         >
-          {/* Vertical Line */}
-          {/* <div
+          {/* Timeline Line */}
+          <div
+            style={{
+              position: 'absolute',
+              top: `${90 + (centerLevel * 40)}px`,
+              left: '20px',
+              right: '20px',
+              height: '2px',
+              backgroundColor: '#dee2e6',
+              zIndex: 1,
+            }}
+          />
+
+          {/* Today Pointer */}
+          <div
+            style={{
+              position: 'absolute',
+              left: `${todayPosition}%`,
+              top: '20px',
+              bottom: '20px',
+              transform: 'translateX(-50%)',
+              zIndex: 4,
+            }}
+          >
+            {/* Vertical Line */}
+            {/* <div
             style={{
               width: '3px',
               height: '100%',
@@ -177,241 +216,282 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             }}
           /> */}
 
-          {/* Today Label */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-25px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              backgroundColor: '#dc3545',
-              color: 'white',
-              padding: '2px 8px',
-              borderRadius: '12px',
-              fontSize: '0.7rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-            }}
-          >
-            {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-          </div>
-
-          {/* Arrow Pointer */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-7px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 0,
-              height: 0,
-              borderLeft: '4px solid transparent',
-              borderRight: '4px solid transparent',
-              borderTop: '6px solid #dc3545',
-            }}
-          />
-        </div>
-
-        {/* Month Grid */}
-        {timelineData.months.map((month, index) => {
-          const position = getMonthPosition(month);
-
-          return (
+            {/* Today Label */}
             <div
-              key={index}
               style={{
                 position: 'absolute',
-                left: `${position}%`,
-                top: `${170 + (maxLevel * 40)}px`,
+                top: '-25px',
+                left: '50%',
                 transform: 'translateX(-50%)',
-                zIndex: 0,
+                backgroundColor: '#dc3545',
+                color: 'white',
+                padding: '2px 8px',
+                borderRadius: '12px',
+                fontSize: '0.7rem',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
               }}
             >
-              {/* Month Tick Mark */}
-              <div
-                style={{
-                  width: '1px',
-                  height: '15px',
-                  backgroundColor: '#adb5bd',
-                  marginLeft: '50%',
-                }}
-              />
+              {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
             </div>
-          );
-        })}
 
-        {/* Event Durations */}
-        {eventLevels.map(({ event, level }) => {
-          const startPosition = getEventPosition(event.plannedStart);
-          const endPosition = getEventPosition(event.plannedEnd);
-          const isCompleted = event.completed;
-          const leftPosition = Math.min(startPosition, endPosition);
-          const width = Math.abs(endPosition - startPosition);
+            {/* Arrow Pointer */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-7px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 0,
+                height: 0,
+                borderLeft: '4px solid transparent',
+                borderRight: '4px solid transparent',
+                borderTop: '6px solid #dc3545',
+              }}
+            />
+          </div>
 
-          // Calculate vertical position from center
-          const eventTop = 90 + (level * 40);
-          const dotTop = eventTop - 9; // Center dot on line
-          const labelTop = eventTop - 22; // Label above the event
+          {/* Month Grid */}
+          {timelineData.months.map((month) => {
+            const position = getMonthPosition(month);
 
-          return (
-            <div key={event.id}>
-              {/* Event Duration Line */}
+            return (
               <div
+                key={`month-${month.getFullYear()}-${month.getMonth()}`}
                 style={{
                   position: 'absolute',
-                  left: `${leftPosition}%`,
-                  top: `${eventTop - 1}px`,
-                  width: `${width}%`,
-                  height: '4px',
-                  backgroundColor: isCompleted ? '#198754' : '#0d6efd',
-                  opacity: 0.7,
-                  zIndex: 2,
-                  borderRadius: '2px',
-                }}
-              />
-
-              {/* Start Date Dot */}
-              <div
-                style={{
-                  position: 'absolute',
-                  left: `${startPosition}%`,
-                  top: `${dotTop}px`,
+                  left: `${position}%`,
+                  top: `${170 + (maxLevel * 40)}px`,
                   transform: 'translateX(-50%)',
-                  zIndex: 3,
+                  zIndex: 0,
                 }}
               >
+                {/* Month Tick Mark */}
                 <div
                   style={{
-                    backgroundColor: isCompleted ? '#198754' : '#0d6efd',
-                    color: 'white',
-                    padding: '2px 6px',
-                    borderRadius: '12px',
-                    fontSize: '0.6rem',
-                    fontWeight: 'bold',
-                    whiteSpace: 'nowrap',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                    border: '2px solid #fff',
+                    width: '1px',
+                    height: '15px',
+                    backgroundColor: '#adb5bd',
+                    marginLeft: '50%',
                   }}
-                  title={`${event.name} - Start: ${formatDate(event.plannedStart)}`}
-                >
-                  {new Date(event.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                </div>
+                />
               </div>
+            );
+          })}
 
-              {/* End Date Dot */}
-              <div
-                style={{
-                  position: 'absolute',
-                  left: `${endPosition}%`,
-                  top: `${dotTop}px`,
-                  transform: 'translateX(-50%)',
-                  zIndex: 3,
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor: isCompleted ? '#198754' : '#0d6efd',
-                    color: 'white',
-                    padding: '2px 6px',
-                    borderRadius: '12px',
-                    fontSize: '0.6rem',
-                    fontWeight: 'bold',
-                    whiteSpace: 'nowrap',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                    border: '2px solid #fff',
-                  }}
-                  title={`${event.name} - End: ${formatDate(event.plannedEnd)}`}
-                >
-                  {new Date(event.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                </div>
-              </div>
+          {/* Event Durations */}
+          {eventLevels.map(({ event, level }) => {
+            const startPosition = getEventPosition(event.plannedStart);
+            const endPosition = getEventPosition(event.plannedEnd);
+            const isCompleted = event.completed;
+            const isIssue = (event as any).isIssue || false;
 
-              {/* Issue Dots on Event Bar */}
-              {issues
-                .filter(() => {
-                  // For now, show all issues on all events - you can adjust this logic as needed
-                  return true;
-                })
-                .map((issue) => {
-                  const issuePosition = getEventPosition(issue.updatedAt);
-                  return (
+            // Color logic: yellow for issues, green/blue for events
+            // eslint-disable-next-line no-nested-ternary
+            const itemColor = isIssue ? '#ffc107' : (isCompleted ? '#198754' : '#0d6efd');
+
+            // Calculate event duration in days
+            const durationInDays = (new Date(event.plannedEnd)
+              .getTime() - new Date(event.plannedStart)
+              .getTime()) / (1000 * 60 * 60 * 24);
+
+            // Calculate vertical position from center
+            const eventTop = 90 + (level * 40);
+            const dotTop = eventTop - 9; // Center dot on line
+
+            // For events shorter than 5 days OR events that ended 2+ months ago, show single dot
+            const currentDate = new Date();
+            const eventEndDate = new Date(event.plannedEnd);
+            const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
+            const isOldEvent = eventEndDate <= twoMonthsAgo;
+            if (durationInDays <= 5 || isOldEvent) {
+              const midPoint = (startPosition + endPosition) / 2;
+              return (
+                <div key={event.id}>
+                  {/* Single dot for short events */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: `${midPoint}%`,
+                      top: `${dotTop}px`,
+                      transform: 'translateX(-50%)',
+                      zIndex: 3,
+                    }}
+                  >
                     <div
-                      key={`issue-${issue.id}-${event.id}`}
+                      role="button"
+                      tabIndex={0}
                       style={{
-                        position: 'absolute',
-                        left: `${issuePosition}%`,
-                        top: `${eventTop - 3}px`, // Slightly above the event bar
-                        transform: 'translateX(-50%)',
-                        zIndex: 4,
+                        backgroundColor: itemColor,
+                        color: 'white',
+                        padding: '2px 6px',
+                        borderRadius: '12px',
+                        fontSize: '0.6rem',
+                        fontWeight: 'bold',
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                        border: '2px solid #fff',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s ease',
+                      }}
+                      title={`${event.name} - ${formatDate(event.plannedStart)} to ${formatDate(event.plannedEnd)}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
+                          : `/project/${projectId}/event/${event.id}`;
+                        window.location.href = detailUrl;
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
+                            : `/project/${projectId}/event/${event.id}`;
+                          window.location.href = detailUrl;
+                        }
+                      }}
+                      onMouseEnter={(e) => {
+                        // eslint-disable-next-line no-nested-ternary
+                        const hoverColor = isIssue ? '#e0a800'
+                          : (isCompleted ? '#157347' : '#0b5ed7');
+                        e.currentTarget.style.backgroundColor = hoverColor;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = itemColor;
                       }}
                     >
-                      <div
-                        style={{
-                          width: '8px',
-                          height: '8px',
-                          backgroundColor: '#ffc107', // Yellow color
-                          borderRadius: '50%',
-                          border: '1px solid #fff',
-                          boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                          cursor: 'pointer',
-                        }}
-                        title={`Issue: ${issue.description} - Updated: ${formatDate(issue.updatedAt)}`}
-                      />
+                      {new Date(event.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      {' '}
+                      -
+                      {' '}
+                      {event.name}
+                      {' '}
+                      -
+                      {' '}
+                      {new Date(event.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      {isCompleted && (
+                      <span style={{ marginLeft: '4px' }}>✓</span>
+                      )}
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
+              );
+            }
 
-              {/* Event Label */}
+            // For longer events, show start and end dots
+            const leftPosition = Math.min(startPosition, endPosition);
+            const width = Math.abs(endPosition - startPosition);
+
+            return (
               <div
+                key={event.id}
+                role="button"
+                tabIndex={0}
                 style={{
-                  position: 'absolute',
-                  left: `${(startPosition + endPosition) / 2}%`,
-                  top: `${labelTop}px`,
-                  transform: 'translateX(-50%)',
-                  zIndex: 3,
+                  cursor: 'pointer',
+                  transition: 'opacity 0.2s ease',
                 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
+                    : `/project/${projectId}/event/${event.id}`;
+                  window.location.href = detailUrl;
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
+                      : `/project/${projectId}/event/${event.id}`;
+                    window.location.href = detailUrl;
+                  }
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = '0.8';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = '1';
+                }}
+                title={`Click to view ${event.name} details`}
               >
+                {/* Event Duration Line */}
                 <div
-                  className="text-center"
                   style={{
-                    fontSize: '0.75rem',
-                    width: '100px',
-                    marginLeft: '-50px',
+                    position: 'absolute',
+                    left: `${leftPosition}%`,
+                    top: `${eventTop - 1}px`,
+                    width: `${width}%`,
+                    height: '4px',
+                    backgroundColor: itemColor,
+                    opacity: 0.7,
+                    zIndex: 2,
+                    borderRadius: '2px',
+                  }}
+                />
+
+                {/* Start Date Dot - With event name */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: `${startPosition}%`,
+                    top: `${dotTop}px`,
+                    transform: 'translateX(-50%)',
+                    zIndex: 3,
                   }}
                 >
                   <div
-                    className="fw-bold"
                     style={{
-                      cursor: 'pointer',
-                      padding: '2px 4px',
-                      borderRadius: '3px',
-                      transition: 'background-color 0.2s ease',
+                      backgroundColor: itemColor,
+                      color: 'white',
+                      padding: '2px 6px',
+                      borderRadius: '12px',
+                      fontSize: '0.6rem',
+                      fontWeight: 'bold',
+                      whiteSpace: 'nowrap',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                      border: '2px solid #fff',
                     }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.location.href = `/project/${projectId}/event/${event.id}`;
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(13, 110, 253, 0.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                    }}
-                    title="Click to view event details"
+                    title={`${event.name} - Start: ${formatDate(event.plannedStart)}`}
                   >
                     {event.name}
+                    {isCompleted && (
+                    <span style={{ marginLeft: '4px' }}>✓</span>
+                    )}
                   </div>
-                  {isCompleted && (
-                    <span className="badge bg-success mt-1" style={{ fontSize: '0.6rem' }}>
-                      Completed
-                    </span>
-                  )}
+                </div>
+
+                {/* End Date Dot - With date only */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: `${endPosition}%`,
+                    top: `${dotTop}px`,
+                    transform: 'translateX(-50%)',
+                    zIndex: 3,
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: itemColor,
+                      color: 'white',
+                      padding: '2px 6px',
+                      borderRadius: '12px',
+                      fontSize: '0.6rem',
+                      fontWeight: 'bold',
+                      whiteSpace: 'nowrap',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                      border: '2px solid #fff',
+                    }}
+                    title={`${event.name} - End: ${formatDate(event.plannedEnd)}`}
+                  >
+                    {new Date(event.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       {/* Event List */}
