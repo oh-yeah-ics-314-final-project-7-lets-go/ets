@@ -1,8 +1,10 @@
 'use server';
 
+import { getServerSession } from 'next-auth';
 import { Stuff, Condition, Project, Event, Issue, Severity, Likelihood, Status, Comment } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import authOptions from './authOptions';
 import { prisma } from './prisma';
 
 /**
@@ -15,17 +17,33 @@ export async function addProject(project: {
   totalPaidOut: number;
   progress: number;
 }) {
-  // console.log(`addProject data: ${JSON.stringify(project, null, 2)}`);
+  // Get the currently logged-in user
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  // Find the user in the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Create the project and assign the current user as creator
   await prisma.project.create({
     data: {
       name: project.name,
       originalContractAward: project.originalContractAward,
       totalPaidOut: project.totalPaidOut,
       progress: project.progress,
+      creatorId: user.id, // <-- records the logged-in user
     },
   });
-  // After adding, redirect to the list page
-  redirect('/list');
+
+  redirect('/reports');
 }
 
 /**
@@ -44,7 +62,7 @@ export async function editProject(project: Project) {
     },
   });
   // After updating, redirect to the list page
-  redirect('/list');
+  redirect('/reports');
 }
 
 /**
@@ -282,7 +300,7 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
     },
   });
   // After adding, redirect to the list page
-  redirect('/list');
+  redirect('/reports');
 }
 
 /**
@@ -301,7 +319,7 @@ export async function editStuff(stuff: Stuff) {
     },
   });
   // After updating, redirect to the list page
-  redirect('/list');
+  redirect('/reports');
 }
 
 /**
@@ -314,7 +332,7 @@ export async function deleteStuff(id: number) {
     where: { id },
   });
   // After deleting, redirect to the list page
-  redirect('/list');
+  redirect('/reports');
 }
 
 /**

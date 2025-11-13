@@ -35,13 +35,8 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {currentUser && (
-              <Nav.Link id="profile-nav" href="/profile" active={pathName === '/profile'}>
-                Profile
-              </Nav.Link>
-            )}
 
-            <Nav.Link id="list-stuff-nav" href="/list" active={pathName === '/list'}>
+            <Nav.Link id="report-nav" href="/reports" active={pathName === '/reports'}>
               Reports
             </Nav.Link>
             <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>
@@ -49,17 +44,12 @@ const NavBar: React.FC = () => {
             </Nav.Link>
 
             {currentUser && (
-              <Nav.Link id="add-stuff-nav" href="/add" active={pathName === '/add'}>
+              <Nav.Link id="add-nav" href="/add" active={pathName === '/add'}>
                 Add Report
               </Nav.Link>
         )}
-            {currentUser && (
-              <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>
-                Dashboard
-              </Nav.Link>
-          )}
             {currentUser && role === 'ETS' ? (
-              <Nav.Link id="admin-stuff-nav" href="/admin" key="admin" active={pathName === '/admin'}>
+              <Nav.Link id="admin-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 Admin
               </Nav.Link>
             ) : (
