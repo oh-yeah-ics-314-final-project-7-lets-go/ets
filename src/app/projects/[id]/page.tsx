@@ -49,7 +49,6 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
           {' '}
           - Overview
         </h1>
-
         <div className="row mt-4">
           <div className="col">
             <div className="card">

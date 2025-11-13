@@ -43,7 +43,7 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
     dark: <DarkModeIcon />,
   }[resolvedMode];
   return (
-    <React.Fragment>
+    <>
       <IconButton
         data-screenshot="toggle-mode"
         onClick={handleClick}
@@ -84,6 +84,6 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
           Dark
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }

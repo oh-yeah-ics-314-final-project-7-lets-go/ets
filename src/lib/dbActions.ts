@@ -1,8 +1,10 @@
 'use server';
 
-import { Stuff, Condition, Project, Event, Issue, Severity, Likelihood, Status } from '@prisma/client';
+import { getServerSession } from 'next-auth';
+import { Stuff, Condition, Project, Event, Issue, Severity, Likelihood, Status, Comment } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import authOptions from './authOptions';
 import { prisma } from './prisma';
 
 /**
@@ -15,17 +17,33 @@ export async function addProject(project: {
   totalPaidOut: number;
   progress: number;
 }) {
-  // console.log(`addProject data: ${JSON.stringify(project, null, 2)}`);
+  // Get the currently logged-in user
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  // Find the user in the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Create the project and assign the current user as creator
   await prisma.project.create({
     data: {
       name: project.name,
       originalContractAward: project.originalContractAward,
       totalPaidOut: project.totalPaidOut,
       progress: project.progress,
+      creatorId: user.id, // <-- records the logged-in user
     },
   });
-  // After adding, redirect to the list page
-  redirect('/list');
+
+  redirect('/reports');
 }
 
 /**
@@ -44,7 +62,7 @@ export async function editProject(project: Project) {
     },
   });
   // After updating, redirect to the list page
-  redirect('/list');
+  redirect('/reports');
 }
 
 /**
@@ -67,6 +85,39 @@ export async function deleteProject(id: number) {
   redirect('/projects');
 }
 
+export async function addComment(comment: {
+  authorId: number;
+  content: string;
+  projectId: number;
+}) {
+  await prisma.comment.create({
+    data: {
+      authorId: comment.authorId,
+      projectId: comment.projectId,
+      content: comment.content,
+    },
+  });
+
+  redirect(`/project/${comment.projectId}`);
+}
+
+export async function editComment(comment: Comment) {
+  await prisma.comment.update({
+    where: { id: comment.id },
+    data: {
+      content: comment.content,
+    },
+  });
+}
+
+export async function deleteComment(id: number) {
+  const cmt = await prisma.comment.delete({
+    where: { id },
+  });
+
+  redirect(`/project/${cmt.projectId}`);
+}
+
 /**
  * Adds a new event to the database
  */
@@ -79,8 +130,8 @@ export async function addEvent(event: {
   plannedEnd: Date;
 
   completed: boolean;
-  actualStart?: Date;
-  actualEnd?: Date;
+  actualStart?: Date | null;
+  actualEnd?: Date | null;
 }) {
   await prisma.event.create({
     data: {
@@ -228,51 +279,6 @@ export async function deleteIssue(id: number) {
 }
 
 /**
- * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, condition.
- */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
-  // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let condition: Condition = 'good';
-  if (stuff.condition === 'poor') {
-    condition = 'poor';
-  } else if (stuff.condition === 'excellent') {
-    condition = 'excellent';
-  } else {
-    condition = 'fair';
-  }
-  await prisma.stuff.create({
-    data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition,
-    },
-  });
-  // After adding, redirect to the list page
-  redirect('/list');
-}
-
-/**
- * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, condition.
- */
-export async function editStuff(stuff: Stuff) {
-  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  await prisma.stuff.update({
-    where: { id: stuff.id },
-    data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition: stuff.condition,
-    },
-  });
-  // After updating, redirect to the list page
-  redirect('/list');
-}
-
-/**
  * Deletes an existing stuff from the database.
  * @param id, the id of the stuff to delete.
  */
@@ -282,7 +288,7 @@ export async function deleteStuff(id: number) {
     where: { id },
   });
   // After deleting, redirect to the list page
-  redirect('/list');
+  redirect('/reports');
 }
 
 /**

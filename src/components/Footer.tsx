@@ -13,15 +13,8 @@ const Footer = () => {
         <Col className="text-center">
           <Nav className="justify-content-center">
             <Nav.Link
-              href="/profile"
-              active={pathName === '/profile'}
-              className="text-decoration-none text-secondary mx-2"
-            >
-              Profile
-            </Nav.Link>
-            <Nav.Link
-              href="/list"
-              active={pathName === '/list'}
+              href="/reports"
+              active={pathName === '/reports'}
               className="text-decoration-none text-secondary mx-2"
             >
               Report
@@ -65,7 +58,7 @@ const Footer = () => {
 
           <br />
 
-          <a href="https://github.com/oh-yeah-ics-314-final-project-7-lets-go/ets.git">
+          <a href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
             Project Homepage
           </a>
         </Col>

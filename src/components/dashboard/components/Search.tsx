@@ -11,11 +11,11 @@ export default function Search() {
         id="search"
         placeholder="Search…"
         sx={{ flexGrow: 1 }}
-        startAdornment={
+        startAdornment={(
           <InputAdornment position="start" sx={{ color: 'text.primary' }}>
             <SearchRoundedIcon fontSize="small" />
           </InputAdornment>
-        }
+        )}
         inputProps={{
           'aria-label': 'search',
         }}

@@ -2,24 +2,32 @@ import { getServerSession } from 'next-auth';
 import { Col, Container, Row, Table, Badge } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import ProjectItem from '@/components/ProjectItem';
-import { loggedInProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
+import { redirect } from 'next/navigation';
 
-/** Render a list of IV&V project reports. */
 const ListPage = async () => {
-  // Protect the page, only logged in users can access it.
+  // Get session
   const session = await getServerSession(authOptions);
-  loggedInProtectedPage(
-    session as {
-      user: { email: string; id: string; randomKey: string };
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
-    } | null,
-  );
 
+  // Redirect to login if not authenticated
+  if (!session?.user?.email) {
+    redirect('/login');
+  }
+
+  // Fetch the user record from the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Determine filter: admins see all, vendors see only their projects
   const projects = await prisma.project.findMany({
-    orderBy: {
-      updatedAt: 'desc',
-    },
+    where: user.role === 'ETS' ? {} : { creatorId: user.id },
+    orderBy: { updatedAt: 'desc' },
+    include: { creator: true }, // optional: include creator info
   });
 
   return (

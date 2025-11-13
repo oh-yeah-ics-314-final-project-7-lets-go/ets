@@ -13,7 +13,7 @@ export const AddEventSchema = Yup.object({
     .when('actualStart', {
       is: (val: any) => val != null && val !== undefined,
       then: (schema) => schema.min(Yup.ref('actualStart'), 'End date must be later than start date.'),
-      otherwise: (schema) => schema
+      otherwise: (schema) => schema,
     }),
 });
 
@@ -30,7 +30,7 @@ export const EditEventSchema = Yup.object({
     .when('actualStart', {
       is: (val: any) => val != null && val !== undefined,
       then: (schema) => schema.min(Yup.ref('actualStart'), 'End date must be later than start date.'),
-      otherwise: (schema) => schema
+      otherwise: (schema) => schema,
     }),
 });
 
@@ -53,19 +53,19 @@ export const EditIssueSchema = Yup.object({
   status: Yup.string().oneOf(['OPEN', 'CLOSED']).required(),
 });
 
-export const AddStuffSchema = Yup.object({
-  name: Yup.string().required(),
-  quantity: Yup.number().positive().required(),
-  condition: Yup.string().oneOf(['excellent', 'good', 'fair', 'poor']).required(),
-  owner: Yup.string().required(),
+export const AddCommentSchema = Yup.object({
+  authorId: Yup.number().required(),
+  content: Yup.string()
+    .required('You must enter your comment')
+    .min(10, 'Comments must be at least 10 characters long.'),
+  projectId: Yup.number().required(),
 });
 
-export const EditStuffSchema = Yup.object({
+export const EditCommentSchema = Yup.object({
   id: Yup.number().required(),
-  name: Yup.string().required(),
-  quantity: Yup.number().positive().required(),
-  condition: Yup.string().oneOf(['excellent', 'good', 'fair', 'poor']).required(),
-  owner: Yup.string().required(),
+  content: Yup.string()
+    .required('You must enter your comment')
+    .min(10, 'Comments must be at least 10 characters long.'),
 });
 
 export const AddProjectSchema = Yup.object({
