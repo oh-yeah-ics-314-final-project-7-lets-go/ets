@@ -15,6 +15,7 @@ const ProjectPage = ({
   originalContractAward,
   progress,
   totalPaidOut,
+  creatorId,
   issues,
   events,
   comments,
@@ -149,6 +150,7 @@ const ProjectPage = ({
           originalContractAward,
           progress,
           totalPaidOut,
+          creatorId,
         }}
         />
       </Col>

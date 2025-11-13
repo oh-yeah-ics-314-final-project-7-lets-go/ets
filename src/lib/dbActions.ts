@@ -1,7 +1,7 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import { Stuff, Condition, Project, Event, Issue, Severity, Likelihood, Status, Comment } from '@prisma/client';
+import { Project, Event, Issue, Severity, Likelihood, Status, Comment } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import authOptions from './authOptions';
@@ -276,19 +276,6 @@ export async function deleteIssue(id: number) {
   });
   // After deleting, redirect to the projects page
   redirect(`/project/${issue.projectId}`);
-}
-
-/**
- * Deletes an existing stuff from the database.
- * @param id, the id of the stuff to delete.
- */
-export async function deleteStuff(id: number) {
-  // console.log(`deleteStuff id: ${id}`);
-  await prisma.stuff.delete({
-    where: { id },
-  });
-  // After deleting, redirect to the list page
-  redirect('/reports');
 }
 
 /**

@@ -40,6 +40,7 @@ async function main() {
         originalContractAward: project.originalContractAward,
         totalPaidOut: project.totalPaidOut,
         progress: project.progress,
+        creatorId: 1, // Default to first user
       },
     });
 

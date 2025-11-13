@@ -118,3 +118,4 @@ model Project {
   creator               User      @relation(fields: [creatorId], references: [id])
 
 }
+
