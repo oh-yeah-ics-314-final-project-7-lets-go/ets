@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Condition } from '@prisma/client';
+import { PrismaClient, Role, Severity, Likelihood, Status } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -14,6 +14,7 @@ async function main() {
       where: { email: account.email },
       update: {},
       create: {
+        id: account.id,
         email: account.email,
         password,
         firstName: account.firstName,
@@ -23,20 +24,78 @@ async function main() {
     });
     // console.log(`  Created user: ${user.email} with role: ${user.role}`);
   });
-  for (const data of config.defaultData) {
-    const condition = data.condition as Condition || Condition.good;
-    console.log(`  Adding stuff: ${JSON.stringify(data)}`);
+
+  let issueId = 1;
+  let eventId = 1;
+  let commentId = 1;
+  for (const project of config.defaultProjects) {
+    console.log(`  Adding project, comments, issues and events: ${JSON.stringify(project)}`);
     // eslint-disable-next-line no-await-in-loop
-    await prisma.stuff.upsert({
-      where: { id: config.defaultData.indexOf(data) + 1 },
+    const prismaProj = await prisma.project.upsert({
+      where: { id: config.defaultProjects.indexOf(project) + 1 },
       update: {},
       create: {
-        name: data.name,
-        quantity: data.quantity,
-        owner: data.owner,
-        condition,
+        name: project.name,
+        firstRaised: new Date(project.firstRaised),
+        originalContractAward: project.originalContractAward,
+        totalPaidOut: project.totalPaidOut,
+        progress: project.progress,
       },
     });
+
+    for (const issue of project.issues) {
+      const severity = issue.severity as Severity;
+      const likelihood = issue.likelihood as Likelihood;
+      const status = issue.status as Status;
+
+      // eslint-disable-next-line no-await-in-loop
+      await prisma.issue.upsert({
+        where: { id: issueId++ },
+        update: {},
+        create: {
+          projectId: prismaProj.id,
+          creatorId: issue.creatorId,
+          description: issue.description,
+          remedy: issue.remedy,
+          severity,
+          likelihood,
+          firstRaised: new Date(issue.firstRaised),
+          status,
+        },
+      });
+    }
+
+    for (const event of project.schedule) {
+      // eslint-disable-next-line no-await-in-loop
+      await prisma.event.upsert({
+        where: { id: eventId++ },
+        update: {},
+        create: {
+          projectId: prismaProj.id,
+          name: event.name,
+          description: event.description,
+          completed: event.completed,
+          plannedStart: new Date(event.plannedStart),
+          plannedEnd: new Date(event.plannedEnd),
+          actualStart: event.actualStart ? new Date(event.actualStart) : undefined,
+          actualEnd: event.actualEnd ? new Date(event.actualEnd) : undefined,
+        },
+      });
+    }
+
+    for (const comment of project.comments) {
+      // eslint-disable-next-line no-await-in-loop
+      await prisma.comment.upsert({
+        where: { id: commentId++ },
+        update: {},
+        create: {
+          projectId: prismaProj.id,
+          authorId: comment.authorId,
+          content: comment.content,
+          createdAt: new Date(comment.createdAt),
+        },
+      });
+    }
   }
 }
 main()

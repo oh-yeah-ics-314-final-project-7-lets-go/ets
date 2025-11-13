@@ -1,13 +1,118 @@
 {
   "defaultAccounts": [
-    { "firstName": "Sample", "lastName": "Admin", "email": "admin@hawaii.gov", "password": "changeme", "role": "ETS" },
-    { "firstName": "Sample", "lastName": "Vendor", "email": "vendor@site.com", "password": "changeme" }
+    { "id": 1, "firstName": "Sample", "lastName": "Admin", "email": "admin@hawaii.gov", "password": "changeme", "role": "ETS" },
+    { "id": 2, "firstName": "Sample", "lastName": "Vendor", "email": "vendor@site.com", "password": "changeme" },
+    { "id": 3, "firstName": "cookie", "lastName": "man", "email": "cookie_rep@site.com", "password": "changeme" }
   ],
 
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  "defaultProjects": [
+    { 
+      "name": "Give Keiki Cookies",
+      "firstRaised": "March 23, 2025",
+      "issues": [
+        {
+          "creatorId": 3,
+          "description": "Get ingredients for cookies",
+          "remedy": "Go to Shorts Drugs and buy the ingredients",
+          "severity": "HIGH",
+          "likelihood": "MEDIUM",
+          "firstRaised": "March 24, 2025",
+          "status": "CLOSED"
+        },
+        {
+          "creatorId": 3,
+          "description": "Don't have a way to mix the ingredients together",
+          "remedy": "Buy a ShowerAid from Flooormart to blend the ingredients together",
+          "severity": "MEDIUM",
+          "likelihood": "LOW",
+          "firstRaised": "March 29, 2025",
+          "status": "CLOSED"
+        },
+        {
+          "creatorId": 3,
+          "description": "Can't bake the cookies because I don't have an oven",
+          "remedy": "Poach the cookies using a pot of boiling water",
+          "severity": "MEDIUM",
+          "likelihood": "HIGH",
+          "firstRaised": "April 2, 2025",
+          "status": "CLOSED"
+        },
+        {
+          "creatorId": 3,
+          "description": "Can't distribute the cookies",
+          "remedy": "Possibly abuse shipping service return address",
+          "severity": "LOW",
+          "likelihood": "HIGH",
+          "firstRaised": "April 9, 2025",
+          "status": "OPEN"
+        }
+      ],
+
+      "originalContractAward": 50000,
+      "totalPaidOut": 120000,
+      "progress": 67.3,
+
+      "schedule": [
+        {
+          "name": "Buy ingredients for the cookies",
+          "description": "Went to Divides instead of Shorts Drugs",
+
+          "plannedStart": "March 23, 2025",
+          "plannedEnd": "March 24, 2025",
+
+          "completed": true,
+          "actualStart": "March 25, 2025",
+          "actualEnd": "March 26, 2025"
+        },
+        {
+          "name": "Mix the ingredients together",
+          "description": "The dough became homogeneous",
+
+          "plannedStart": "March 27, 2025",
+          "plannedEnd": "March 28, 2025",
+
+          "completed": true,
+          "actualStart": "March 29, 2025",
+          "actualEnd": "April 1, 2025"
+        },
+        {
+          "name": "Bake the cookies",
+          "description": "In lieu of an oven, I used a pot of boiling water to poach the cookies instead",
+
+          "plannedStart": "April 2, 2025",
+          "plannedEnd": "April 3, 2025",
+
+          "completed": true,
+          "actualStart": "April 2, 2025",
+          "actualEnd": "April 14, 2025"
+        },
+        {
+          "name": "Distribute the cookies",
+          "description": "Get the cookies sent out to the keiki of Hawai‘i",
+
+          "plannedStart": "April 4, 2025",
+          "plannedEnd": "April 20, 2025",
+
+          "completed": false
+        }
+      ],
+      "comments": [
+        {
+          "authorId": 1,
+          "content": "Why do you need $50k to make cookies",
+          "createdAt": "March 23, 2025"
+        },
+        {
+          "authorId": 3,
+          "content": "Because I'm making a LOT of cookies",
+          "createdAt": "March 24, 2025"
+        },
+        {
+          "authorId": 1,
+          "content": "Ok sounds good. Have an extra $70k on top of that.",
+          "createdAt": "March 29, 2025"
+        }
+      ]
+    }
   ]
 }

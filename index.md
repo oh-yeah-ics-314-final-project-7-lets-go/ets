@@ -204,9 +204,6 @@ app/
   providers.tsx # Session providers.
 
   components/
-    AddStuffForm.tsx # The React Hook Form for adding stuff.
-
-    EditStuffForm.tsx # The Edit Stuff Form.
 
     Footer.tsx # The application footer.
 
