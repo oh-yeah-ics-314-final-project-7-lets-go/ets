@@ -49,22 +49,23 @@ export async function editProject(project: Project) {
 
 /**
  * Deletes an existing project from the database.
- * ALSO DELETED ASSOCIATED ISSUES AND EVENTS
+ * ALSO DELETES ASSOCIATED ISSUES AND EVENTS
  * @param id, the id of the project to delete.
  */
-// export async function deleteProject(id: number) {
-//   await prisma.project.delete({
-//     where: { id },
-//   });
-//   await prisma.event.deleteMany({
-//     where: { projectId: id },
-//   });
-//   await prisma.issue.deleteMany({
-//     where: { projectId: id },
-//   });
-//   // After deleting, redirect to the projects page
-//   redirect('/projects');
-// }
+export async function deleteProject(id: number) {
+  // Delete associated events and issues first due to foreign key constraints
+  await prisma.event.deleteMany({
+    where: { projectId: id },
+  });
+  await prisma.issue.deleteMany({
+    where: { projectId: id },
+  });
+  await prisma.project.delete({
+    where: { id },
+  });
+  // After deleting, redirect to the projects page
+  redirect('/projects');
+}
 
 /**
  * Adds a new event to the database

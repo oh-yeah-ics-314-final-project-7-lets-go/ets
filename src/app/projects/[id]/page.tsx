@@ -1,8 +1,8 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import authOptions from '@/lib/authOptions';
+import { loggedInProtectedPage } from '@/lib/page-protection';
+import { prisma } from '@/lib/prisma';
+import { notFound } from 'next/navigation';
 import EventTimeline from '@/components/EventTimeline';
 
 interface ProjectOverviewPageProps {
@@ -11,89 +11,45 @@ interface ProjectOverviewPageProps {
   };
 }
 
-const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  const [project, setProject] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
+  const session = await getServerSession(authOptions);
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; randomKey: string };
+    } | null,
+  );
 
-  const projectId = params.id;
+  const projectId = parseInt(params.id, 10);
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin');
-      return;
-    }
-
-    if (status === 'authenticated') {
-      fetchProject();
-    }
-  }, [status, projectId, router]);
-
-  const fetchProject = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/projects/${projectId}`);
-      
-      if (!response.ok) {
-        if (response.status === 404) {
-          setError('Project not found');
-        } else {
-          setError('Failed to load project');
-        }
-        return;
-      }
-
-      const projectData = await response.json();
-      setProject(projectData);
-    } catch (err) {
-      setError('Failed to load project');
-      console.error('Error fetching project:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (status === 'loading' || loading) {
-    return (
-      <div className="container py-3">
-        <div className="text-center">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <p className="mt-2">Loading project...</p>
-        </div>
-      </div>
-    );
+  if (Number.isNaN(projectId)) {
+    notFound();
   }
 
-  if (status === 'unauthenticated') {
-    return null;
-  }
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+    include: {
+      issues: {
+        orderBy: { firstRaised: 'desc' },
+      },
+      schedule: {
+        orderBy: { plannedStart: 'asc' },
+      },
+    },
+  });
 
-  if (error || !project) {
-    return (
-      <div className="container py-3">
-        <div className="text-center">
-          <h3>Project Not Found</h3>
-          <p className="text-muted">{error || 'The requested project could not be found.'}</p>
-          <button 
-            className="btn btn-primary"
-            onClick={() => router.push('/list')}
-          >
-            Back to Projects
-          </button>
-        </div>
-      </div>
-    );
+  if (!project) {
+    notFound();
   }
 
   return (
     <main>
       <div className="container py-3">
-        <h1>{project.name} - Overview</h1>
-        
+        <h1>
+          {project.name}
+          {' '}
+          - Overview
+        </h1>
+
         <div className="row mt-4">
           <div className="col">
             <div className="card">
@@ -114,9 +70,18 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
                   <tbody>
                     <tr>
                       <td><strong>{project.name}</strong></td>
-                      <td>${project.originalContractAward?.toLocaleString()}</td>
-                      <td>${project.totalPaidOut?.toLocaleString()}</td>
-                      <td>{project.progress?.toFixed(1)}%</td>
+                      <td>
+                        $
+                        {project.originalContractAward?.toLocaleString()}
+                      </td>
+                      <td>
+                        $
+                        {project.totalPaidOut?.toLocaleString()}
+                      </td>
+                      <td>
+                        {project.progress?.toFixed(1)}
+                        %
+                      </td>
                       <td>{new Date(project.updatedAt).toLocaleDateString()}</td>
                     </tr>
                   </tbody>
@@ -132,8 +97,8 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">Events Timeline</h3>
                 <div className="d-flex gap-2">
-                  <a 
-                    href={`/project/${projectId}/event/create`} 
+                  <a
+                    href={`/project/${projectId}/event/create`}
                     className="btn btn-outline-primary btn-sm"
                   >
                     Add Event
@@ -141,7 +106,11 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
                 </div>
               </div>
               <div className="card-body">
-                <EventTimeline events={project.schedule || []} issues={project.issues || []} projectId={projectId} />
+                <EventTimeline
+                  events={project.schedule || []}
+                  issues={project.issues || []}
+                  projectId={projectId.toString()}
+                />
               </div>
             </div>
           </div>
