@@ -188,7 +188,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                       <Button
                         variant="outline-dark"
                         size="lg"
-                        href="/list"
+                        href="/reports"
                       >
                         Cancel
                       </Button>

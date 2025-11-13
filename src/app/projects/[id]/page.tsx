@@ -81,7 +81,7 @@ const ProjectOverviewPage = ({ params }: ProjectOverviewPageProps) => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => router.push('/list')}
+            onClick={() => router.push('/reports')}
           >
             Back to Projects
           </button>

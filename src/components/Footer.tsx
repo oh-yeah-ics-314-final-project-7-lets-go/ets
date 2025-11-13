@@ -13,15 +13,8 @@ const Footer = () => {
         <Col className="text-center">
           <Nav className="justify-content-center">
             <Nav.Link
-              href="/profile"
-              active={pathName === '/profile'}
-              className="text-decoration-none text-secondary mx-2"
-            >
-              Profile
-            </Nav.Link>
-            <Nav.Link
-              href="/list"
-              active={pathName === '/list'}
+              href="/reports"
+              active={pathName === '/reports'}
               className="text-decoration-none text-secondary mx-2"
             >
               Report
