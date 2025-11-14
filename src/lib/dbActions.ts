@@ -1,9 +1,10 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import { Project, Event, Issue, Severity, Likelihood, Status, Comment } from '@prisma/client';
+import { Project, Event, Issue, Severity, Likelihood, Status, Comment, Role, User } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import authOptions from './authOptions';
 import { prisma } from './prisma';
 
@@ -295,6 +296,58 @@ export async function createUser(credentials: {
       password,
     },
   });
+}
+
+export async function getUserById(userId: number): Promise<User | null> {
+  return prisma.user.findUnique({
+    where: { id: userId },
+  });
+}
+
+export async function updateUser(userId: number, data: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: Role;
+}) {
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data,
+  });
+
+  // revalidate admin page if needed
+  revalidatePath('/admin');
+
+  return updatedUser; // <-- return updated user
+}
+
+const DELETED_USER_ID = 0;
+
+export async function deleteUser(userId: number) {
+  // Reassign comments
+  await prisma.comment.updateMany({
+    where: { authorId: userId },
+    data: { authorId: DELETED_USER_ID },
+  });
+
+  // Reassign issues
+  await prisma.issue.updateMany({
+    where: { creatorId: userId },
+    data: { creatorId: DELETED_USER_ID },
+  });
+
+  // Reassign projects
+  await prisma.project.updateMany({
+    where: { creatorId: userId },
+    data: { creatorId: DELETED_USER_ID },
+  });
+
+  // Now delete the user
+  await prisma.user.delete({
+    where: { id: userId },
+  });
+
+  revalidatePath('/admin');
 }
 
 /**

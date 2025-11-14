@@ -51,6 +51,7 @@ const ListPage = async () => {
                   <th>Progress</th>
                   <th>Budget Status</th>
                   <th>Last Updated</th>
+                  <th>Creator Email</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -64,7 +65,7 @@ const ListPage = async () => {
                   </tr>
                 ) : (
                   projects.map((project) => (
-                    <ProjectItem key={project.id} {...project} />
+                    <ProjectItem key={project.id} {...project} creatorEmail={project.creator.email} />
                   ))
                 )}
               </tbody>

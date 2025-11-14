@@ -1,5 +1,6 @@
 {
   "defaultAccounts": [
+    { "id": 0, "firstName": "N/A", "lastName": "N/A", "email": "deleted@system.local", "password": "deleted"},
     { "id": 1, "firstName": "Sample", "lastName": "Admin", "email": "admin@hawaii.gov", "password": "changeme", "role": "ETS" },
     { "id": 2, "firstName": "Sample", "lastName": "Vendor", "email": "vendor@site.com", "password": "changeme" },
     { "id": 3, "firstName": "cookie", "lastName": "man", "email": "cookie_rep@site.com", "password": "changeme" }
