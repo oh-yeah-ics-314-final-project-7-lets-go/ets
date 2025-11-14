@@ -5,6 +5,10 @@ import { Button, Badge, ProgressBar, Modal } from 'react-bootstrap';
 import { Project } from '@prisma/client';
 // import { deleteProject } from '@/lib/dbActions';
 
+interface ProjectItemProps extends Project {
+  creatorEmail: string;
+}
+
 const ProjectItem = ({
   id,
   name,
@@ -12,7 +16,8 @@ const ProjectItem = ({
   totalPaidOut,
   progress,
   updatedAt,
-}: Project) => {
+  creatorEmail,
+}: ProjectItemProps) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleDeleteClick = () => {
@@ -64,9 +69,7 @@ const ProjectItem = ({
   return (
     <>
       <tr style={{ cursor: 'pointer' }} onClick={() => window.location.href = `/projects/${id}`}>
-        <td>
-          <strong>{name}</strong>
-        </td>
+        <td><strong>{name}</strong></td>
         <td>{formatCurrency(originalContractAward)}</td>
         <td>{formatCurrency(totalPaidOut)}</td>
         <td>
@@ -80,27 +83,12 @@ const ProjectItem = ({
           </div>
         </td>
         <td>{getBudgetStatus()}</td>
-        <td>
-          <small className="text-muted">
-            {formatDate(updatedAt)}
-          </small>
-        </td>
+        <td><small className="text-muted">{formatDate(updatedAt)}</small></td>
+        <td>{creatorEmail}</td>
         <td onClick={(e) => e.stopPropagation()}>
           <div className="d-flex gap-2">
-            <Button
-              variant="outline-secondary"
-              size="sm"
-              href={`/edit/${id}`}
-            >
-              Edit
-            </Button>
-            <Button
-              variant="outline-danger"
-              size="sm"
-              onClick={handleDeleteClick}
-            >
-              Delete
-            </Button>
+            <Button variant="outline-secondary" size="sm" href={`/edit/${id}`}>Edit</Button>
+            <Button variant="outline-danger" size="sm" onClick={handleDeleteClick}>Delete</Button>
           </div>
         </td>
       </tr>
