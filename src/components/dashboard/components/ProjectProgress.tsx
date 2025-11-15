@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { useDrawingArea } from '@mui/x-charts/hooks';
+// import { useDrawingArea } from '@mui/x-charts/hooks';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -20,9 +20,9 @@ interface PieCenterLabelProps {
 }
 
 function PieCenterLabel({ primaryText, secondaryText }: PieCenterLabelProps) {
-  const { width, height, left, top } = useDrawingArea();
-  const primaryY = top + height / 2 - 10;
-  const secondaryY = primaryY + 24;
+  // const { width, height, left, top } = useDrawingArea();
+  // const primaryY = top + height / 2 - 10;
+  // const secondaryY = primaryY + 24;
 
   return (
     <>
@@ -79,4 +79,3 @@ export default function ProjectProgress() {
     </Card>
   );
 }
-

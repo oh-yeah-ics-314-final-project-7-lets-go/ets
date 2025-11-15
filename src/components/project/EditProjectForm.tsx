@@ -29,7 +29,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
     handleSubmit,
     reset,
     formState: { errors },
-    watch,
+    // watch,
   } = useForm<EditProjectFormData>({
     resolver: yupResolver(EditProjectSchema),
     defaultValues: {
@@ -44,7 +44,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
   // Watch values for real-time calculations
   // const watchedContractAward = watch('originalContractAward');
   // const watchedTotalPaidOut = watch('totalPaidOut');
-  const watchedProgress = watch('progress');
+  // const watchedProgress = watch('progress');
 
   // // Calculate budget utilization
   // const budgetUtilized = watchedContractAward > 0

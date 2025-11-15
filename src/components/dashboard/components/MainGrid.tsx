@@ -1,15 +1,16 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ProjectProgress from './ProjectProgress';
-import CustomizedTreeView from './CustomizedTreeView';
-import CustomizedDataGrid from './CustomizedDataGrid';
-import HighlightedCard from './HighlightedCard';
+// import CustomizedTreeView from './CustomizedTreeView';
+// import CustomizedDataGrid from './CustomizedDataGrid';
+// import HighlightedCard from './HighlightedCard';
 import IssueBarGraph from './IssueBarGraph';
-import SessionsChart from './SessionsChart';
-import StatCard, { StatCardProps } from './StatCard';
+// import SessionsChart from './SessionsChart';
+import /* StatCard, */ { StatCardProps } from './StatCard';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const data: StatCardProps[] = [
   {
     title: 'Users',
@@ -62,7 +63,7 @@ export default function MainGrid() {
           </Grid>
         ))} */}
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-            <ProjectProgress />
+          <ProjectProgress />
         </Grid>
         {/* <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
           <HighlightedCard />

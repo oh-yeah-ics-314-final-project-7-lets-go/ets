@@ -83,10 +83,11 @@ function DotIcon({ color }: { color: string }) {
 const AnimatedCollapse = animated(Collapse);
 
 function TransitionComponent(props: TransitionProps) {
+  const { in: tIn } = props;
   const style = useSpring({
     to: {
-      opacity: props.in ? 1 : 0,
-      transform: `translate3d(0,${props.in ? 0 : 20}px,0)`,
+      opacity: tIn ? 1 : 0,
+      transform: `translate3d(0,${tIn ? 0 : 20}px,0)`,
     },
   });
 
@@ -120,6 +121,11 @@ function CustomLabel({ color, expandable, children, ...other }: CustomLabelProps
     </TreeItemLabel>
   );
 }
+
+CustomLabel.defaultProps = {
+  color: undefined,
+  expandable: true,
+};
 
 interface CustomTreeItemProps
   extends Omit<UseTreeItemParameters, 'rootRef'>,

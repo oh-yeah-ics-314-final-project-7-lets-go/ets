@@ -22,12 +22,15 @@ export default function AppTheme(props: AppThemeProps) {
   const theme = React.useMemo(() => (disableCustomTheme
     ? {}
     : createTheme({
-      // For more details about CSS variables configuration, see https://mui.com/material-ui/customization/css-theme-variables/configuration/
+      // For more details about CSS variables configuration,
+      // see https://mui.com/material-ui/customization/css-theme-variables/configuration/
       cssVariables: {
         colorSchemeSelector: 'data-mui-color-scheme',
         cssVarPrefix: 'template',
       },
-      colorSchemes, // Recently added in v6 for building light & dark mode app, see https://mui.com/material-ui/customization/palette/#color-schemes
+      colorSchemes,
+      // Recently added in v6 for building light & dark mode app,
+      // see https://mui.com/material-ui/customization/palette/#color-schemes
       typography,
       shadows,
       shape,
@@ -41,7 +44,7 @@ export default function AppTheme(props: AppThemeProps) {
       },
     })), [disableCustomTheme, themeComponents]);
   if (disableCustomTheme) {
-    return <>{children}</>;
+    return children;
   }
   return (
     <ThemeProvider theme={theme} disableTransitionOnChange>
@@ -49,3 +52,8 @@ export default function AppTheme(props: AppThemeProps) {
     </ThemeProvider>
   );
 }
+
+AppTheme.defaultProps = {
+  disableCustomTheme: false,
+  themeComponents: undefined,
+};

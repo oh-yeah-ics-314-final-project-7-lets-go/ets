@@ -123,7 +123,6 @@ export default function PageViewsBarChart() {
               height: 24,
             },
           ]}
-
           yAxis={[{ width: 50 }]}
           series={[{ type: 'bar', id: 'base', data: severityCountValues }]}
           height={250}

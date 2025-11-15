@@ -20,3 +20,7 @@ export default function MenuButton({
     </Badge>
   );
 }
+
+MenuButton.defaultProps = {
+  showBadge: false,
+};

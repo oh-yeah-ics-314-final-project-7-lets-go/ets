@@ -58,3 +58,7 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
     </AppTheme>
   );
 }
+
+Dashboard.defaultProps = {
+  disableCustomTheme: false,
+};

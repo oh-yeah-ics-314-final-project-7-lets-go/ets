@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import SvgIcon from '@mui/material/SvgIcon';
 
 export function SitemarkIcon() {
