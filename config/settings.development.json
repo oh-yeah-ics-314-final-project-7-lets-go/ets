@@ -8,11 +8,13 @@
 
   "defaultProjects": [
     { 
+      "id": 1,
       "name": "Give Keiki Cookies",
       "firstRaised": "March 23, 2025",
       "creatorId": 3,
       "issues": [
         {
+          "id": 1,
           "creatorId": 3,
           "description": "Get ingredients for cookies",
           "remedy": "Go to Shorts Drugs and buy the ingredients",
@@ -22,6 +24,7 @@
           "status": "CLOSED"
         },
         {
+          "id": 2,
           "creatorId": 3,
           "description": "Don't have a way to mix the ingredients together",
           "remedy": "Buy a ShowerAid from Flooormart to blend the ingredients together",
@@ -31,6 +34,7 @@
           "status": "CLOSED"
         },
         {
+          "id": 3,
           "creatorId": 3,
           "description": "Can't bake the cookies because I don't have an oven",
           "remedy": "Poach the cookies using a pot of boiling water",
@@ -40,6 +44,7 @@
           "status": "CLOSED"
         },
         {
+          "id": 4,
           "creatorId": 3,
           "description": "Can't distribute the cookies",
           "remedy": "Possibly abuse shipping service return address",
@@ -56,6 +61,7 @@
 
       "schedule": [
         {
+          "id": 1,
           "name": "Buy ingredients for the cookies",
           "description": "Went to Divides instead of Shorts Drugs",
 
@@ -67,6 +73,7 @@
           "actualEnd": "March 26, 2025"
         },
         {
+          "id": 2,
           "name": "Mix the ingredients together",
           "description": "The dough became homogeneous",
 
@@ -78,6 +85,7 @@
           "actualEnd": "April 1, 2025"
         },
         {
+          "id": 3,
           "name": "Bake the cookies",
           "description": "In lieu of an oven, I used a pot of boiling water to poach the cookies instead",
 
@@ -89,6 +97,7 @@
           "actualEnd": "April 14, 2025"
         },
         {
+          "id": 4,
           "name": "Distribute the cookies",
           "description": "Get the cookies sent out to the keiki of Hawai‘i",
 
@@ -100,16 +109,19 @@
       ],
       "comments": [
         {
+          "id": 1,
           "authorId": 1,
           "content": "Why do you need $50k to make cookies",
           "createdAt": "March 23, 2025"
         },
         {
+          "id": 2,
           "authorId": 3,
           "content": "Because I'm making a LOT of cookies",
           "createdAt": "March 24, 2025"
         },
         {
+          "id": 3,
           "authorId": 1,
           "content": "Ok sounds good. Have an extra $70k on top of that.",
           "createdAt": "March 29, 2025"

@@ -281,21 +281,38 @@ export async function deleteIssue(id: number) {
 
 /**
  * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials, an object with the following properties: email, role.
  */
 export async function createUser(credentials: {
-  firstName: string; lastName: string; email: string; password: string
+  firstName: string; lastName: string; email: string; role: Role;
 }) {
   // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
+  const password = crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
+  const hashed = await hash(password, 10);
   await prisma.user.create({
     data: {
       firstName: credentials.firstName,
       lastName: credentials.lastName,
       email: credentials.email,
-      password,
+      role: credentials.role,
+      password: hashed,
     },
   });
+
+  return password;
+}
+
+export async function resetPassword(id: number) {
+  const password = crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
+  const hashed = await hash(password, 10);
+  await prisma.user.update({
+    where: { id },
+    data: {
+      password: hashed,
+    },
+  });
+
+  return password;
 }
 
 export async function getUserById(userId: number): Promise<User | null> {

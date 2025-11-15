@@ -11,10 +11,9 @@ async function main() {
     const role = account.role as Role || Role.VENDOR;
     console.log(`  Creating user: ${account.email} with role: ${role}`);
     await prisma.user.upsert({
-      where: { email: account.email },
+      where: { id: account.id },
       update: {},
       create: {
-        id: account.id,
         email: account.email,
         password,
         firstName: account.firstName,
@@ -25,14 +24,11 @@ async function main() {
     // console.log(`  Created user: ${user.email} with role: ${user.role}`);
   });
 
-  let issueId = 1;
-  let eventId = 1;
-  let commentId = 1;
   for (const project of config.defaultProjects) {
     console.log(`  Adding project, comments, issues and events: ${JSON.stringify(project)}`);
     // eslint-disable-next-line no-await-in-loop
     const prismaProj = await prisma.project.upsert({
-      where: { id: config.defaultProjects.indexOf(project) + 1 },
+      where: { id: project.id },
       update: {},
       create: {
         name: project.name,
@@ -51,7 +47,7 @@ async function main() {
 
       // eslint-disable-next-line no-await-in-loop
       await prisma.issue.upsert({
-        where: { id: issueId++ },
+        where: { id: issue.id },
         update: {},
         create: {
           projectId: prismaProj.id,
@@ -69,7 +65,7 @@ async function main() {
     for (const event of project.schedule) {
       // eslint-disable-next-line no-await-in-loop
       await prisma.event.upsert({
-        where: { id: eventId++ },
+        where: { id: event.id },
         update: {},
         create: {
           projectId: prismaProj.id,
@@ -87,7 +83,7 @@ async function main() {
     for (const comment of project.comments) {
       // eslint-disable-next-line no-await-in-loop
       await prisma.comment.upsert({
-        where: { id: commentId++ },
+        where: { id: comment.id },
         update: {},
         create: {
           projectId: prismaProj.id,

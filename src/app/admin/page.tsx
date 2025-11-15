@@ -1,9 +1,11 @@
 import { getServerSession } from 'next-auth';
-import { Col, Container, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import authOptions from '@/lib/authOptions';
-import { deleteUser } from '@/lib/dbActions';
+import { PersonFillAdd, PersonFillGear } from 'react-bootstrap-icons';
+import ResetPasswordForm from '@/components/admin/ResetPasswordForm';
+import DeleteUserForm from '@/components/admin/DeleteUserForm';
 
 const AdminPage = async () => {
   const session = await getServerSession(authOptions);
@@ -21,9 +23,15 @@ const AdminPage = async () => {
       <Container id="list" fluid className="py-3">
         <Row>
           <Col>
-            <h1>Admin User Control</h1>
-
-            <Table striped bordered hover>
+            <Container fluid className="d-flex align-items-center pb-3">
+              <h1>Admin User Control</h1>
+              <Button variant="success" className="ms-auto h-50" href="/auth/create">
+                <PersonFillAdd />
+                {' '}
+                Create User
+              </Button>
+            </Container>
+            <Table striped bordered hover className="mx-auto">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -41,33 +49,26 @@ const AdminPage = async () => {
                       <td>{`${user.lastName}, ${user.firstName}`}</td>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
-
                       <td>
-                        <div className="d-flex gap-1">
+                        <div className="d-flex w-auto gap-1">
                           {/* Edit button */}
                           {(session?.user?.email === user.email || user.role !== 'ETS') && (
-                            <a
+                            <Button
+                              variant="secondary"
+                              size="sm"
                               href={`/admin/edit-user/${user.id}`}
-                              className="btn btn-secondary btn-sm"
                             >
+                              <PersonFillGear />
+                              {' '}
                               Edit
-                            </a>
+                            </Button>
                           )}
+                          {user.role !== 'ETS' && <ResetPasswordForm id={user.id} />}
 
                           {/* Delete button (only non-admin users) */}
-                          {user.role !== 'ETS' && session?.user?.email !== user.email && (
-                            <form
-                              action={async () => {
-                                'use server';
-
-                                await deleteUser(user.id);
-                              }}
-                            >
-                              <button type="submit" className="btn btn-danger btn-sm">
-                                Delete
-                              </button>
-                            </form>
-                          )}
+                          {user.role !== 'ETS'
+                          && session?.user?.email !== user.email
+                          && <DeleteUserForm id={user.id} />}
                         </div>
                       </td>
                     </tr>

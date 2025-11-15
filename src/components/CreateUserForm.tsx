@@ -1,36 +1,29 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
 import { createUser } from '@/lib/dbActions';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Role } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
 
 type SignUpForm = {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
-  confirmPassword: string;
+  role: Role;
   // acceptTerms: boolean;
 };
 
-/** The sign up page. */
-const SignUp = () => {
-  const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
-    email: Yup.string().required('Email is required').email('Email is invalid'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters')
-      .max(40, 'Password must not exceed 40 characters'),
-    confirmPassword: Yup.string()
-      .required('Confirm Password is required')
-      .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match'),
-  });
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required('First name is required'),
+  lastName: Yup.string().required('Last name is required'),
+  email: Yup.string().required('Email is required').email('Email is invalid'),
+  role: Yup.string().required('Role is required').oneOf([Role.ETS, Role.VENDOR]),
+});
 
+const CreateUserForm = () => {
   const {
     register,
     handleSubmit,
@@ -40,11 +33,16 @@ const SignUp = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const router = useRouter();
   const onSubmit = async (data: SignUpForm) => {
     // console.log(JSON.stringify(data, null, 2));
-    await createUser(data);
+    const password = await createUser(data);
     // After creating, signIn with redirect to the add page
-    await signIn('credentials', { callbackUrl: '/add', ...data });
+    await swal('Success', `Please give the user the password for their account: ${password}`, 'success', {
+      timer: 2000,
+    });
+    router.push('/admin');
+    // await signIn('credentials', { callbackUrl: '/add', ...data });
   };
 
   return (
@@ -52,7 +50,7 @@ const SignUp = () => {
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Sign Up</h1>
+            <h1 className="text-center">Create User</h1>
             <Card>
               <Card.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
@@ -62,6 +60,7 @@ const SignUp = () => {
                         <Form.Label>First Name</Form.Label>
                         <input
                           type="text"
+                          placeholder="John"
                           {...register('firstName')}
                           className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
                         />
@@ -73,6 +72,7 @@ const SignUp = () => {
                         <Form.Label>Last Name</Form.Label>
                         <input
                           type="text"
+                          placeholder="Doe"
                           {...register('lastName')}
                           className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
                         />
@@ -84,38 +84,29 @@ const SignUp = () => {
                     <Form.Label>Email</Form.Label>
                     <input
                       type="text"
+                      placeholder="john.doe@example.com"
                       {...register('email')}
                       className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                     />
                     <div className="invalid-feedback">{errors.email?.message}</div>
                   </Form.Group>
-
                   <Form.Group className="form-group">
-                    <Form.Label>Password</Form.Label>
-                    <input
-                      type="password"
-                      {...register('password')}
-                      className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.password?.message}</div>
-                  </Form.Group>
-                  <Form.Group className="form-group">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <input
-                      type="password"
-                      {...register('confirmPassword')}
-                      className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
+                    <Form.Label>User Type</Form.Label>
+                    <Form.Select {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
+                      <option selected disabled>Select a role</option>
+                      <option value={Role.ETS}>ETS Employee</option>
+                      <option value={Role.VENDOR}>IV&V Vendor</option>
+                    </Form.Select>
+                    <div className="invalid-feedback">{errors.role?.message}</div>
                   </Form.Group>
                   <Form.Group className="form-group py-3">
                     <Row>
                       <Col>
                         <Button type="submit" className="btn btn-primary">
-                          Register
+                          Create account
                         </Button>
                       </Col>
-                      <Col>
+                      <Col className="d-flex">
                         <Button type="button" onClick={() => reset()} className="btn btn-warning float-right">
                           Reset
                         </Button>
@@ -124,10 +115,6 @@ const SignUp = () => {
                   </Form.Group>
                 </Form>
               </Card.Body>
-              <Card.Footer>
-                Already have an account?
-                <a href="/auth/signin">Sign in</a>
-              </Card.Footer>
             </Card>
           </Col>
         </Row>
@@ -136,4 +123,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default CreateUserForm;
