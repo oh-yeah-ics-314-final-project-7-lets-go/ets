@@ -57,7 +57,7 @@ const IssueTable = ({ issues }: IssueTableProps) => {
       <div className="col">
         <div className="card">
           <div className="card-header d-flex justify-content-between align-items-center">
-            <h6 className="mb-0">Issue Details</h6>
+            <h3 className="mb-0">Issues</h3>
             <div className="d-flex gap-2">
               <select
                 className="form-select form-select-sm"
@@ -65,8 +65,8 @@ const IssueTable = ({ issues }: IssueTableProps) => {
                 onChange={(e) => setFilter(e.target.value)}
                 style={{ width: 'auto' }}
               >
-                <option value="OPEN">Open Issues</option>
-                <option value="CLOSED">Closed Issues</option>
+                <option value="OPEN">Open</option>
+                <option value="CLOSED">Closed</option>
                 <option value="LATEST">Latest 5</option>
                 <option value="ALL_OPEN_BY_SEVERITY">All Open (by Severity)</option>
               </select>
