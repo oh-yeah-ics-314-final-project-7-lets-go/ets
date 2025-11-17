@@ -102,6 +102,12 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
                   >
                     Add Event
                   </a>
+                  <a
+                    href={`/project/${projectId}/issue/create`}
+                    className="btn btn-outline-warning btn-sm"
+                  >
+                    Add Issue
+                  </a>
                 </div>
               </div>
               <div className="card-body">
