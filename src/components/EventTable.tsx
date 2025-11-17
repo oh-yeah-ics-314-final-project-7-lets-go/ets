@@ -32,6 +32,9 @@ const EventTable = ({ events }: EventTableProps) => {
           .sort((a, b) => new Date(a.plannedEnd).getTime() - new Date(b.plannedEnd).getTime());
         break;
       }
+      case 'ALL':
+        filtered = events;
+        break;
       default:
         filtered = events.filter(event => !event.completed);
     }
@@ -64,6 +67,7 @@ const EventTable = ({ events }: EventTableProps) => {
                 <option value="COMPLETED">Completed</option>
                 <option value="LATEST">Latest 5</option>
                 <option value="MOST_URGENT">Most Urgent</option>
+                <option value="ALL">All</option>
               </select>
             </div>
           </div>
@@ -74,7 +78,12 @@ const EventTable = ({ events }: EventTableProps) => {
                   <div className="d-flex w-100 justify-content-between align-items-start">
                     <div>
                       <h6 className="mb-1">
-                        {event.name}
+                        <a
+                          href={`/project/${event.projectId}/event/${event.id}`}
+                          className="text-decoration-none text-dark"
+                        >
+                          {event.name}
+                        </a>
                         {event.completed && (
                           <span className="badge bg-success ms-2">Completed</span>
                         )}

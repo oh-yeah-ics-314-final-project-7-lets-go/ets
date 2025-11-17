@@ -172,7 +172,7 @@ export async function editEvent(event: Event) {
     },
   });
   // After updating, redirect to the projects page
-  redirect(`/project/${event.projectId}`);
+  redirect(`/projects/${event.projectId}`);
 }
 
 /**
@@ -267,7 +267,7 @@ export async function editIssue(issue: Issue) {
     },
   });
   // After updating, redirect to the projects page
-  redirect(`/project/${issue.projectId}`);
+  redirect(`/projects/${issue.projectId}`);
 }
 
 /**

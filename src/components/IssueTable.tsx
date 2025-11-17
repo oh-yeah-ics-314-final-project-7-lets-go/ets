@@ -25,6 +25,9 @@ const IssueTable = ({ issues }: IssueTableProps) => {
           .sort((a, b) => new Date(b.firstRaised).getTime() - new Date(a.firstRaised).getTime())
           .slice(0, 5);
         break;
+      case 'ALL':
+        filtered = issues;
+        break;
       case 'ALL_OPEN_BY_SEVERITY':
         filtered = issues
           .filter(issue => issue.status === 'OPEN')
@@ -69,6 +72,7 @@ const IssueTable = ({ issues }: IssueTableProps) => {
                 <option value="CLOSED">Closed</option>
                 <option value="LATEST">Latest 5</option>
                 <option value="ALL_OPEN_BY_SEVERITY">All Open (by Severity)</option>
+                <option value="ALL">All</option>
               </select>
             </div>
           </div>
@@ -91,16 +95,22 @@ const IssueTable = ({ issues }: IssueTableProps) => {
                         {issue.status === 'OPEN' && (
                           <span className="badge bg-warning ms-2">Open</span>
                         )}
+                        {/* Severity */}
+                        {issue.severity === 'LOW' && (
+                          <span className="badge bg-success ms-2">Low</span>
+                        )}
+                        {issue.severity === 'MEDIUM' && (
+                          <span className="badge bg-warning ms-2">Medium</span>
+                        )}
+                        {issue.severity === 'HIGH' && (
+                          <span className="badge bg-danger ms-2">High</span>
+                        )}
                       </h6>
                       <p className="mb-1">{issue.description}</p>
                       <small className="text-muted">
                         First Raised:
                         {' '}
                         {formatDate(issue.firstRaised)}
-                        {' '}
-                        | Status:
-                        {' '}
-                        {issue.status}
                         {' '}
                         | Last Updated:
                         {' '}

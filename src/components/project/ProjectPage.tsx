@@ -25,21 +25,13 @@ const ProjectPage = ({
   comments: CommentWithUser[];
 }) => (
   <Container>
+    <div className="d-flex justify-content-between align-items-center mb-3">
+      <Button variant="outline-secondary" href={`/projects/${id}`}>
+        ← Back to Overview
+      </Button>
+      <div style={{ width: '140px' }} />
+    </div>
     <Row>
-      <Col>
-        <h1 className="mb-0">{`About ${name} (${id})`}</h1>
-        <p>{firstRaised.toLocaleString()}</p>
-        <h2>first raised</h2>
-        <p>{firstRaised.toLocaleString()}</p>
-        <h2>last updated</h2>
-        <p>{updatedAt.toLocaleString()}</p>
-        <h2>original contract award</h2>
-        <p>{`$${originalContractAward}`}</p>
-        <h2>total paid out</h2>
-        <p>{`$${totalPaidOut}`}</p>
-        <h2>progress</h2>
-        <p>{`${progress}%`}</p>
-      </Col>
       <Col>
         <h2>Issues</h2>
         <Button variant="outline-success" href={`/project/${id}/issue/create`}>
@@ -85,8 +77,6 @@ const ProjectPage = ({
           </Card>
         ))}
       </Col>
-    </Row>
-    <Row>
       <Col>
         <h2>events</h2>
         <Button variant="outline-success" className="w-auto mb-3" href={`/project/${id}/event/create`}>
@@ -118,20 +108,20 @@ const ProjectPage = ({
               {e.plannedEnd.toDateString()}
               <br />
               {e.actualStart && (
-              <>
-                Actually starts
-                {' '}
-                {e.actualStart.toDateString()}
-                <br />
-              </>
+                <>
+                  Actually starts
+                  {' '}
+                  {e.actualStart.toDateString()}
+                  <br />
+                </>
               )}
               {e.actualEnd && (
-              <>
-                Actually ends
-                {' '}
-                {e.actualEnd.toDateString()}
-                <br />
-              </>
+                <>
+                  Actually ends
+                  {' '}
+                  {e.actualEnd.toDateString()}
+                  <br />
+                </>
               )}
             </CardFooter>
           </Card>
@@ -155,12 +145,22 @@ const ProjectPage = ({
         />
       </Col>
     </Row>
-    <div className="d-flex justify-content-between align-items-center mb-3">
-      <Button variant="outline-secondary" href={`/projects/${id}`}>
-        ← Back to Overview
-      </Button>
-      <div style={{ width: '140px' }} />
-    </div>
+    <Row>
+      <Col>
+        <h1 className="mb-0">{`About ${name} (${id})`}</h1>
+        <p>{firstRaised.toLocaleString()}</p>
+        <h2>first raised</h2>
+        <p>{firstRaised.toLocaleString()}</p>
+        <h2>last updated</h2>
+        <p>{updatedAt.toLocaleString()}</p>
+        <h2>original contract award</h2>
+        <p>{`$${originalContractAward}`}</p>
+        <h2>total paid out</h2>
+        <p>{`$${totalPaidOut}`}</p>
+        <h2>progress</h2>
+        <p>{`${progress}%`}</p>
+      </Col>
+    </Row>
   </Container>
 );
 
