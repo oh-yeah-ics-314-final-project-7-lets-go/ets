@@ -4,6 +4,8 @@ import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import EventTimeline from '@/components/EventTimeline';
+import IssueTable from '@/components/IssueTable';
+import EventTable from '@/components/EventTable';
 
 interface ProjectOverviewPageProps {
   params: {
@@ -120,6 +122,9 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
             </div>
           </div>
         </div>
+
+        <EventTable events={project.schedule || []} />
+        <IssueTable issues={project.issues || []} />
       </div>
     </main>
   );

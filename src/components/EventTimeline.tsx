@@ -494,46 +494,6 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
         </div>
       </div>
 
-      {/* Event List */}
-      <div className="row mt-4">
-        <div className="col">
-          <h6>Event Details</h6>
-          <div className="list-group">
-            {sortedEvents.map((event) => (
-              <div key={event.id} className="list-group-item">
-                <div className="d-flex w-100 justify-content-between align-items-start">
-                  <div>
-                    <h6 className="mb-1">
-                      {event.name}
-                      {event.completed && (
-                        <span className="badge bg-success ms-2">Completed</span>
-                      )}
-                    </h6>
-                    <p className="mb-1">{event.description}</p>
-                    <small className="text-muted">
-                      Planned:
-                      {' '}
-                      {formatDate(event.plannedStart)}
-                      {' '}
-                      -
-                      {' '}
-                      {formatDate(event.plannedEnd)}
-                      {event.actualStart && (
-                        <>
-                          {' '}
-                          | Actual:
-                          {formatDate(event.actualStart)}
-                          {event.actualEnd && ` - ${formatDate(event.actualEnd)}`}
-                        </>
-                      )}
-                    </small>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
