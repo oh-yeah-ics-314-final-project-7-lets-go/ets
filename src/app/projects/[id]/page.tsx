@@ -123,8 +123,8 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
           </div>
         </div>
 
-        <EventTable events={project.schedule || []} />
         <IssueTable issues={project.issues || []} />
+        <EventTable events={project.schedule || []} />
       </div>
     </main>
   );
