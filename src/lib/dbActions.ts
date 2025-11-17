@@ -225,13 +225,16 @@ export async function addIssue(issue: {
       break;
   }
 
-  let status: Status = 'CLOSED';
-  switch (issue.likelihood) {
-    case 'open':
+  let status: Status = 'OPEN';
+  switch (issue.status) {
+    case 'OPEN':
       status = 'OPEN';
       break;
-    default:
+    case 'CLOSED':
       status = 'CLOSED';
+      break;
+    default:
+      status = 'OPEN';
       break;
   }
   await prisma.issue.create({
