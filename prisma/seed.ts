@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { PrismaClient, Role, Severity, Likelihood, Status } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
@@ -6,12 +7,17 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding the database');
+
   const password = await hash('changeme', 10);
-  config.defaultAccounts.forEach(async (account) => {
-    const role = account.role as Role || Role.VENDOR;
+
+  const usersMap: Record<string, number> = {};
+
+  for (const account of config.defaultAccounts) {
+    const role = (account.role as Role) || Role.VENDOR;
     console.log(`  Creating user: ${account.email} with role: ${role}`);
-    await prisma.user.upsert({
-      where: { id: account.id },
+
+    const user = await prisma.user.upsert({
+      where: { email: account.email },
       update: {},
       create: {
         email: account.email,
@@ -21,12 +27,18 @@ async function main() {
         role,
       },
     });
-    // console.log(`  Created user: ${user.email} with role: ${user.role}`);
-  });
+
+    usersMap[account.email] = user.id;
+  }
 
   for (const project of config.defaultProjects) {
-    console.log(`  Adding project, comments, issues and events: ${JSON.stringify(project)}`);
-    // eslint-disable-next-line no-await-in-loop
+    console.log(`  Adding project: ${project.name}`);
+
+    const creatorId = usersMap[project.creatorEmail];
+    if (!creatorId) {
+      throw new Error(`Creator with email ${project.creatorEmail} does not exist`);
+    }
+
     const prismaProj = await prisma.project.upsert({
       where: { id: project.id },
       update: {},
@@ -36,7 +48,7 @@ async function main() {
         originalContractAward: project.originalContractAward,
         totalPaidOut: project.totalPaidOut,
         progress: project.progress,
-        creatorId: project.creatorId,
+        creatorId,
       },
     });
 
@@ -45,13 +57,15 @@ async function main() {
       const likelihood = issue.likelihood as Likelihood;
       const status = issue.status as Status;
 
-      // eslint-disable-next-line no-await-in-loop
+      const issueCreatorId = usersMap[issue.creatorEmail];
+      if (!issueCreatorId) throw new Error(`Issue creator ${issue.creatorEmail} does not exist`);
+
       await prisma.issue.upsert({
         where: { id: issue.id },
         update: {},
         create: {
           projectId: prismaProj.id,
-          creatorId: issue.creatorId,
+          creatorId: issueCreatorId,
           description: issue.description,
           remedy: issue.remedy,
           severity,
@@ -63,7 +77,6 @@ async function main() {
     }
 
     for (const event of project.schedule) {
-      // eslint-disable-next-line no-await-in-loop
       await prisma.event.upsert({
         where: { id: event.id },
         update: {},
@@ -81,13 +94,15 @@ async function main() {
     }
 
     for (const comment of project.comments) {
-      // eslint-disable-next-line no-await-in-loop
+      const authorId = usersMap[comment.authorEmail];
+      if (!authorId) throw new Error(`Comment author ${comment.authorEmail} does not exist`);
+
       await prisma.comment.upsert({
         where: { id: comment.id },
         update: {},
         create: {
           projectId: prismaProj.id,
-          authorId: comment.authorId,
+          authorId,
           content: comment.content,
           createdAt: new Date(comment.createdAt),
         },
