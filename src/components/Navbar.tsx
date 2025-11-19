@@ -40,10 +40,11 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-
-            <Nav.Link id="report-nav" href="/reports" active={pathName === '/reports'}>
-              Reports
-            </Nav.Link>
+            {currentUser && (
+              <Nav.Link id="report-nav" href="/reports" active={pathName === '/reports'}>
+                Report
+              </Nav.Link>
+            )}
             <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>
                 Dashboard
             </Nav.Link>

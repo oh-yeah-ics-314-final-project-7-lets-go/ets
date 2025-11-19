@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import EventTimeline from '@/components/EventTimeline';
 import IssueTable from '@/components/IssueTable';
 import EventTable from '@/components/EventTable';
+import CommentTable from '@/components/CommentTable';
 
 interface ProjectOverviewPageProps {
   params: {
@@ -35,6 +36,12 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
       },
       schedule: {
         orderBy: { plannedStart: 'asc' },
+      },
+      comments: {
+        orderBy: { updatedAt: 'desc' },
+        include: {
+          author: true,
+        },
       },
     },
   });
@@ -110,6 +117,12 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
                   >
                     Add Issue
                   </a>
+                  <a
+                    href={`/project/${projectId}/comment/create`}
+                    className="btn btn-outline-success btn-sm"
+                  >
+                    Add Comment
+                  </a>
                 </div>
               </div>
               <div className="card-body">
@@ -125,6 +138,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
 
         <IssueTable issues={project.issues || []} />
         <EventTable events={project.schedule || []} />
+        <CommentTable comments={project.comments || []} />
       </div>
     </main>
   );
