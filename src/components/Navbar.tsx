@@ -64,10 +64,6 @@ const NavBar: React.FC = () => {
             <Nav.Link id="about-nav" href="/about" active={pathName === '/about'}>
               About
             </Nav.Link>
-
-            <Nav.Link id="help-nav" href="/help" active={pathName === '/help'}>
-              Help
-            </Nav.Link>
           </Nav>
           <Nav>
             {session ? (
