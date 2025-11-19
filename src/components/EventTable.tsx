@@ -63,10 +63,10 @@ const EventTable = ({ events }: EventTableProps) => {
                 onChange={(e) => setFilter(e.target.value)}
                 style={{ width: 'auto' }}
               >
+                <option value="MOST_URGENT">Most Urgent</option>
                 <option value="UNCOMPLETED">Uncompleted</option>
                 <option value="COMPLETED">Completed</option>
                 <option value="LATEST">Latest 5</option>
-                <option value="MOST_URGENT">Most Urgent</option>
                 <option value="ALL">All</option>
               </select>
             </div>
