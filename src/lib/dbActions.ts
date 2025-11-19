@@ -99,7 +99,7 @@ export async function addComment(comment: {
     },
   });
 
-  redirect(`/project/${comment.projectId}`);
+  redirect(`/projects/${comment.projectId}`);
 }
 
 export async function editComment(comment: Comment) {
