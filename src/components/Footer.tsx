@@ -2,9 +2,15 @@
 
 import { Col, Container, Nav } from 'react-bootstrap';
 import { usePathname } from 'next/navigation';
+import { Role } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = () => {
+  const { data: session } = useSession();
+  const currentUser = session?.user?.email;
+  const userWithRole = session?.user as { firstName: string; lastName: string; email: string; randomKey: string };
+  const role = userWithRole?.randomKey as Role;
   const pathName = usePathname();
 
   return (
@@ -17,7 +23,7 @@ const Footer = () => {
               active={pathName === '/reports'}
               className="text-decoration-none text-secondary mx-2"
             >
-              Report
+              Reports
             </Nav.Link>
             <Nav.Link
               href="/add"
@@ -33,26 +39,25 @@ const Footer = () => {
             >
               Dashboard
             </Nav.Link>
-            <Nav.Link
-              href="/admin"
-              active={pathName === '/admin'}
-              className="text-decoration-none text-secondary mx-2"
-            >
-              Admin
-            </Nav.Link>
+            {currentUser && role === 'ETS' ? (
+              <Nav.Link
+                id="admin-nav"
+                href="/admin"
+                key="admin"
+                active={pathName === '/admin'}
+                className="text-decoration-none text-secondary mx-2"
+              >
+                User Management
+              </Nav.Link>
+            ) : (
+              ''
+            )}
             <Nav.Link
               href="/about"
               active={pathName === '/about'}
               className="text-decoration-none text-secondary mx-2"
             >
               About
-            </Nav.Link>
-            <Nav.Link
-              href="/help"
-              active={pathName === '/help'}
-              className="text-decoration-none text-secondary mx-2"
-            >
-              Help
             </Nav.Link>
           </Nav>
 

@@ -42,7 +42,7 @@ const NavBar: React.FC = () => {
           <Nav className="me-auto justify-content-start">
             {currentUser && (
               <Nav.Link id="report-nav" href="/reports" active={pathName === '/reports'}>
-                Report
+                Reports
               </Nav.Link>
             )}
             <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>
@@ -56,7 +56,7 @@ const NavBar: React.FC = () => {
         )}
             {currentUser && role === 'ETS' ? (
               <Nav.Link id="admin-nav" href="/admin" key="admin" active={pathName === '/admin'}>
-                Admin
+                User Management
               </Nav.Link>
             ) : (
               ''
