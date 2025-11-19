@@ -39,7 +39,9 @@ const ListPage = async () => {
               <h1>IV&V Project Reports</h1>
               <Badge bg="primary" className="fs-6">
                 {projects.length}
-                Reports
+                {' '}
+                Report
+                {projects.length === 1 ? '' : 's'}
               </Badge>
             </div>
             <Table striped bordered hover responsive>
