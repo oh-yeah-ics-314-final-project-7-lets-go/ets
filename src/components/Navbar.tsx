@@ -17,6 +17,7 @@ const NavBar: React.FC = () => {
   const pathName = usePathname();
   return (
     <Navbar
+      className="py-1"
       bg="light"
       expand="lg"
       style={{
@@ -26,11 +27,15 @@ const NavBar: React.FC = () => {
       <Container>
         <Navbar.Brand href="/" className="d-flex align-items-center">
           <Image
-            src="/HACC-with-Flag-final-1.png" // <-- just the path
-            alt="HACC Logo"
-            width={150}
-            height={60}
+            src="/ETS-logo.png"
+            alt="ETS Logo"
+            width={45}
+            height={45}
           />
+          <div className="text-center px-2 d-sm-none d-md-block">
+            <div className="fw-bold" style={{ fontSize: '0.8em' }}>State of Hawai‘i</div>
+            <div style={{ fontSize: '0.7em' }}>ETS Report Center</div>
+          </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
