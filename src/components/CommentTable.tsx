@@ -67,12 +67,17 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
                     <div className="d-flex w-100 justify-content-between align-items-start flex-column">
                       <small className="text-muted mb-1">
                         Author:
+                        {' '}
                         {comment.author ? `${comment.author.firstName} ${comment.author.lastName}` : 'Unknown'}
+                        {' '}
                         |
                         {' '}
                         Created:
+                        {' '}
                         {formatDate(comment.createdAt)}
+                        {' '}
                         | Last Updated:
+                        {' '}
                         {formatDate(comment.updatedAt)}
                       </small>
                       <p className="mb-0">

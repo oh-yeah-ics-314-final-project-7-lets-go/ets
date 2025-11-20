@@ -5,6 +5,7 @@ import { Comment, Project } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { deleteComment, editComment } from '@/lib/dbActions';
 import { Modal, Button } from 'react-bootstrap';
+import { useSession } from 'next-auth/react';
 
 interface CommentDetailViewProps {
   comment: Comment & { author: { firstName: string; lastName: string } };
@@ -14,6 +15,9 @@ interface CommentDetailViewProps {
 const CommentDetailView = ({ comment, project }: CommentDetailViewProps) => {
   const router = useRouter();
 
+  const { data } = useSession();
+  const isAuthor = (data?.user as { id?: string; })?.id === comment.authorId.toString();
+  const isETS = (data?.user as { randomKey: string; })?.randomKey === 'ETS';
   const [showConfirm, setShowConfirm] = useState(false);
 
   // INLINE EDIT FEATURE
@@ -85,7 +89,7 @@ const CommentDetailView = ({ comment, project }: CommentDetailViewProps) => {
               </h4>
 
               <div className="d-flex gap-2">
-                {!isEditing && (
+                {!isEditing && isAuthor && (
                   <button
                     type="button"
                     className="btn btn-warning btn-sm"
@@ -96,7 +100,7 @@ const CommentDetailView = ({ comment, project }: CommentDetailViewProps) => {
                   </button>
                 )}
 
-                {!isEditing && (
+                {!isEditing && (isAuthor || isETS) && (
                   <button
                     type="button"
                     className="btn btn-danger btn-sm"
