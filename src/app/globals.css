@@ -12,3 +12,40 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* Set up some CSS variables to theme the application. */
+:root {
+  --nat-navbar-bg: #17828c;
+  --nat-navbar-bg-rgb: 23, 130, 140;
+  --nat-navbar-text-color: white;
+  --nat-navbar-highlight-text: white;
+  --bs-text-secondary: white;
+}
+
+/* Change text color of footer links to white */
+footer, footer a {
+  color: var(--nat-navbar-text-color);
+  --bs-text-secondary: var(--nat-navbar-text-color);
+  text-decoration: none;
+}
+
+body {
+  --bs-light: var(--nat-navbar-bg);
+  --bs-light-rgb: var(--nat-navbar-bg-rgb);
+}
+
+body .navbar {
+  --bs-navbar-active-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-brand-color: var(--nat-navbar-text-color);
+  --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-color: var(--nat-navbar-text-color);
+  --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
+}
+
+.bg-light a.dropdown-item {
+  color: var(--nat-navbar-bg);
+}
+
+footer .nav-link {
+  color: white !important;
+}
