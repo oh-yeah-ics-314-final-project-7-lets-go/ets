@@ -1,7 +1,8 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import { Project, Event, Issue, Severity, Likelihood, Status, Comment, Role, User } from '@prisma/client';
+import { Project,
+  Event, Issue, Severity, Likelihood, Status, Comment, Role, User, ProjectStatus } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -14,9 +15,8 @@ import { prisma } from './prisma';
  */
 export async function addProject(project: {
   name: string;
+  description: string;
   originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
 }) {
   // Get the currently logged-in user
   const session = await getServerSession(authOptions);
@@ -37,14 +37,14 @@ export async function addProject(project: {
   await prisma.project.create({
     data: {
       name: project.name,
+      description: project.description,
       originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
+      status: ProjectStatus.PENDING,
       creatorId: user.id, // <-- records the logged-in user
     },
   });
 
-  redirect('/reports');
+  redirect('/projects');
 }
 
 /**
@@ -57,13 +57,12 @@ export async function editProject(project: Project) {
     where: { id: project.id },
     data: {
       name: project.name,
+      description: project.description,
       originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
     },
   });
   // After updating, redirect to the list page
-  redirect('/reports');
+  redirect(`/project/${project.id}`);
 }
 
 /**
@@ -86,6 +85,15 @@ export async function deleteProject(id: number) {
   redirect('/projects');
 }
 
+export async function changeProjectStatus(id: number, status: ProjectStatus) {
+  await prisma.project.update({
+    where: { id },
+    data: {
+      status,
+    },
+  });
+}
+
 export async function addComment(comment: {
   authorId: number;
   content: string;
@@ -99,7 +107,7 @@ export async function addComment(comment: {
     },
   });
 
-  redirect(`/projects/${comment.projectId}`);
+  redirect(`/project/${comment.projectId}`);
 }
 
 export async function editComment(comment: Comment) {

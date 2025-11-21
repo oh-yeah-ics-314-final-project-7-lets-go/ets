@@ -73,10 +73,33 @@ export const AddProjectSchema = Yup.object({
     .required('Project name is required')
     .min(3, 'Project name must be at least 3 characters')
     .max(100, 'Project name must not exceed 100 characters'),
+  description: Yup.string()
+    .required('Project description is required')
+    .min(10, 'Project description must be at least 10 characters')
+    .max(4000, 'Project description must not exceed 4000 characters'),
   originalContractAward: Yup.number()
     .required('Original contract award is required')
     .positive('Contract award must be positive')
     .max(999999999, 'Contract award is too large'),
+});
+
+export const EditProjectSchema = Yup.object({
+  id: Yup.number().required(),
+  name: Yup.string()
+    .required('Project name is required')
+    .min(3, 'Project name must be at least 3 characters')
+    .max(100, 'Project name must not exceed 100 characters'),
+  description: Yup.string()
+    .required('Project description is required')
+    .min(10, 'Project description must be at least 10 characters')
+    .max(4000, 'Project description must not exceed 4000 characters'),
+  originalContractAward: Yup.number()
+    .required('Original contract award is required')
+    .positive('Contract award must be positive')
+    .max(999999999, 'Contract award is too large'),
+});
+
+export const AddReportSchema = Yup.object({
   totalPaidOut: Yup.number()
     .required('Total paid out is required')
     .min(0, 'Total paid out cannot be negative')
@@ -87,16 +110,7 @@ export const AddProjectSchema = Yup.object({
     .max(100, 'Progress cannot exceed 100%'),
 });
 
-export const EditProjectSchema = Yup.object({
-  id: Yup.number().required(),
-  name: Yup.string()
-    .required('Project name is required')
-    .min(3, 'Project name must be at least 3 characters')
-    .max(100, 'Project name must not exceed 100 characters'),
-  originalContractAward: Yup.number()
-    .required('Original contract award is required')
-    .positive('Contract award must be positive')
-    .max(999999999, 'Contract award is too large'),
+export const EditReportSchema = Yup.object({
   totalPaidOut: Yup.number()
     .required('Total paid out is required')
     .min(0, 'Total paid out cannot be negative')

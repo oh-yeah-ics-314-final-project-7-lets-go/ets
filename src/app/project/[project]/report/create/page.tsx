@@ -1,13 +1,12 @@
-import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import AddIssueForm from '@/components/issue/AddIssueForm';
 import { prisma } from '@/lib/prisma';
 import { Project, ProjectStatus } from '@prisma/client';
+import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 
-const AddIssue = async ({ params }: { params: { project: string | string[] } }) => {
+const CreateReportPage = async ({ params }: { params: { project: string | string[]; } }) => {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
@@ -16,10 +15,10 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
     } | null,
   );
 
-  const id = Number(Array.isArray(params?.project) ? params?.project[0] : params?.project);
+  const projectId = Number(Array.isArray(params?.project) ? params?.project[0] : params?.project);
   // console.log(id);
   const project: Project | null = await prisma.project.findUnique({
-    where: { id },
+    where: { id: projectId },
   });
 
   if (!project) notFound();
@@ -27,7 +26,11 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? <AddIssueForm project={project} /> : (
+      {status === ProjectStatus.APPROVED ? (
+        <div>
+          Create report page
+        </div>
+      ) : (
         <Container fluid>
           <Card className="w-50 mx-auto mt-5">
             <CardHeader>
@@ -36,7 +39,7 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
               {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
             </CardHeader>
             <CardBody>
-              Issues cannot be created.
+              Reports cannot be created.
             </CardBody>
           </Card>
         </Container>
@@ -45,4 +48,4 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
   );
 };
 
-export default AddIssue;
+export default CreateReportPage;

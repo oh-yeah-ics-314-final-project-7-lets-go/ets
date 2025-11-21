@@ -3,18 +3,24 @@
 import { useState } from 'react';
 import { Button, Badge, ProgressBar, Modal } from 'react-bootstrap';
 import { Project } from '@prisma/client';
+import Link from 'next/link';
+import StatusTooltip from './project/StatusTooltip';
 // import { deleteProject } from '@/lib/dbActions';
 
 interface ProjectItemProps extends Project {
   creatorEmail: string;
+  report: {
+    progress: number;
+    paidUpToNow: number;
+  };
 }
 
 const ProjectItem = ({
   id,
   name,
+  status,
   originalContractAward,
-  totalPaidOut,
-  progress,
+  report,
   updatedAt,
   creatorEmail,
 }: ProjectItemProps) => {
@@ -32,6 +38,8 @@ const ProjectItem = ({
   const handleDeleteCancel = () => {
     setShowDeleteModal(false);
   };
+
+  const { paidUpToNow: totalPaidOut, progress } = report;
 
   // Calculate budget utilization
   const budgetUtilized = (totalPaidOut / originalContractAward) * 100;
@@ -68,8 +76,13 @@ const ProjectItem = ({
 
   return (
     <>
-      <tr style={{ cursor: 'pointer' }} onClick={() => window.location.href = `/projects/${id}`}>
-        <td><strong>{name}</strong></td>
+      <tr style={{ cursor: 'pointer' }}>
+        <td>
+          <StatusTooltip {...{ status }} />
+          <Link className="fw-bold text-black" href={`/project/${id}`}>
+            {name}
+          </Link>
+        </td>
         <td>{formatCurrency(originalContractAward)}</td>
         <td>{formatCurrency(totalPaidOut)}</td>
         <td>

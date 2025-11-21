@@ -12,9 +12,8 @@ import { AddProjectSchema } from '@/lib/validationSchemas';
 
 type AddProjectFormData = {
   name: string;
+  description: string;
   originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
 };
 
 const onSubmit = async (data: AddProjectFormData) => {
@@ -70,24 +69,6 @@ const AddProjectForm: React.FC = () => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Progress (%) *</Form.Label>
-                      <input
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        max="100"
-                        {...register('progress')}
-                        className={`form-control ${errors.progress ? 'is-invalid' : ''}`}
-                        placeholder="0.0"
-                      />
-                      <div className="invalid-feedback">{errors.progress?.message}</div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
                       <Form.Label>Original Contract Award ($) *</Form.Label>
                       <input
                         type="number"
@@ -103,21 +84,20 @@ const AddProjectForm: React.FC = () => {
                       </Form.Text>
                     </Form.Group>
                   </Col>
-                  <Col md={6}>
+                </Row>
+
+                <Row>
+                  <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Total Paid Out ($) *</Form.Label>
-                      <input
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        {...register('totalPaidOut')}
-                        className={`form-control ${errors.totalPaidOut ? 'is-invalid' : ''}`}
-                        placeholder="0.00"
+                      <Form.Label>Description *</Form.Label>
+                      <textarea
+                        {...register('description')}
+                        rows={5}
+                        className={`form-control ${errors.description ? 'is-invalid' : ''}`}
+                        style={{ resize: 'none' }}
+                        placeholder="Enter the description of the project"
                       />
-                      <div className="invalid-feedback">{errors.totalPaidOut?.message}</div>
-                      <Form.Text className="text-muted">
-                        Total amount paid to date in USD
-                      </Form.Text>
+                      <div className="invalid-feedback">{errors.description?.message}</div>
                     </Form.Group>
                   </Col>
                 </Row>

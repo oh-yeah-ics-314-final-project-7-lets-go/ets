@@ -1,13 +1,12 @@
-import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import AddIssueForm from '@/components/issue/AddIssueForm';
 import { prisma } from '@/lib/prisma';
-import { Project, ProjectStatus } from '@prisma/client';
+import { Project, Report, ProjectStatus } from '@prisma/client';
+import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 
-const AddIssue = async ({ params }: { params: { project: string | string[] } }) => {
+const EditReportPage = async ({ params }: { params: { project: string | string[]; report: string | string[] } }) => {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
@@ -16,18 +15,28 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
     } | null,
   );
 
-  const id = Number(Array.isArray(params?.project) ? params?.project[0] : params?.project);
+  const projectId = Number(Array.isArray(params?.project) ? params?.project[0] : params?.project);
+  const reportId = Number(Array.isArray(params?.report) ? params?.report[0] : params?.report);
   // console.log(id);
   const project: Project | null = await prisma.project.findUnique({
-    where: { id },
+    where: { id: projectId },
   });
 
-  if (!project) notFound();
+  const report: Report | null = await prisma.report.findUnique({
+    where: { id: reportId },
+  });
+
+  if (!project || !report) notFound();
   const { status } = project;
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? <AddIssueForm project={project} /> : (
+      {status === ProjectStatus.APPROVED ? (
+        <div>
+          Report
+          {report.monthCreate.toLocaleDateString()}
+        </div>
+      ) : (
         <Container fluid>
           <Card className="w-50 mx-auto mt-5">
             <CardHeader>
@@ -36,7 +45,7 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
               {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
             </CardHeader>
             <CardBody>
-              Issues cannot be created.
+              Reports cannot be edited.
             </CardBody>
           </Card>
         </Container>
@@ -45,4 +54,4 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
   );
 };
 
-export default AddIssue;
+export default EditReportPage;

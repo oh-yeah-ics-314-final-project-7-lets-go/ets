@@ -45,7 +45,7 @@ const EditUserPage = () => {
     if (updatedUser.role === 'ETS') {
       router.push('/admin'); // still an admin
     } else {
-      router.push('/reports'); // no longer an admin
+      router.push('/projects'); // no longer an admin
     }
   };
 

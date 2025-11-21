@@ -41,8 +41,8 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
             {currentUser && (
-              <Nav.Link id="report-nav" href="/reports" active={pathName === '/reports'}>
-                Reports
+              <Nav.Link id="projects-nav" href="/projects" active={pathName === '/projects'}>
+                Projects
               </Nav.Link>
             )}
             <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>

@@ -19,11 +19,11 @@ const Footer = () => {
         <Col className="text-center">
           <Nav className="justify-content-center">
             <Nav.Link
-              href="/reports"
-              active={pathName === '/reports'}
+              href="/projects"
+              active={pathName === '/projects'}
               className="text-decoration-none text-secondary mx-2"
             >
-              Reports
+              Projects
             </Nav.Link>
             <Nav.Link
               href="/add"

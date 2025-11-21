@@ -1,8 +1,10 @@
 'use client';
 
 import { Issue, Project } from '@prisma/client';
-import { useRouter } from 'next/navigation';
 import { deleteIssue } from '@/lib/dbActions';
+import Link from 'next/link';
+import { Button } from 'react-bootstrap';
+import { Pencil, Trash } from 'react-bootstrap-icons';
 
 interface IssueDetailViewProps {
   issue: Issue;
@@ -10,8 +12,6 @@ interface IssueDetailViewProps {
 }
 
 const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
-  const router = useRouter();
-
   const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -29,14 +29,6 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
 
   const handleDeleteSubmit = async () => {
     await deleteIssue(issue.id);
-  };
-
-  const handleEdit = () => {
-    router.push(`/project/${project.id}/issue/${issue.id}/edit`);
-  };
-
-  const handleBackToProject = () => {
-    router.push(`/project/${project.id}`);
   };
 
   const getStatusBadge = () => {
@@ -84,13 +76,9 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <button
-                  type="button"
-                  className="btn btn-link p-0 text-decoration-none"
-                  onClick={handleBackToProject}
-                >
+                <Link href={`/project/${project.id}`}>
                   {project.name}
-                </button>
+                </Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
                 Issue #
@@ -119,20 +107,23 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                   {getLikelihoodBadge()}
                 </div>
               </div>
-              <div className="btn-group">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={handleEdit}
-                >
-                  <i className="bi bi-pencil" />
-                  {' '}
-                  Edit
-                </button>
+              <div className="btn-group gap-1">
+                <Link href={`/project/${project.id}/issue/${issue.id}/edit`}>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    type="button"
+                  >
+                    <Pencil />
+                    {' '}
+                    Edit
+                  </Button>
+                </Link>
                 <form action={handleDeleteSubmit} className="d-inline">
-                  <button
+                  <Button
+                    variant="danger"
+                    size="sm"
                     type="submit"
-                    className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       // eslint-disable-next-line no-restricted-globals, no-alert
                       if (!confirm('Are you sure you want to delete this issue? This action cannot be undone.')) {
@@ -140,10 +131,10 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                       }
                     }}
                   >
-                    <i className="bi bi-trash" />
+                    <Trash />
                     {' '}
                     Delete
-                  </button>
+                  </Button>
                 </form>
               </div>
             </div>

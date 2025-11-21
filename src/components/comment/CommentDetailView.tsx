@@ -38,11 +38,11 @@ const CommentDetailView = ({ comment, project }: CommentDetailViewProps) => {
   const confirmDelete = async () => {
     await deleteComment(comment.id);
     setShowConfirm(false);
-    router.push(`/projects/${project.id}`);
+    router.push(`/project/${project.id}`);
   };
 
   const handleBackToProject = () => {
-    router.push(`/projects/${project.id}`);
+    router.push(`/project/${project.id}`);
   };
 
   const handleSaveEdit = async () => {
