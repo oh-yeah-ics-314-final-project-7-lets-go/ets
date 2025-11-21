@@ -3,7 +3,7 @@ import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import AddProjectForm from '@/components/project/AddProjectForm';
 
-const AddReport = async () => {
+const AddProject = async () => {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
@@ -18,4 +18,4 @@ const AddReport = async () => {
   );
 };
 
-export default AddReport;
+export default AddProject;

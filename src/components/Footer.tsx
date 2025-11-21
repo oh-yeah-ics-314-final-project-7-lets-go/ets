@@ -26,11 +26,11 @@ const Footer = () => {
               Projects
             </Nav.Link>
             <Nav.Link
-              href="/add"
-              active={pathName === '/add'}
+              href="/project/create"
+              active={pathName === '/project/create'}
               className="text-decoration-none text-secondary mx-2"
             >
-              Add Report
+              Create Project
             </Nav.Link>
             <Nav.Link
               href="/dashboard"

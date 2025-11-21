@@ -100,7 +100,7 @@ const ProjectItem = ({
         <td>{creatorEmail}</td>
         <td onClick={(e) => e.stopPropagation()}>
           <div className="d-flex gap-2">
-            <Button variant="outline-secondary" size="sm" href={`/edit/${id}`}>Edit</Button>
+            <Button variant="outline-secondary" size="sm" href={`/project/${id}/edit/`}>Edit</Button>
             <Button variant="outline-danger" size="sm" onClick={handleDeleteClick}>Delete</Button>
           </div>
         </td>

@@ -11,9 +11,8 @@ import { editProject } from '@/lib/dbActions';
 type EditProjectFormData = {
   id: number;
   name: string;
+  description: string;
   originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
 };
 
 const onSubmit = async (data: EditProjectFormData) => {
@@ -35,9 +34,8 @@ const EditProjectForm = ({ project }: { project: Project }) => {
     defaultValues: {
       id: project.id,
       name: project.name,
+      description: project.description,
       originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
     },
   });
 
@@ -90,29 +88,6 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Progress (%) *</Form.Label>
-                      <input
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        max="100"
-                        {...register('progress')}
-                        className={`form-control ${errors.progress ? 'is-invalid' : ''}`}
-                        placeholder="0.0"
-                      />
-                      <div className="invalid-feedback">{errors.progress?.message}</div>
-                      <Form.Text className="text-muted">
-                        Current:
-                        {' '}
-                        %
-                      </Form.Text>
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
                       <Form.Label>Original Contract Award ($) *</Form.Label>
                       <input
                         type="number"
@@ -124,25 +99,24 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                       />
                       <div className="invalid-feedback">{errors.originalContractAward?.message}</div>
                       <Form.Text className="text-muted">
-                        Original contract value in USD
+                        Enter the initial contract value in USD
                       </Form.Text>
                     </Form.Group>
                   </Col>
-                  <Col md={6}>
+                </Row>
+
+                <Row>
+                  <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Total Paid Out ($) *</Form.Label>
-                      <input
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        {...register('totalPaidOut')}
-                        className={`form-control ${errors.totalPaidOut ? 'is-invalid' : ''}`}
-                        placeholder="0.00"
+                      <Form.Label>Description *</Form.Label>
+                      <textarea
+                        {...register('description')}
+                        rows={5}
+                        className={`form-control ${errors.description ? 'is-invalid' : ''}`}
+                        style={{ resize: 'none' }}
+                        placeholder="Enter the description of the project"
                       />
-                      <div className="invalid-feedback">{errors.totalPaidOut?.message}</div>
-                      <Form.Text className="text-muted">
-                        Total amount paid to date
-                      </Form.Text>
+                      <div className="invalid-feedback">{errors.description?.message}</div>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -188,7 +162,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                       <Button
                         variant="outline-dark"
                         size="lg"
-                        href="/reports"
+                        href={`/project/${project.id}`}
                       >
                         Cancel
                       </Button>

@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import ProjectItem from '@/components/ProjectItem';
 import authOptions from '@/lib/authOptions';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 const ListPage = async () => {
   // Get session
@@ -73,7 +74,12 @@ const ListPage = async () => {
                   <tr>
                     <td colSpan={7} className="text-center text-muted py-4">
                       No project reports submitted yet.
-                      <a href="/add" className="text-decoration-none ms-1">Submit Report</a>
+                      <Link
+                        href="/project/create"
+                        className="text-decoration-none ms-1"
+                      >
+                        Submit Report
+                      </Link>
                     </td>
                   </tr>
                 ) : (

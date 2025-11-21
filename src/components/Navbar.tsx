@@ -50,8 +50,8 @@ const NavBar: React.FC = () => {
             </Nav.Link>
 
             {currentUser && (
-              <Nav.Link id="add-nav" href="/add" active={pathName === '/add'}>
-                Add Report
+              <Nav.Link id="add-nav" href="/project/create" active={pathName === '/project/create'}>
+                Create Project
               </Nav.Link>
         )}
             {currentUser && role === 'ETS' ? (

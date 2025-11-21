@@ -7,7 +7,7 @@ import EventTimeline from '@/components/EventTimeline';
 import IssueTable from '@/components/IssueTable';
 import EventTable from '@/components/EventTable';
 import CommentTable from '@/components/CommentTable';
-import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Row, Table } from 'react-bootstrap';
+import { Button, Card, CardBody, CardHeader, Col, Container, Row, Table } from 'react-bootstrap';
 import StatusTooltip from '@/components/project/StatusTooltip';
 import Banner from '@/components/Banner';
 import { ProjectStatus } from '@prisma/client';
