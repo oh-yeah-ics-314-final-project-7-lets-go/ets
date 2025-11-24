@@ -58,7 +58,7 @@ const NavBar: React.FC = () => {
             ) : (
               ''
             )}
-            <Nav.Link id="about-nav" href="/about" active={pathName === '/about'}>
+            <Nav.Link id="about-nav" href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
               About
             </Nav.Link>
           </Nav>
