@@ -20,9 +20,6 @@ const NavBar: React.FC = () => {
       className="py-1"
       bg="light"
       expand="lg"
-      style={{
-      backgroundColor: 'rgba(248, 249, 250, 1)',
-      }}
     >
       <Container>
         <Navbar.Brand href="/" className="d-flex align-items-center">
