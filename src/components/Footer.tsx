@@ -53,19 +53,12 @@ const Footer = () => {
               ''
             )}
             <Nav.Link
-              href="/about"
-              active={pathName === '/about'}
+              href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/"
               className="text-decoration-none text-secondary mx-2"
             >
               About
             </Nav.Link>
           </Nav>
-
-          <br />
-
-          <a href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
-            Project Homepage
-          </a>
         </Col>
       </Container>
     </footer>
