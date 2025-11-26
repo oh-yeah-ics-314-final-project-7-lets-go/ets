@@ -53,7 +53,7 @@ const SignIn = () => {
         <Row className="justify-content-center">
           <Col xs={5}>
             <h1 className="text-center">Sign In</h1>
-            <Card>
+            <Card style={{ border: '3px solid #18828C', borderRadius: '12px' }}>
               <Card.Body>
 
                 {error && (
@@ -85,18 +85,18 @@ const SignIn = () => {
                       <InputGroup.Text
                         onClick={() => setShowPassword(!showPassword)}
                         style={{
-                          backgroundColor: '#4D76A4',
-                          borderColor: '#4D76A4',
+                          backgroundColor: '#18828C',
+                          borderColor: '#18828C',
                           color: 'white',
                           cursor: 'pointer',
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = '#395878';
-                          e.currentTarget.style.borderColor = '#395878';
+                          e.currentTarget.style.backgroundColor = '#175450';
+                          e.currentTarget.style.borderColor = '#175450';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = '#4D76A4';
-                          e.currentTarget.style.borderColor = '#4D76A4';
+                          e.currentTarget.style.backgroundColor = '#18828C';
+                          e.currentTarget.style.borderColor = '#18828C';
                         }}
                       >
                         {showPassword ? <EyeSlash /> : <Eye />}
@@ -112,7 +112,7 @@ const SignIn = () => {
                           border: 'none',
                           padding: 0,
                           margin: 0,
-                          color: '#0d6efd',
+                          color: '#175450',
                           textDecoration: 'underline',
                           fontSize: '0.9rem',
                           cursor: 'pointer',
@@ -128,16 +128,16 @@ const SignIn = () => {
                     className="mt-3 w-100"
                     disabled={loading}
                     style={{
-                      backgroundColor: '#4D76A4',
-                      borderColor: '#4D76A4',
+                      backgroundColor: '#18828C',
+                      borderColor: '#18828C',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#395878';
-                      e.currentTarget.style.borderColor = '#395878';
+                      e.currentTarget.style.backgroundColor = '#175450';
+                      e.currentTarget.style.borderColor = '#175450';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#4D76A4';
-                      e.currentTarget.style.borderColor = '#4D76A4';
+                      e.currentTarget.style.backgroundColor = '#18828C';
+                      e.currentTarget.style.borderColor = '#18828C';
                     }}
                   >
                     {loading ? 'Signing In...' : 'Sign In'}
