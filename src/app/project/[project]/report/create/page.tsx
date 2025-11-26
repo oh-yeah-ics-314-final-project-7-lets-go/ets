@@ -1,10 +1,10 @@
+import AddReportForm from '@/components/report/AddReportForm';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import { Project, ProjectStatus } from '@prisma/client';
+import { Project } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 
 const CreateReportPage = async ({ params }: { params: { project: string | string[]; } }) => {
   // Protect the page, only logged in users can access it.
@@ -22,28 +22,10 @@ const CreateReportPage = async ({ params }: { params: { project: string | string
   });
 
   if (!project) notFound();
-  const { status } = project;
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? (
-        <div>
-          Create report page
-        </div>
-      ) : (
-        <Container fluid>
-          <Card className="w-50 mx-auto mt-5">
-            <CardHeader>
-              This project is currently
-              {' '}
-              {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
-            </CardHeader>
-            <CardBody>
-              Reports cannot be created.
-            </CardBody>
-          </Card>
-        </Container>
-      )}
+      <AddReportForm projectId={project.id} />
     </main>
   );
 };

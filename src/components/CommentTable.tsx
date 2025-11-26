@@ -3,8 +3,10 @@
 import { Comment } from '@prisma/client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { Button } from 'react-bootstrap';
 
 interface CommentTableProps {
+  projectId: string;
   comments: (Comment & {
     author: {
       firstName: string;
@@ -13,7 +15,7 @@ interface CommentTableProps {
   })[];
 }
 
-const CommentTable = ({ comments = [] }: CommentTableProps) => {
+const CommentTable = ({ projectId, comments = [] }: CommentTableProps) => {
   const [filter, setFilter] = useState<string>('LATEST');
 
   const getFilteredComments = () => {
@@ -45,9 +47,9 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
     <div className="row mt-4">
       <div className="col">
         <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
+          <div className="card-header d-flex gap-2 align-items-center">
             <h3 className="mb-0">Comments</h3>
-            <div className="d-flex gap-2">
+            <div className="ms-auto d-flex gap-2">
               <select
                 className="form-select form-select-sm"
                 value={filter}
@@ -58,6 +60,13 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
                 <option value="ALL">Show All</option>
               </select>
             </div>
+            <Button
+              variant="outline-primary"
+              size="sm"
+              href={`/project/${projectId}/comment/create`}
+            >
+              Add Comment
+            </Button>
           </div>
           <div className="card-body">
             <div className="list-group">

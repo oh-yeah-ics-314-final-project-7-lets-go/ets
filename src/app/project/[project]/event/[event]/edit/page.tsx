@@ -2,10 +2,9 @@ import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import { Event, Project, ProjectStatus } from '@prisma/client';
+import { Event, Project } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import EditEventForm from '@/components/event/EditEventForm';
-import { Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 
 const EditEvent = async ({ params }: { params: { project: string | string[]; event: string | string[] } }) => {
   // Protect the page, only logged in users can access it.
@@ -28,24 +27,10 @@ const EditEvent = async ({ params }: { params: { project: string | string[]; eve
   });
 
   if (!project || !event) notFound();
-  const { status } = project;
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? <EditEventForm project={project} event={event} /> : (
-        <Container fluid>
-          <Card className="w-50 mx-auto mt-5">
-            <CardHeader>
-              This project is currently
-              {' '}
-              {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
-            </CardHeader>
-            <CardBody>
-              Events cannot be edited.
-            </CardBody>
-          </Card>
-        </Container>
-      )}
+      <EditEventForm project={project} event={event} />
     </main>
   );
 };

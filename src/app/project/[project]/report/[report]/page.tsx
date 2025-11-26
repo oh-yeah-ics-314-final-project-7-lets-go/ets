@@ -1,9 +1,15 @@
+import Banner from '@/components/Banner';
+import ApproveReportBtn from '@/components/report/ApproveReportBtn';
+import DenyReportBtn from '@/components/report/DenyReportBtn';
+import PendingReportBtn from '@/components/report/PendingReportBtn';
+import ReportPage from '@/components/report/ReportPage';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import { Project, Report } from '@prisma/client';
+import { Project, ProjectStatus, Report } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
+import { Container } from 'react-bootstrap';
 
 const EditReportPage = async ({ params }: { params: { project: string | string[]; report: string | string[] } }) => {
   // Protect the page, only logged in users can access it.
@@ -27,9 +33,58 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
 
   if (!project || !report) notFound();
 
+  let statusBanner = null;
+  const userId = parseInt((session?.user as { id: string; }).id ?? '0', 10) ?? 0;
+
+  const isApproved = report.status === ProjectStatus.APPROVED;
+  const isETS = (session?.user as { randomKey: string; }).randomKey === 'ETS';
+
+  if (report.status === ProjectStatus.PENDING) {
+    if (isETS) {
+      statusBanner = (
+        <Banner className="mt-3" variant="warning" dismissible={false}>
+          This report is being revised and is pending approval.
+          <br />
+          <ApproveReportBtn report={report} author={userId} id={report.id} />
+          <DenyReportBtn report={report} author={userId} id={report.id} />
+        </Banner>
+      );
+    } else {
+      statusBanner = (
+        <Banner className="mt-3" variant="warning">
+          This project is in a provisional state
+        </Banner>
+      );
+    }
+  } else if (report.status === ProjectStatus.DENIED) {
+    if (isETS) {
+      statusBanner = (
+        <Banner className="mt-3" variant="danger">
+          This project was rejected.
+          <br />
+          <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
+        </Banner>
+      );
+    } else {
+      statusBanner = (
+        <Banner className="mt-3" variant="danger">
+          This project was rejected. Please see the comments for more information.
+          <br />
+          <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
+        </Banner>
+      );
+    }
+  }
+
   return (
     <main>
-      report view page
+      {statusBanner}
+      <ReportPage report={report} project={project} />
+      {isETS && isApproved && (
+        <Container className="text-center mt-3">
+          <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
+        </Container>
+      )}
     </main>
   );
 };

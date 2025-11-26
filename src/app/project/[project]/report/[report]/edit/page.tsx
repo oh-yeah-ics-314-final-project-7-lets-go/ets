@@ -1,3 +1,4 @@
+import EditReportForm from '@/components/report/EditReportForm';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
@@ -31,18 +32,13 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? (
-        <div>
-          Report
-          {report.monthCreate.toLocaleDateString()}
-        </div>
+      {status !== ProjectStatus.APPROVED ? (
+        <EditReportForm project={project} report={report} />
       ) : (
         <Container fluid>
           <Card className="w-50 mx-auto mt-5">
             <CardHeader>
-              This project is currently
-              {' '}
-              {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
+              This project is currently approved
             </CardHeader>
             <CardBody>
               Reports cannot be edited.

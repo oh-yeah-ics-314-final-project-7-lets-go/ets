@@ -121,9 +121,11 @@
       "reports": [
         {
           "id": 1,
-          "monthCreate": "April 30, 2025",
+          "yearCreate": 2025,
+          "monthCreate": "APRIL",
           "updatedAt": "May 5, 2025",
           "creatorEmail": "vendor@site.com",
+          "status": "APPROVED",
 
           "paidUpToNow": 120000,
           "progress": 67.3

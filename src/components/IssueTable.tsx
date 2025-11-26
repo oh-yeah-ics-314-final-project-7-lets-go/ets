@@ -2,12 +2,15 @@
 
 import { Issue, Severity } from '@prisma/client';
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 interface IssueTableProps {
+  projectId: string;
+  isApproved: boolean;
   issues: Issue[];
 }
 
-const IssueTable = ({ issues }: IssueTableProps) => {
+const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
   const [filter, setFilter] = useState<string>('OPEN');
 
   const getFilteredIssues = () => {
@@ -56,9 +59,9 @@ const IssueTable = ({ issues }: IssueTableProps) => {
     <div className="row mt-4">
       <div className="col">
         <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
+          <div className="card-header d-flex gap-2 align-items-center">
             <h3 className="mb-0">Issues</h3>
-            <div className="d-flex gap-2">
+            <div className="ms-auto d-flex gap-2">
               <select
                 className="form-select form-select-sm"
                 value={filter}
@@ -71,6 +74,15 @@ const IssueTable = ({ issues }: IssueTableProps) => {
                 <option value="ALL_OPEN_BY_SEVERITY">All Open (by Severity)</option>
               </select>
             </div>
+            {!isApproved && (
+            <Button
+              variant="outline-primary"
+              size="sm"
+              href={`/project/${projectId}/issue/create`}
+            >
+              Add Issue
+            </Button>
+            )}
           </div>
           <div className="card-body">
             <div className="list-group">

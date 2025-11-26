@@ -121,14 +121,31 @@ model Project {
   comments    Comment[]
 
   issues      Issue[]
-  schedule                Event[]
+  schedule    Event[]
+}
+
+enum Month {
+  JANUARY
+  FEBRUARY
+  MARCH
+  APRIL
+  MAY
+  JUNE
+  JULY
+  AUGUST
+  SEPTEMBER
+  OCTOBER
+  NOVEMBER
+  DECEMBER
 }
 
 model Report {
   id          Int     @id @default(autoincrement())
 
-  monthCreate DateTime    @default(now())
+  yearCreate  Int
+  monthCreate Month
   updatedAt   DateTime    @updatedAt
+  status      ProjectStatus
 
   paidUpToNow             Float
   progress                Float

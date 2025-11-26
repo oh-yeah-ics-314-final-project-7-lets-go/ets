@@ -2,7 +2,9 @@
 
 import { getServerSession } from 'next-auth';
 import { Project,
-  Event, Issue, Severity, Likelihood, Status, Comment, Role, User, ProjectStatus } from '@prisma/client';
+  Event, Issue, Severity, Likelihood, Status, Comment, Role, User, ProjectStatus,
+  Month,
+} from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -92,6 +94,131 @@ export async function changeProjectStatus(id: number, status: ProjectStatus) {
       status,
     },
   });
+
+  redirect(`/project/${id}`);
+}
+
+/**
+ * Adds a new project to the database for IV&V reporting.
+ * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
+ */
+export async function addReport(report: {
+  yearCreate: number,
+  monthCreate: Month,
+  paidUpToNow: number,
+  progress: number,
+  projectId: number,
+}) {
+  // Get the currently logged-in user
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  // Find the user in the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const project = await prisma.project.findUnique({
+    where: { id: report.projectId },
+  });
+
+  if (!project) {
+    throw new Error('Project not found');
+  }
+
+  // Create the project and assign the current user as creator
+  await prisma.report.create({
+    data: {
+      ...report,
+      status: ProjectStatus.PENDING,
+      creatorId: user.id, // <-- records the logged-in user
+    },
+  });
+
+  redirect(`/project/${report.projectId}/`);
+}
+
+export async function editReport(report: {
+  id: number,
+  yearCreate: number,
+  monthCreate: Month,
+  paidUpToNow: number,
+  progress: number,
+}) {
+  // Get the currently logged-in user
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  // Find the user in the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Create the project and assign the current user as creator
+  const updReport = await prisma.report.update({
+    where: { id: report.id },
+    data: {
+      ...report,
+    },
+  });
+
+  redirect(`/project/${updReport.projectId}/`);
+}
+
+export async function changeReportStatus(id: number, status: ProjectStatus) {
+  const report = await prisma.report.update({
+    where: { id },
+    data: {
+      status,
+    },
+  });
+
+  redirect(`/project/${report.projectId}/report/${id}`);
+}
+
+export async function deleteReport(id: number) {
+  const report = await prisma.report.delete({
+    where: { id },
+  });
+  // After deleting, redirect to the projects page
+  redirect(`/project/${report.projectId}`);
+}
+
+/**
+ * Use the report and check to see if:
+ * - Editing: compare IDs, make sure the one provided is the same.
+ * - Creating: check if a report for the same year and month already exists, reject.
+ * @param report
+ * @returns the report (if it exists)
+ */
+export async function reportAlreadyExists(report: {
+  yearCreate: number,
+  monthCreate: Month,
+  paidUpToNow: number,
+  progress: number,
+  projectId: number,
+}) {
+  const checkForReport = await prisma.report.findFirst({
+    where: {
+      yearCreate: report.yearCreate,
+      monthCreate: report.monthCreate,
+      projectId: report.projectId,
+    },
+  });
+
+  return checkForReport;
 }
 
 export async function addComment(comment: {
@@ -106,8 +233,6 @@ export async function addComment(comment: {
       content: comment.content,
     },
   });
-
-  redirect(`/project/${comment.projectId}`);
 }
 
 export async function editComment(comment: Comment) {

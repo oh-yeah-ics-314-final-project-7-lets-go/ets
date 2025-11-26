@@ -1,3 +1,4 @@
+import { Month } from '@prisma/client';
 import * as Yup from 'yup';
 
 export const AddEventSchema = Yup.object({
@@ -100,23 +101,65 @@ export const EditProjectSchema = Yup.object({
 });
 
 export const AddReportSchema = Yup.object({
-  totalPaidOut: Yup.number()
-    .required('Total paid out is required')
-    .min(0, 'Total paid out cannot be negative')
-    .max(999999999, 'Total paid out is too large'),
+  yearCreate: Yup.number()
+    .required('Year is required')
+    .integer('Years can\'t be decimals')
+    .min(1900, 'Year must be from 1900'),
+  monthCreate: Yup.string<Month>()
+    .required('Month is required')
+    .oneOf([
+      'JANUARY',
+      'FEBRUARY',
+      'MARCH',
+      'APRIL',
+      'MAY',
+      'JUNE',
+      'JULY',
+      'AUGUST',
+      'SEPTEMBER',
+      'OCTOBER',
+      'NOVEMBER',
+      'DECEMBER',
+    ], 'Please choose one of the 12 months.'),
+  paidUpToNow: Yup.number()
+    .required('Enter total paid up to now.')
+    .min(0, 'Total paid must be positive'),
   progress: Yup.number()
-    .required('Progress is required')
-    .min(0, 'Progress cannot be negative')
-    .max(100, 'Progress cannot exceed 100%'),
+    .required('Enter total progress made up to now')
+    .min(0, 'Percentage must be 0-100')
+    .max(100, 'Percentage must be 0-100'),
+  projectId: Yup.number()
+    .required('Project ID not given'),
 });
 
 export const EditReportSchema = Yup.object({
-  totalPaidOut: Yup.number()
-    .required('Total paid out is required')
-    .min(0, 'Total paid out cannot be negative')
-    .max(999999999, 'Total paid out is too large'),
+  id: Yup.number()
+    .required('Report ID not given'),
+  yearCreate: Yup.number()
+    .required('Year is required')
+    .integer('Years can\'t be decimals')
+    .min(1900, 'Year must be from 1900'),
+  monthCreate: Yup.string<Month>()
+    .required('Month is required')
+    .oneOf([
+      'JANUARY',
+      'FEBRUARY',
+      'MARCH',
+      'APRIL',
+      'MAY',
+      'JUNE',
+      'JULY',
+      'AUGUST',
+      'SEPTEMBER',
+      'OCTOBER',
+      'NOVEMBER',
+      'DECEMBER',
+    ], 'Please choose one of the 12 months.'),
+  paidUpToNow: Yup.number()
+    .required('Enter total paid up to now.')
+    .min(0, 'Total paid must be positive'),
   progress: Yup.number()
-    .required('Progress is required')
-    .min(0, 'Progress cannot be negative')
-    .max(100, 'Progress cannot exceed 100%'),
+    .required('Enter total progress made up to now')
+    .min(0, 'Percentage must be 0-100')
+    .max(100, 'Percentage must be 0-100'),
 });

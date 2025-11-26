@@ -4,7 +4,7 @@ import { Event, Issue, Project } from '@prisma/client';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import ProjectPage from '@/components/project/ProjectPage';
+import ProjectPage from '@/components/project/Test_ProjectPage';
 
 export default async function ViewProjectPage({ params }: { params: { project: string | string[] } }) {
   // Protect the page, only logged in users can access it.

@@ -2,12 +2,15 @@
 
 import { Event } from '@prisma/client';
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 interface EventTableProps {
+  projectId: string;
+  isApproved: boolean;
   events: Event[];
 }
 
-const EventTable = ({ events }: EventTableProps) => {
+const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
   const [filter, setFilter] = useState<string>('MOST_URGENT');
 
   const getFilteredEvents = () => {
@@ -51,9 +54,9 @@ const EventTable = ({ events }: EventTableProps) => {
     <div className="row mt-4">
       <div className="col">
         <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
+          <div className="card-header d-flex gap-2 align-items-center">
             <h3 className="mb-0">Events</h3>
-            <div className="d-flex gap-2">
+            <div className="ms-auto d-flex gap-2">
               <select
                 className="form-select form-select-sm"
                 value={filter}
@@ -66,6 +69,15 @@ const EventTable = ({ events }: EventTableProps) => {
                 <option value="MOST_URGENT">Most Urgent</option>
               </select>
             </div>
+            {!isApproved && (
+            <Button
+              variant="outline-primary"
+              size="sm"
+              href={`/project/${projectId}/event/create`}
+            >
+              Add Event
+            </Button>
+            )}
           </div>
           <div className="card-body">
             <div className="list-group">
