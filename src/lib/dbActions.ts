@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { Project,
   Event, Issue, Severity, Likelihood, Status, Comment, Role, User, ProjectStatus,
   Month,
+  Report,
 } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
@@ -96,6 +97,68 @@ export async function changeProjectStatus(id: number, status: ProjectStatus) {
   });
 
   redirect(`/project/${id}`);
+}
+
+const monthOrder: Record<Month, number> = {
+  JANUARY: 1,
+  FEBRUARY: 2,
+  MARCH: 3,
+  APRIL: 4,
+  MAY: 5,
+  JUNE: 6,
+  JULY: 7,
+  AUGUST: 8,
+  SEPTEMBER: 9,
+  OCTOBER: 10,
+  NOVEMBER: 11,
+  DECEMBER: 12,
+} as const;
+
+export type ProjectWithReports = Project & { reports: Report[]; };
+
+export async function findReports(query: {
+  term: string;
+  fromDate?: Date;
+  endDate?: Date;
+}) {
+  if (query.term.length < 3) return undefined;
+
+  const { fromDate = new Date(0), endDate = new Date() } = query;
+
+  const projects: ProjectWithReports[] = await prisma.project.findMany({
+    where: { name: { contains: query.term, mode: 'insensitive' } },
+    orderBy: {
+      id: 'desc',
+    },
+    include: {
+      reports: {
+        where: {
+          OR: [
+            {
+              yearCreate: {
+                lte: endDate.getUTCFullYear(),
+                gte: fromDate.getUTCFullYear(),
+              },
+            },
+            {
+              monthCreate: {
+                in: (Object.keys(monthOrder) as Month[]).filter(
+                  m => fromDate.getUTCMonth() + 1 <= monthOrder[m]
+                  && monthOrder[m] <= endDate.getUTCMonth() + 1,
+                ),
+              },
+            },
+          ],
+        },
+        orderBy: [
+          { yearCreate: 'desc' },
+          { monthCreate: 'desc' },
+        ],
+      },
+    },
+  });
+
+  return projects;
 }
 
 /**

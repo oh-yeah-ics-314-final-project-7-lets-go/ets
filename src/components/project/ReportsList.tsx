@@ -12,8 +12,8 @@ interface ReportsListProps {
 }
 
 const Status = ({ status }: { status: ProjectStatus }) => {
-  if (status === 'APPROVED') return <span className="text-success fw-bold fst-italic">Approved</span>;
-  if (status === 'PENDING') return <span className="text-secondary fst-italic">Pending</span>;
+  if (status === ProjectStatus.APPROVED) return <span className="text-success fw-bold fst-italic">Approved</span>;
+  if (status === ProjectStatus.PENDING) return <span className="text-secondary fst-italic">Pending</span>;
   return <span className="text-danger fw-bold fst-italic">Denied</span>;
 };
 
