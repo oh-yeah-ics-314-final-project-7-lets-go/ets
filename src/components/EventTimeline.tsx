@@ -120,6 +120,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const eventLevels = getEventLevels();
   const maxLevel = eventLevels.length > 0 ? Math.max(...eventLevels.map(el => el.level)) : 0;
   const centerLevel = maxLevel / 2;
+  const baseTableheight = 300;
 
   // Always position Today at the center of the timeline container
   const todayPosition = 50; // Always at 50% (center)
@@ -167,7 +168,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
         ref={timelineRef}
         className="position-relative"
         style={{
-          minHeight: `${200 + (maxLevel * 40)}px`,
+          minHeight: `${baseTableheight + (maxLevel * 40)}px`,
           marginBottom: '20px',
           overflowX: 'auto',
           overflowY: 'visible',
@@ -188,7 +189,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
           <div
             style={{
               position: 'absolute',
-              top: `${90 + (centerLevel * 40)}px`,
+              top: `${(baseTableheight / 2) + (centerLevel * 40)}px`,
               left: '20px',
               right: '20px',
               height: '2px',
@@ -252,7 +253,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                 style={{
                   position: 'absolute',
                   left: `${position}%`,
-                  top: `${170 + (maxLevel * 40)}px`,
+                  top: `${(baseTableheight / 2) + (maxLevel * 40)}px`,
                   transform: 'translateX(-50%)',
                   zIndex: 0,
                 }}
@@ -280,7 +281,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
               .getTime() - new Date(event.plannedStart)
               .getTime()) / (1000 * 60 * 60 * 24);
 
-            const eventTop = 90 + (level * 40);
+            const eventTop = (baseTableheight / 2) + (level * 40);
             const dotTop = eventTop - 9;
 
             // For events shorter than 5 days OR events that ended 2+ months ago, show single dot
