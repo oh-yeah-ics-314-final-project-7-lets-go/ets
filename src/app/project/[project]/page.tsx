@@ -190,12 +190,6 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
                   >
                     Add Issue
                   </a>
-                  <a
-                    href={`/project/${projectId}/comment/create`}
-                    className="btn btn-outline-success btn-sm"
-                  >
-                    Add Comment
-                  </a>
                 </div>
                 )}
               </CardHeader>
