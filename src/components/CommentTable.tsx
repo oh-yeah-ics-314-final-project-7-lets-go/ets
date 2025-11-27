@@ -17,7 +17,7 @@ interface CommentTableProps {
   })[];
 }
 
-const CommentTable = ({ comments = [] }: CommentTableProps) => {
+const CommentTable = ({ projectId, comments = [] }: CommentTableProps) => {
   const router = useRouter();
   const { data } = useSession();
 
@@ -132,15 +132,19 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
                         <div className="flex-grow-1 pe-3">
                           <small className="text-muted">
                             Author:
+                            {' '}
                             {comment.author.firstName}
+                            {' '}
                             {comment.author.lastName}
+                            {' '}
                             | Created:
                             {' '}
                             {formatDate(comment.createdAt)}
+                            {' '}
                             | Updated:
+                            {' '}
                             {formatDate(comment.updatedAt)}
                           </small>
-
                           {editingId === comment.id ? (
                             <>
                               <textarea
