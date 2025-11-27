@@ -65,17 +65,7 @@ const SignOut = () => {
             <Col>
               <Button
                 className="w-100"
-                style={{
-                  backgroundColor: '#18828C',
-                  borderColor: '#18828C',
-                  transition: 'background-color 0.3s',
-                }}
-                onMouseOver={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#175450';
-                }}
-                onMouseOut={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#18828C';
-                }}
+                variant="primary"
                 onClick={() => signOut({ callbackUrl: '/', redirect: true })}
               >
                 Sign Out
@@ -87,15 +77,15 @@ const SignOut = () => {
                 className="w-100"
                 href="/"
                 style={{
-                  backgroundColor: '#4e4848ff',
-                  borderColor: '#4e4848ff',
+                  backgroundColor: '#4e4848',
+                  borderColor: '#4e4848',
                   transition: 'background-color 0.3s',
                 }}
                 onMouseOver={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#444';
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#444444';
                 }}
                 onMouseOut={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#4e4848ff';
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#4e4848';
                 }}
               >
                 Cancel

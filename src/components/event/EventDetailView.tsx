@@ -67,7 +67,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
               <ButtonGroup className="gap-1">
                 <Link href={`/project/${project.id}/event/${event.id}/edit`}>
                   <Button
-                    variant="primary"
+                    variant="warning"
                     size="sm"
                     type="button"
                   >

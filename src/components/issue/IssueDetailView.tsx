@@ -109,7 +109,7 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
               <ButtonGroup className="gap-1">
                 <Link href={`/project/${project.id}/issue/${issue.id}/edit`}>
                   <Button
-                    variant="primary"
+                    variant="warning"
                     size="sm"
                     type="button"
                   >
