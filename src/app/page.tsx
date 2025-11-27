@@ -42,8 +42,8 @@ const Home = () => (
                     color: 'white',
                     transition: 'background-color 0.2s ease',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3b5d82')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4D76A4')}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#175450')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#18828C')}
                 >
                   <Search size={18} />
                 </button>
