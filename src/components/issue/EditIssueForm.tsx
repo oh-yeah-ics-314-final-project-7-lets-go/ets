@@ -11,6 +11,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import { EditIssueSchema } from '@/lib/validationSchemas';
 import { Issue, Likelihood, Project, Severity, Status } from '@prisma/client';
 import { InferType } from 'yup';
+import Link from 'next/link';
 
 type EditIssueFormData = InferType<typeof EditIssueSchema>;
 
@@ -46,12 +47,17 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
         <Col xs={8}>
           <Col className="text-center">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <a
+              <Link
                 href={`/project/${project.id}`}
-                className="btn btn-outline-secondary"
+
               >
-                ← Back to Overview
-              </a>
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                >
+                  ← Back to Overview
+                </Button>
+              </Link>
               <div>
                 <h2 className="mb-0">Edit Issue</h2>
                 <p className="text-muted mb-0">
@@ -147,7 +153,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <Button type="submit" variant="primary">
                         Submit Issue
                       </Button>
                     </Col>
@@ -156,7 +162,6 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                         type="button"
                         onClick={() => reset()}
                         variant="outline-secondary"
-                        size="lg"
                         className="float-end"
                       >
                         Reset Form

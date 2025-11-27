@@ -56,8 +56,8 @@ const ListPage = async () => {
                 {projects.length === 1 ? '' : 's'}
               </Badge>
             </div>
-            <Table striped bordered hover responsive>
-              <thead className="table-dark">
+            <Table striped bordered hover responsive variant="dark">
+              <thead>
                 <tr>
                   <th>Project Name</th>
                   <th>Contract Award</th>

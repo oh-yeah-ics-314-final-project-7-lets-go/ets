@@ -3,8 +3,11 @@
 import { Issue, Project } from '@prisma/client';
 import { deleteIssue } from '@/lib/dbActions';
 import Link from 'next/link';
-import { Button } from 'react-bootstrap';
-import { Pencil, Trash } from 'react-bootstrap-icons';
+import {
+  Alert,
+  Breadcrumb,
+  BreadcrumbItem, Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Row } from 'react-bootstrap';
+import { CheckCircle, Pencil, Trash } from 'react-bootstrap-icons';
 
 interface IssueDetailViewProps {
   issue: Issue;
@@ -69,31 +72,27 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
   };
 
   return (
-    <div className="container mt-4">
+    <Container className="mt-4">
       {/* Header */}
-      <div className="row mb-4">
-        <div className="col">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <Link href={`/project/${project.id}`}>
-                  {project.name}
-                </Link>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                Issue #
-                {issue.id}
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
+      <Row className="mb-4">
+        <Col>
+          <Breadcrumb>
+            <BreadcrumbItem href={`/project/${project.id}`}>
+              {project.name}
+            </BreadcrumbItem>
+            <BreadcrumbItem active aria-current="page">
+              Issue #
+              {issue.id}
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </Col>
+      </Row>
 
       {/* Issue Details Card */}
-      <div className="row">
-        <div className="col-lg-8">
-          <div className="card">
-            <div className="card-header d-flex justify-content-between align-items-center">
+      <Row>
+        <Col lg={8}>
+          <Card>
+            <CardHeader className="d-flex justify-content-between align-items-center">
               <div>
                 <h4 className="mb-0">
                   Issue #
@@ -107,7 +106,7 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                   {getLikelihoodBadge()}
                 </div>
               </div>
-              <div className="btn-group gap-1">
+              <ButtonGroup className="gap-1">
                 <Link href={`/project/${project.id}/issue/${issue.id}/edit`}>
                   <Button
                     variant="primary"
@@ -136,37 +135,37 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                     Delete
                   </Button>
                 </form>
-              </div>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col-md-12 mb-4">
+              </ButtonGroup>
+            </CardHeader>
+            <CardBody>
+              <Row>
+                <Col md={12} className="mb-4">
                   <h6 className="text-muted">Description</h6>
                   <p className="mb-0">{issue.description}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
 
-              <div className="row">
-                <div className="col-md-12 mb-4">
+              <Row>
+                <Col md={12} className="mb-4">
                   <h6 className="text-muted">Remedy</h6>
                   <p className="mb-0">{issue.remedy}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
 
-              <div className="row">
-                <div className="col-md-6 mb-3">
+              <Row>
+                <Col md={6} className="mb-3">
                   <h6 className="text-muted">First Raised</h6>
                   <p className="mb-0">{formatDate(issue.firstRaised)}</p>
-                </div>
-                <div className="col-md-6 mb-3">
+                </Col>
+                <Col md={6} className="mb-3">
                   <h6 className="text-muted">Last Updated</h6>
                   <p className="mb-0">{formatDate(issue.updatedAt)}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
 
               {issue.status === 'CLOSED' && (
-                <div className="alert alert-success mt-3">
-                  <i className="bi bi-check-circle" />
+                <Alert variant="success" className="mt-3">
+                  <CheckCircle />
                   {' '}
                   This issue has been resolved.
                   <div className="mt-1 small">
@@ -174,19 +173,19 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                     {' '}
                     {formatDateShort(issue.updatedAt)}
                   </div>
-                </div>
+                </Alert>
               )}
-            </div>
-          </div>
-        </div>
+            </CardBody>
+          </Card>
+        </Col>
 
         {/* Sidebar with additional info */}
-        <div className="col-lg-4">
-          <div className="card">
-            <div className="card-header">
+        <Col lg={4}>
+          <Card>
+            <CardHeader>
               <h6 className="mb-0">Issue Information</h6>
-            </div>
-            <div className="card-body">
+            </CardHeader>
+            <CardBody>
               <div className="mb-3">
                 <small className="text-muted">Project</small>
                 <div>{project.name}</div>
@@ -214,12 +213,12 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                   days
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
 
-    </div>
+    </Container>
   );
 };
 

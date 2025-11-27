@@ -1,8 +1,14 @@
 'use client';
 
 import { Event, Project } from '@prisma/client';
-import { useRouter } from 'next/navigation';
 import { deleteEvent } from '@/lib/dbActions';
+import {
+  Container,
+  Row,
+  Col, Breadcrumb, BreadcrumbItem, Card, CardHeader, CardBody, Button, ButtonGroup, Alert } from 'react-bootstrap';
+import { CheckCircle, Pencil, Trash } from 'react-bootstrap-icons';
+import Link from 'next/link';
+import { formatDate, formatDateShort } from '@/lib/util';
 
 interface EventDetailViewProps {
   event: Event;
@@ -10,33 +16,8 @@ interface EventDetailViewProps {
 }
 
 const EventDetailView = ({ event, project }: EventDetailViewProps) => {
-  const router = useRouter();
-
-  const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-
-  const formatDateShort = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-
   const handleDeleteSubmit = async () => {
     await deleteEvent(event.id);
-  };
-
-  const handleEdit = () => {
-    router.push(`/project/${project.id}/event/${event.id}/edit`);
-  };
-
-  const handleBackToProject = () => {
-    router.push(`/project/${project.id}`);
   };
 
   const getStatusBadge = () => {
@@ -57,54 +38,49 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
   };
 
   return (
-    <div className="container mt-4">
+    <Container className="mt-4">
       {/* Header */}
-      <div className="row mb-4">
-        <div className="col">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <button
-                  type="button"
-                  className="btn btn-link p-0 text-decoration-none"
-                  onClick={handleBackToProject}
-                >
-                  {project.name}
-                </button>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                {event.name}
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
+      <Row className="mb-4">
+        <Col>
+          <Breadcrumb>
+            <BreadcrumbItem href={`/project/${project.id}`}>
+              {project.name}
+            </BreadcrumbItem>
+            <BreadcrumbItem active aria-current="page">
+              {event.name}
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </Col>
+      </Row>
 
       {/* Event Details Card */}
-      <div className="row">
-        <div className="col-lg-8">
-          <div className="card">
-            <div className="card-header d-flex justify-content-between align-items-center">
+      <Row>
+        <Col lg={8}>
+          <Card>
+            <CardHeader className="d-flex justify-content-between align-items-center">
               <div>
                 <h4 className="mb-0">{event.name}</h4>
                 <div className="mt-2">
                   {getStatusBadge()}
                 </div>
               </div>
-              <div className="btn-group">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={handleEdit}
-                >
-                  <i className="bi bi-pencil" />
-                  {' '}
-                  Edit
-                </button>
+              <ButtonGroup className="gap-1">
+                <Link href={`/project/${project.id}/event/${event.id}/edit`}>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    type="button"
+                  >
+                    <Pencil />
+                    {' '}
+                    Edit
+                  </Button>
+                </Link>
                 <form action={handleDeleteSubmit} className="d-inline">
-                  <button
+                  <Button
+                    variant="danger"
+                    size="sm"
                     type="submit"
-                    className="btn btn-danger btn-sm"
                     onClick={(e) => {
                       // eslint-disable-next-line no-restricted-globals, no-alert
                       if (!confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
@@ -112,23 +88,23 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                       }
                     }}
                   >
-                    <i className="bi bi-trash" />
+                    <Trash />
                     {' '}
                     Delete
-                  </button>
+                  </Button>
                 </form>
-              </div>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col-md-12 mb-4">
+              </ButtonGroup>
+            </CardHeader>
+            <CardBody>
+              <Row>
+                <Col md={12} className="mb-4">
                   <h6 className="text-muted">Description</h6>
                   <p className="mb-0">{event.description}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
 
-              <div className="row">
-                <div className="col-md-6 mb-3">
+              <Row>
+                <Col md={6} className="mb-3">
                   <h6 className="text-muted">Planned Timeline</h6>
                   <div className="d-flex flex-column">
                     <div className="mb-2">
@@ -142,10 +118,10 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                       {formatDate(event.plannedEnd)}
                     </div>
                   </div>
-                </div>
+                </Col>
 
                 {(event.actualStart || event.actualEnd) && (
-                  <div className="col-md-6 mb-3">
+                  <Col md={6} className="mb-3">
                     <h6 className="text-muted">Actual Timeline</h6>
                     <div className="d-flex flex-column">
                       {event.actualStart && (
@@ -163,13 +139,13 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                         </div>
                       )}
                     </div>
-                  </div>
+                  </Col>
                 )}
-              </div>
+              </Row>
 
               {event.completed && (
-                <div className="alert alert-success mt-3">
-                  <i className="bi bi-check-circle" />
+                <Alert variant="success" className="mt-3">
+                  <CheckCircle />
                   {' '}
                   This event has been completed.
                   {event.actualEnd && (
@@ -179,19 +155,19 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                     {formatDateShort(event.actualEnd)}
                   </div>
                   )}
-                </div>
+                </Alert>
               )}
-            </div>
-          </div>
-        </div>
+            </CardBody>
+          </Card>
+        </Col>
 
         {/* Sidebar with additional info */}
-        <div className="col-lg-4">
-          <div className="card">
-            <div className="card-header">
+        <Col lg={4}>
+          <Card>
+            <CardHeader>
               <h6 className="mb-0">Event Information</h6>
-            </div>
-            <div className="card-body">
+            </CardHeader>
+            <CardBody>
               <div className="mb-3">
                 <small className="text-muted">Project</small>
                 <div>{project.name}</div>
@@ -211,12 +187,12 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                 <small className="text-muted">Status</small>
                 <div>{getStatusBadge()}</div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
 
-    </div>
+    </Container>
   );
 };
 

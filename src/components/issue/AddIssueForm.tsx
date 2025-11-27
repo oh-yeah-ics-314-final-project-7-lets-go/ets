@@ -118,7 +118,7 @@ const AddIssueForm = ({ project }: { project: Project; }) => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <Button type="submit" variant="primary">
                         Submit Issue
                       </Button>
                     </Col>
@@ -127,7 +127,6 @@ const AddIssueForm = ({ project }: { project: Project; }) => {
                         type="button"
                         onClick={() => reset()}
                         variant="outline-secondary"
-                        size="lg"
                         className="float-end"
                       >
                         Reset Form
