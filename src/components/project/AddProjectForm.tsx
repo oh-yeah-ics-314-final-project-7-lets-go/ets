@@ -1,13 +1,14 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
 import { addProject } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FormButton from '@/components/FormButton';
 import { AddProjectSchema } from '@/lib/validationSchemas';
 
 type AddProjectFormData = {
@@ -16,15 +17,9 @@ type AddProjectFormData = {
   originalContractAward: number;
 };
 
-const onSubmit = async (data: AddProjectFormData) => {
-  await addProject(data);
-  swal('Success', 'IV&V Project Report has been submitted', 'success', {
-    timer: 2000,
-  });
-};
-
 const AddProjectForm: React.FC = () => {
   const { status } = useSession();
+
   const {
     register,
     handleSubmit,
@@ -34,24 +29,34 @@ const AddProjectForm: React.FC = () => {
     resolver: yupResolver(AddProjectSchema),
   });
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin');
-  }
+  if (status === 'loading') return <LoadingSpinner />;
+  if (status === 'unauthenticated') redirect('/auth/signin');
+
+  const onSubmit = async (data: AddProjectFormData) => {
+    await addProject(data);
+    swal('Success', 'IV&V Project Report has been submitted', 'success', { timer: 2000 });
+  };
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
           <Col className="text-center">
-            <h2>Submit IV&V Project Report</h2>
-            <p className="text-muted">
-              Submit standardized project data for Independent Verification & Validation
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <FormButton href="/" variant="cancel" size="sm">
+                ← Back
+              </FormButton>
+              <div>
+                <h2>Submit IV&V Project Report</h2>
+                <p className="text-muted">
+                  Submit standardized project data for Independent Verification & Validation
+                </p>
+              </div>
+              <div style={{ width: '140px' }} />
+            </div>
           </Col>
-          <Card>
+
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
@@ -105,20 +110,19 @@ const AddProjectForm: React.FC = () => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary" size="lg">
                         Submit Report
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end">
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
+                        variant="cancel"
                         size="lg"
-                        className="float-end"
+                        onClick={() => reset()}
                       >
                         Reset Form
-                      </Button>
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>

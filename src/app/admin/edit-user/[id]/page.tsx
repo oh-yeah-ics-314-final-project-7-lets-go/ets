@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Button, Form, Container } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import { updateUser, getUserById } from '@/lib/dbActions';
 import { Role } from '@prisma/client';
+import FormButton from '@/components/FormButton';
 
 const EditUserPage = () => {
   const params = useParams();
@@ -41,11 +42,10 @@ const EditUserPage = () => {
       role,
     });
 
-    // Redirect depending on updated role
     if (updatedUser.role === 'ETS') {
-      router.push('/admin'); // still an admin
+      router.push('/admin');
     } else {
-      router.push('/projects'); // no longer an admin
+      router.push('/projects');
     }
   };
 
@@ -53,32 +53,67 @@ const EditUserPage = () => {
 
   return (
     <Container className="py-3">
-      <h2>Edit User</h2>
+      <h2 className="mb-3">Edit User</h2>
+
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-2">
           <Form.Label>First Name</Form.Label>
-          <Form.Control value={firstName} onChange={e => setFirstName(e.target.value)} />
+          <Form.Control
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group className="mb-2">
           <Form.Label>Last Name</Form.Label>
-          <Form.Control value={lastName} onChange={e => setLastName(e.target.value)} />
+          <Form.Control
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group className="mb-2">
           <Form.Label>Email</Form.Label>
-          <Form.Control value={email} onChange={e => setEmail(e.target.value)} />
+          <Form.Control
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </Form.Group>
 
-        <Form.Group className="mb-2">
+        <Form.Group className="mb-3">
           <Form.Label>Role</Form.Label>
-          <Form.Select value={role} onChange={e => setRole(e.target.value as Role)}>
+          <Form.Select
+            value={role}
+            onChange={e => setRole(e.target.value as Role)}
+          >
             <option value="VENDOR">Vendor</option>
             <option value="ETS">ETS</option>
           </Form.Select>
         </Form.Group>
 
-        <Button type="submit">Save Changes</Button>
+        {/* Buttons Row */}
+        <Row className="pt-3">
+          <Col>
+            <FormButton
+              type="button"
+              variant="cancel"
+              size="lg"
+              onClick={() => router.back()}
+            >
+              Back
+            </FormButton>
+          </Col>
+
+          <Col className="d-flex justify-content-end">
+            <FormButton
+              type="submit"
+              variant="primary"
+              size="lg"
+            >
+              Save Changes
+            </FormButton>
+          </Col>
+        </Row>
       </Form>
     </Container>
   );

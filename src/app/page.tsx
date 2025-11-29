@@ -38,7 +38,7 @@ const Home = () => (
                   className="btn"
                   type="button"
                   style={{
-                    backgroundColor: '#4D76A4',
+                    backgroundColor: '#18828C',
                     color: 'white',
                     transition: 'background-color 0.2s ease',
                   }}

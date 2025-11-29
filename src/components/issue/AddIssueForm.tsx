@@ -1,61 +1,79 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
 import { addIssue } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FormButton from '@/components/FormButton';
 import { AddIssueSchema } from '@/lib/validationSchemas';
 import { Likelihood, Project, Severity, Status } from '@prisma/client';
 import { InferType } from 'yup';
 
 type AddIssueFormData = InferType<typeof AddIssueSchema>;
 
-const onSubmit = async (data: AddIssueFormData) => {
-  await addIssue(data);
-  swal('Success', 'Issue has been submitted', 'success', {
-    timer: 2000,
-  });
-};
-
-const AddIssueForm = ({ project }: { project: Project; }) => {
-  const { status, data } = useSession();
+const AddIssueForm = ({ project }: { project: Project }) => {
+  const { status, data: sessionData } = useSession();
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<AddIssueFormData>({
     resolver: yupResolver(AddIssueSchema),
   });
 
   if (status === 'loading') {
     return <LoadingSpinner />;
   }
+
   if (status === 'unauthenticated') {
     redirect('/auth/signin');
   }
+
+  const onSubmit = async (formData: AddIssueFormData) => {
+    await addIssue(formData);
+    swal('Success', 'Issue has been submitted', 'success', { timer: 2000 });
+    reset();
+  };
+
+  const userId = (sessionData?.user as { id: string })?.id || '';
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
           <Col className="text-center">
-            <h2>Submit Issue</h2>
-            <p className="text-muted">
-              {`Add an issue for ${project.name}`}
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <FormButton
+                type="button"
+                variant="cancel"
+                size="sm"
+                href={`/project/${project.id}`}
+              >
+                ← Back to Overview
+              </FormButton>
+              <div>
+                <h2 className="mb-0">Submit Issue</h2>
+                <p className="text-muted mb-0">{`Add an issue for ${project.name}`}</p>
+              </div>
+              <div style={{ width: '140px' }} />
+              {' '}
+              {/* Spacer for centering */}
+            </div>
           </Col>
-          <Card>
+
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('projectId')} value={project.id} />
-                <input type="hidden" {...register('creatorId')} value={(data?.user as { id: string; }).id} />
+                <input type="hidden" {...register('creatorId')} value={userId} />
                 <input type="hidden" {...register('status')} value={Status.OPEN} />
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -70,6 +88,7 @@ const AddIssueForm = ({ project }: { project: Project; }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -84,6 +103,7 @@ const AddIssueForm = ({ project }: { project: Project; }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col md={6}>
                     <Form.Group>
@@ -118,19 +138,20 @@ const AddIssueForm = ({ project }: { project: Project; }) => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary">
+                      <FormButton type="submit" variant="primary" size="lg">
                         Submit Issue
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end">
+                      <FormButton
                         type="button"
+                        variant="cancel"
+                        size="lg"
+                        className="me-2"
                         onClick={() => reset()}
-                        variant="outline-secondary"
-                        className="float-end"
                       >
                         Reset Form
-                      </Button>
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>

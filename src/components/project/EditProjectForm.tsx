@@ -1,12 +1,13 @@
 'use client';
 
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { Project } from '@prisma/client';
 import { EditProjectSchema } from '@/lib/validationSchemas';
 import { editProject } from '@/lib/dbActions';
+import FormButton from '@/components/FormButton';
 
 type EditProjectFormData = {
   id: number;
@@ -15,20 +16,12 @@ type EditProjectFormData = {
   originalContractAward: number;
 };
 
-const onSubmit = async (data: EditProjectFormData) => {
-  await editProject(data as Project);
-  swal('Success', 'IV&V Project Report has been updated', 'success', {
-    timer: 2000,
-  });
-};
-
 const EditProjectForm = ({ project }: { project: Project }) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-    // watch,
   } = useForm<EditProjectFormData>({
     resolver: yupResolver(EditProjectSchema),
     defaultValues: {
@@ -39,36 +32,33 @@ const EditProjectForm = ({ project }: { project: Project }) => {
     },
   });
 
-  // Watch values for real-time calculations
-  // const watchedContractAward = watch('originalContractAward');
-  // const watchedTotalPaidOut = watch('totalPaidOut');
-  // const watchedProgress = watch('progress');
-
-  // // Calculate budget utilization
-  // const budgetUtilized = watchedContractAward > 0
-  //   ? (watchedTotalPaidOut / watchedContractAward) * 100
-  //   : 0;
-
-  // const getBudgetStatus = () => {
-  //   if (budgetUtilized > 100) return { variant: 'danger', text: 'Over Budget' };
-  //   if (budgetUtilized > 90) return { variant: 'warning', text: 'Near Budget Limit' };
-  //   return { variant: 'success', text: 'Within Budget' };
-  // };
-
-  // const budgetStatus = getBudgetStatus();
+  const onSubmit = async (data: EditProjectFormData) => {
+    await editProject(data as Project);
+    swal('Success', 'IV&V Project Report has been updated', 'success', {
+      timer: 2000,
+    });
+  };
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
           <Col className="text-center mb-4">
-            <h2>Edit IV&V Project Report</h2>
-            <p className="text-muted">
-              Update standardized project data for Independent Verification & Validation
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <FormButton href="/" variant="cancel" size="sm">
+                ← Back
+              </FormButton>
+              <div>
+                <h2>Edit IV&V Project Report</h2>
+                <p className="text-muted">
+                  Update standardized project data for Independent Verification & Validation
+                </p>
+              </div>
+              <div style={{ width: '140px' }} />
+            </div>
           </Col>
 
-          <Card>
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} />
@@ -98,9 +88,6 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                         placeholder="0.00"
                       />
                       <div className="invalid-feedback">{errors.originalContractAward?.message}</div>
-                      <Form.Text className="text-muted">
-                        Enter the initial contract value in USD
-                      </Form.Text>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -121,51 +108,22 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                   </Col>
                 </Row>
 
-                {/* Budget Status Alert */}
-                {/* <Alert variant={budgetStatus.variant} className="mb-3">
-                  <Alert.Heading>
-                    Budget Status:
-                    {budgetStatus.text}
-                  </Alert.Heading>
-                  <p className="mb-0">
-                    <strong>Budget Utilization:</strong>
-                    {' '}
-                    {budgetUtilized.toFixed(1)}
-                    %
-                    <br />
-                    <strong>Remaining Budget:</strong>
-                    {' '}
-                    $
-                    {(watchedContractAward - watchedTotalPaidOut).toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </p>
-                </Alert> */}
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary" size="lg">
                         Update Report
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end gap-2">
+                      <FormButton
                         type="button"
+                        variant="cancel"
+                        size="lg"
                         onClick={() => reset()}
-                        variant="outline-secondary"
-                        size="lg"
-                        className="me-2"
                       >
-                        Reset Changes
-                      </Button>
-                      <Button
-                        variant="outline-dark"
-                        size="lg"
-                        href={`/project/${project.id}`}
-                      >
-                        Cancel
-                      </Button>
+                        Reset Form
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>

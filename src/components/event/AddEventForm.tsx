@@ -1,60 +1,71 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { addEvent } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FormButton from '@/components/FormButton';
 import { AddEventSchema } from '@/lib/validationSchemas';
 import { Project } from '@prisma/client';
 import { InferType } from 'yup';
 
 type AddEventFormData = InferType<typeof AddEventSchema>;
 
-const onSubmit = async (data: AddEventFormData) => {
-  await addEvent(data);
-  swal('Success', 'Event has been submitted', 'success', {
-    timer: 2000,
-  });
-};
-
-const AddEventForm = ({ project }: { project: Project; }) => {
+const AddEventForm = ({ project }: { project: Project }) => {
   const { status } = useSession();
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<AddEventFormData>({
     resolver: yupResolver(AddEventSchema),
     mode: 'onChange',
   });
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin');
-  }
+  if (status === 'loading') return <LoadingSpinner />;
+  if (status === 'unauthenticated') redirect('/auth/signin');
+
+  const onSubmit = async (data: AddEventFormData) => {
+    await addEvent(data);
+    swal('Success', 'Event has been submitted', 'success', { timer: 2000 });
+  };
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
+          {/* Top Back button + Title */}
           <Col className="text-center">
-            <h2>Create Event</h2>
-            <p className="text-muted">
-              {`Add an event for ${project.name}`}
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <FormButton
+                type="button"
+                variant="cancel"
+                size="sm"
+                onClick={() => router.push(`/project/${project.id}`)}
+              >
+                ← Back to Overview
+              </FormButton>
+              <div>
+                <h2 className="mb-0">Create Event</h2>
+                <p className="text-muted mb-0">{`Add an event for ${project.name}`}</p>
+              </div>
+              <div style={{ width: '140px' }} />
+            </div>
           </Col>
-          <Card>
+
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('projectId')} value={project.id} />
+
+                {/* Event Name */}
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -69,6 +80,8 @@ const AddEventForm = ({ project }: { project: Project; }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+
+                {/* Event Description */}
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -83,6 +96,8 @@ const AddEventForm = ({ project }: { project: Project; }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+
+                {/* Planned Dates */}
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -109,6 +124,8 @@ const AddEventForm = ({ project }: { project: Project; }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+
+                {/* Actual Dates */}
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -135,6 +152,8 @@ const AddEventForm = ({ project }: { project: Project; }) => {
                     </Form.Group>
                   </Col>
                 </Row>
+
+                {/* Completed */}
                 <Row>
                   <Form.Group className="mb-3">
                     <Form.Label>Completed?</Form.Label>
@@ -142,23 +161,24 @@ const AddEventForm = ({ project }: { project: Project; }) => {
                   </Form.Group>
                 </Row>
 
+                {/* Buttons */}
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary" size="lg">
                         Create Event
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end">
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
+                        variant="cancel"
                         size="lg"
-                        className="float-end"
+                        className="me-2"
+                        onClick={() => reset()}
                       >
                         Reset Form
-                      </Button>
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>
