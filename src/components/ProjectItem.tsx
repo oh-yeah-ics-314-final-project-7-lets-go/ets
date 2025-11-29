@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { Button, Badge, ProgressBar, Modal } from 'react-bootstrap';
 import { Project } from '@prisma/client';
 import Link from 'next/link';
-import StatusTooltip from './project/StatusTooltip';
+import { formatCurrency, formatDateShort, getProgressVariant } from '@/lib/util';
+import StatusTooltip from './StatusTooltip';
 // import { deleteProject } from '@/lib/dbActions';
 
 interface ProjectItemProps extends Project {
@@ -54,31 +55,11 @@ const ProjectItem = ({
     return <Badge bg="success">On Track</Badge>;
   };
 
-  // Determine progress bar variant
-  const getProgressVariant = () => {
-    if (progress < 25) return 'danger';
-    if (progress < 75) return 'warning';
-    return 'success';
-  };
-
-  // Format currency
-  const formatCurrency = (amount: number) => new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
-
-  // Format date
-  const formatDate = (date: Date) => new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(new Date(date));
-
   return (
     <>
       <tr style={{ cursor: 'pointer' }}>
         <td>
-          <StatusTooltip {...{ status }} />
+          <StatusTooltip {...{ status }} type="project" />
           <Link className="fw-bold text-black" href={`/project/${id}`}>
             {name}
           </Link>
@@ -90,13 +71,13 @@ const ProjectItem = ({
             <ProgressBar
               now={progress}
               label={`${progress.toFixed(1)}%`}
-              variant={getProgressVariant()}
+              variant={getProgressVariant(progress)}
               style={{ height: '20px' }}
             />
           </div>
         </td>
         <td>{getBudgetStatus()}</td>
-        <td><small className="text-muted">{formatDate(updatedAt)}</small></td>
+        <td><small className="text-muted">{formatDateShort(updatedAt)}</small></td>
         <td>{creatorEmail}</td>
         <td onClick={(e) => e.stopPropagation()}>
           <div className="d-flex gap-2">

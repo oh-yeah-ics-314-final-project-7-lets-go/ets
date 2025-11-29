@@ -2,10 +2,9 @@ import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import { Issue, Project, ProjectStatus } from '@prisma/client';
+import { Issue, Project } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import EditIssueForm from '@/components/issue/EditIssueForm';
-import { Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 
 const EditIssue = async ({ params }: { params: { project: string | string[]; issue: string | string[] } }) => {
   // Protect the page, only logged in users can access it.
@@ -28,24 +27,10 @@ const EditIssue = async ({ params }: { params: { project: string | string[]; iss
   });
 
   if (!project || !issue) notFound();
-  const { status } = project;
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? <EditIssueForm project={project} issue={issue} /> : (
-        <Container fluid>
-          <Card className="w-50 mx-auto mt-5">
-            <CardHeader>
-              This project is currently
-              {' '}
-              {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
-            </CardHeader>
-            <CardBody>
-              Issues cannot be edited.
-            </CardBody>
-          </Card>
-        </Container>
-      )}
+      <EditIssueForm project={project} issue={issue} />
     </main>
   );
 };

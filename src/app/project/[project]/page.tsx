@@ -7,13 +7,14 @@ import EventTimeline from '@/components/EventTimeline';
 import IssueTable from '@/components/IssueTable';
 import EventTable from '@/components/EventTable';
 import CommentTable from '@/components/CommentTable';
-import { Button, Card, CardBody, CardHeader, Col, Container, Row, Table } from 'react-bootstrap';
-import StatusTooltip from '@/components/project/StatusTooltip';
+import { Card, CardBody, CardHeader, Col, Container, Row, Table } from 'react-bootstrap';
+import StatusTooltip from '@/components/StatusTooltip';
 import Banner from '@/components/Banner';
 import { ProjectStatus } from '@prisma/client';
 import ApproveProjectBtn from '@/components/project/ApproveProjectBtn';
 import DenyProjectBtn from '@/components/project/DenyProjectBtn';
 import PendingProjectBtn from '@/components/project/PendingProjectBtn';
+import ReportsList from '@/components/project/ReportsList';
 
 interface ProjectOverviewPageProps {
   params: {
@@ -52,19 +53,10 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
       },
       creator: true,
       reports: {
-        orderBy: { monthCreate: 'desc' },
-        select: {
-          id: true,
-          monthCreate: true,
-          creator: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true,
-            },
-          },
-        },
+        orderBy: [
+          { yearCreate: 'desc' },
+          { monthCreate: 'desc' },
+        ],
       },
     },
   });
@@ -103,9 +95,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
     } else {
       statusBanner = (
         <Banner className="mt-3" variant="warning">
-          This project is in a provisional state – issues and events
-          {' '}
-          cannot be added until the project is approved by an admin.
+          This project is in a provisional state
         </Banner>
       );
     }
@@ -123,9 +113,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
         <Banner className="mt-3" variant="danger">
           This project was rejected. Please see the comments for more information.
           <br />
-          <Button variant="secondary">
-            Request re-review
-          </Button>
+          <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
         </Banner>
       );
     }
@@ -135,11 +123,11 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
     <main>
       {statusBanner}
       <Container className="py-3">
-        <h1>
-          <StatusTooltip {...{ status: project.status }} />
+        <h1 className="align-items-center d-flex">
+          <StatusTooltip status={project.status} type="project" />
           {project.name}
           {' '}
-          - Overview
+          Overview
         </h1>
         <Row className="mt-4">
           <Col>
@@ -171,27 +159,15 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
             </Card>
           </Col>
         </Row>
+        <ReportsList
+          reports={project.reports || []}
+          projectId={projectId.toString()}
+        />
         <Row className="mt-4">
           <Col>
             <Card>
               <CardHeader className="d-flex justify-content-between align-items-center">
                 <h3 className="mb-0">Events Timeline</h3>
-                {isApproved && (
-                <div className="d-flex gap-2">
-                  <a
-                    href={`/project/${projectId}/event/create`}
-                    className="btn btn-outline-primary btn-sm"
-                  >
-                    Add Event
-                  </a>
-                  <a
-                    href={`/project/${projectId}/issue/create`}
-                    className="btn btn-outline-warning btn-sm"
-                  >
-                    Add Issue
-                  </a>
-                </div>
-                )}
               </CardHeader>
               <CardBody>
                 <EventTimeline
@@ -204,9 +180,14 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
           </Col>
         </Row>
 
-        <IssueTable issues={project.issues || []} />
-        <EventTable events={project.schedule || []} />
-        <CommentTable comments={project.comments || []} />
+        <IssueTable isApproved={isApproved} projectId={projectId.toString()} issues={project.issues || []} />
+        <EventTable isApproved={isApproved} projectId={projectId.toString()} events={project.schedule || []} />
+        <CommentTable projectId={projectId.toString()} comments={project.comments || []} />
+        {isETS && isApproved && (
+        <Container className="text-center mt-3">
+          <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
+        </Container>
+        )}
       </Container>
     </main>
   );

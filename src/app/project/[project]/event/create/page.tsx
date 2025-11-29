@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { Project, ProjectStatus } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import AddEventForm from '@/components/event/AddEventForm';
-import { Card, CardBody, CardHeader, Container } from 'react-bootstrap';
+import { Container, Card, CardHeader, CardBody } from 'react-bootstrap';
 
 const AddEvent = async ({ params }: { params: { project: string | string[] } }) => {
   // Protect the page, only logged in users can access it.
@@ -23,26 +23,22 @@ const AddEvent = async ({ params }: { params: { project: string | string[] } }) 
   });
 
   if (!project) notFound();
-
   const { status } = project;
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? <AddEventForm project={project} />
-        : (
-          <Container fluid>
-            <Card className="w-50 mx-auto mt-5">
-              <CardHeader>
-                This project is currently
-                {' '}
-                {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
-              </CardHeader>
-              <CardBody>
-                Events cannot be created.
-              </CardBody>
-            </Card>
-          </Container>
-        )}
+      {status !== ProjectStatus.APPROVED ? <AddEventForm project={project} /> : (
+        <Container fluid>
+          <Card className="w-50 mx-auto mt-5">
+            <CardHeader>
+              This project is approved.
+            </CardHeader>
+            <CardBody>
+              Events cannot be created. Ask an admin for more information.
+            </CardBody>
+          </Card>
+        </Container>
+      )}
     </main>
   );
 };

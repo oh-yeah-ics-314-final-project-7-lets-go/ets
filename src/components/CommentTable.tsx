@@ -4,10 +4,13 @@ import { Comment } from '@prisma/client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { deleteComment, editComment } from '@/lib/dbActions';
-import { Modal, Button } from 'react-bootstrap';
+import {
+  Modal, Button, Card, CardHeader, Col, Row, CardBody, ListGroup, ListGroupItem, FormSelect } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface CommentTableProps {
+  projectId: string;
   comments: (Comment & {
     author: {
       firstName: string;
@@ -16,7 +19,7 @@ interface CommentTableProps {
   })[];
 }
 
-const CommentTable = ({ comments = [] }: CommentTableProps) => {
+const CommentTable = ({ projectId, comments = [] }: CommentTableProps) => {
   const router = useRouter();
   const { data } = useSession();
 
@@ -87,52 +90,59 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
   };
 
   return (
-    <div className="row mt-4">
-      <div className="col">
-        <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
+    <Row className="mt-4">
+      <Col>
+        <Card>
+          <CardHeader className="d-flex gap-2 align-items-center">
             <h3 className="mb-0">Comments</h3>
-
-            <div className="d-flex align-items-center gap-2">
-              <a
-                href={`/project/${comments[0]?.projectId}/comment/create`}
-                className="btn btn-outline-success btn-sm"
-              >
-                Add Comment
-              </a>
-              <select
-                className="form-select form-select-sm"
+            <div className="ms-auto d-flex align-items-center gap-2">
+              <FormSelect
+                size="sm"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 style={{ width: 'auto' }}
               >
                 <option value="LATEST">Latest 5</option>
                 <option value="ALL">Show All</option>
-              </select>
+              </FormSelect>
             </div>
-          </div>
+            <Link
+              href={`/project/${projectId}/comment/create`}
+            >
+              <Button
+                variant="outline-primary"
+                size="sm"
+              >
+                Add Comment
+              </Button>
+            </Link>
+          </CardHeader>
 
-          <div className="card-body">
-            <div className="list-group">
+          <CardBody>
+            <ListGroup>
               {sortedComments.length > 0 ? (
                 sortedComments.map((comment) => {
                   const isAuthor = userId === comment.authorId.toString();
 
                   return (
-                    <div key={comment.id} className="list-group-item">
+                    <ListGroupItem key={comment.id}>
                       <div className="d-flex justify-content-between align-items-start">
                         <div className="flex-grow-1 pe-3">
                           <small className="text-muted">
                             Author:
+                            {' '}
                             {comment.author.firstName}
+                            {' '}
                             {comment.author.lastName}
+                            {' '}
                             | Created:
                             {' '}
                             {formatDate(comment.createdAt)}
+                            {' '}
                             | Updated:
+                            {' '}
                             {formatDate(comment.updatedAt)}
                           </small>
-
                           {editingId === comment.id ? (
                             <>
                               <textarea
@@ -143,21 +153,22 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
                               />
 
                               <div className="d-flex gap-2 mt-2">
-                                <button
+                                <Button
+                                  variant="primary"
+                                  size="sm"
                                   type="button"
-                                  className="btn btn-primary btn-sm"
                                   onClick={() => saveEdit(comment)}
                                 >
                                   Save
-                                </button>
-
-                                <button
+                                </Button>
+                                <Button
+                                  variant="secondary"
+                                  size="sm"
                                   type="button"
-                                  className="btn btn-secondary btn-sm"
                                   onClick={() => setEditingId(null)}
                                 >
                                   Cancel
-                                </button>
+                                </Button>
                               </div>
                             </>
                           ) : (
@@ -169,36 +180,38 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
 
                         <div className="d-flex flex-row gap-2 align-self-start">
                           {isAuthor && editingId !== comment.id && (
-                            <button
+                            <Button
+                              variant="warning"
                               type="button"
-                              className="btn btn-warning btn-sm"
+                              size="sm"
                               onClick={() => startEdit(comment)}
                             >
                               Edit
-                            </button>
+                            </Button>
                           )}
 
                           {(isETS) && (
-                            <button
+                            <Button
                               type="button"
-                              className="btn btn-danger btn-sm"
+                              variant="danger"
+                              size="sm"
                               onClick={() => askDelete(comment.id)}
                             >
                               Delete
-                            </button>
+                            </Button>
                           )}
                         </div>
                       </div>
-                    </div>
+                    </ListGroupItem>
                   );
                 })
               ) : (
-                <div className="list-group-item text-center text-muted">No comments found.</div>
+                <ListGroupItem className="text-center text-muted">No comments found.</ListGroupItem>
               )}
-            </div>
-          </div>
-        </div>
-      </div>
+            </ListGroup>
+          </CardBody>
+        </Card>
+      </Col>
 
       {/* DELETE CONFIRMATION MODAL */}
       <Modal show={showConfirm} onHide={() => setShowConfirm(false)}>
@@ -217,7 +230,7 @@ const CommentTable = ({ comments = [] }: CommentTableProps) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </Row>
   );
 };
 

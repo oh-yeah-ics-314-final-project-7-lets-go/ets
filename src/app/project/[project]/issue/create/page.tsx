@@ -27,16 +27,14 @@ const AddIssue = async ({ params }: { params: { project: string | string[] } }) 
 
   return (
     <main>
-      {status === ProjectStatus.APPROVED ? <AddIssueForm project={project} /> : (
+      {status !== ProjectStatus.APPROVED ? <AddIssueForm project={project} /> : (
         <Container fluid>
           <Card className="w-50 mx-auto mt-5">
             <CardHeader>
-              This project is currently
-              {' '}
-              {status === ProjectStatus.PENDING ? 'pending approval' : 'denied'}
+              This project is approved.
             </CardHeader>
             <CardBody>
-              Issues cannot be created.
+              Issues cannot be created. Ask an admin for more information.
             </CardBody>
           </Card>
         </Container>

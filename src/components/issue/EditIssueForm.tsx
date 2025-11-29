@@ -12,6 +12,7 @@ import FormButton from '@/components/FormButton';
 import { EditIssueSchema } from '@/lib/validationSchemas';
 import { Issue, Likelihood, Project, Severity, Status } from '@prisma/client';
 import { InferType } from 'yup';
+import Link from 'next/link';
 
 type EditIssueFormData = InferType<typeof EditIssueSchema>;
 
@@ -95,7 +96,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
 
                 <Row>
                   <Col md={6}>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Severity</Form.Label>
                       <select
                         {...register('severity')}
@@ -110,7 +111,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                     </Form.Group>
                   </Col>
                   <Col md={6}>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Likelihood</Form.Label>
                       <select
                         {...register('likelihood')}
@@ -124,6 +125,8 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                       <div className="invalid-feedback">{errors.likelihood?.message}</div>
                     </Form.Group>
                   </Col>
+                </Row>
+                <Row>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Status</Form.Label>
