@@ -2,12 +2,15 @@
 
 import { Event } from '@prisma/client';
 import { useState } from 'react';
+import { Button, Card, CardBody, CardHeader, Col, FormSelect, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 
 interface EventTableProps {
+  projectId: string;
+  isApproved: boolean;
   events: Event[];
 }
 
-const EventTable = ({ events }: EventTableProps) => {
+const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
   const [filter, setFilter] = useState<string>('MOST_URGENT');
 
   const getFilteredEvents = () => {
@@ -48,14 +51,14 @@ const EventTable = ({ events }: EventTableProps) => {
   });
 
   return (
-    <div className="row mt-4">
-      <div className="col">
-        <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
+    <Row className="mt-4">
+      <Col>
+        <Card>
+          <CardHeader className="d-flex gap-2 align-items-center">
             <h3 className="mb-0">Events</h3>
-            <div className="d-flex gap-2">
-              <select
-                className="form-select form-select-sm"
+            <div className="ms-auto d-flex gap-2">
+              <FormSelect
+                size="sm"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 style={{ width: 'auto' }}
@@ -64,13 +67,22 @@ const EventTable = ({ events }: EventTableProps) => {
                 <option value="COMPLETED">Completed</option>
                 <option value="LATEST">Latest 5</option>
                 <option value="MOST_URGENT">Most Urgent</option>
-              </select>
+              </FormSelect>
             </div>
-          </div>
-          <div className="card-body">
-            <div className="list-group">
+            {!isApproved && (
+            <Button
+              variant="outline-primary"
+              size="sm"
+              href={`/project/${projectId}/event/create`}
+            >
+              Add Event
+            </Button>
+            )}
+          </CardHeader>
+          <CardBody>
+            <ListGroup>
               {sortedEvents.map((event) => (
-                <div key={event.id} className="list-group-item">
+                <ListGroupItem key={event.id}>
                   <div className="d-flex w-100 justify-content-between align-items-start">
                     <div>
                       <h6 className="mb-1">
@@ -99,13 +111,13 @@ const EventTable = ({ events }: EventTableProps) => {
                       </small>
                     </div>
                   </div>
-                </div>
+                </ListGroupItem>
               ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </ListGroup>
+          </CardBody>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 

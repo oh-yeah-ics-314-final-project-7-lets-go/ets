@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { PrismaClient, Role, Severity, Likelihood, Status } from '@prisma/client';
+import { PrismaClient, Role, Severity, Likelihood, Status, ProjectStatus, Month } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -34,6 +34,7 @@ async function main() {
   for (const project of config.defaultProjects) {
     console.log(`  Adding project: ${project.name}`);
 
+    const pStatus = project.status as ProjectStatus;
     const creatorId = usersMap[project.creatorEmail];
     if (!creatorId) {
       throw new Error(`Creator with email ${project.creatorEmail} does not exist`);
@@ -44,10 +45,11 @@ async function main() {
       update: {},
       create: {
         name: project.name,
-        firstRaised: new Date(project.firstRaised),
+        description: project.description,
+        createdAt: new Date(project.createdAt),
+        updatedAt: new Date(project.updatedAt),
         originalContractAward: project.originalContractAward,
-        totalPaidOut: project.totalPaidOut,
-        progress: project.progress,
+        status: pStatus,
         creatorId,
       },
     });
@@ -71,6 +73,7 @@ async function main() {
           severity,
           likelihood,
           firstRaised: new Date(issue.firstRaised),
+          updatedAt: new Date(issue.firstRaised),
           status,
         },
       });
@@ -105,6 +108,29 @@ async function main() {
           authorId,
           content: comment.content,
           createdAt: new Date(comment.createdAt),
+          updatedAt: new Date(comment.createdAt),
+        },
+      });
+    }
+
+    for (const report of project.reports) {
+      const reporterId = usersMap[report.creatorEmail];
+      if (!reporterId) throw new Error(`Comment author ${report.creatorEmail} does not exist`);
+      const repStatus = report.status as ProjectStatus;
+      const monthCreate = report.monthCreate as Month;
+
+      await prisma.report.upsert({
+        where: { id: report.id },
+        update: {},
+        create: {
+          projectId: prismaProj.id,
+          paidUpToNow: report.paidUpToNow,
+          progress: report.progress,
+          creatorId: reporterId,
+          status: repStatus,
+          yearCreate: report.yearCreate,
+          monthCreate,
+          updatedAt: new Date(report.updatedAt),
         },
       });
     }

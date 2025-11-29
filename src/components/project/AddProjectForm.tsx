@@ -1,31 +1,25 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
 import { addProject } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FormButton from '@/components/FormButton';
 import { AddProjectSchema } from '@/lib/validationSchemas';
 
 type AddProjectFormData = {
   name: string;
+  description: string;
   originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
-};
-
-const onSubmit = async (data: AddProjectFormData) => {
-  await addProject(data);
-  swal('Success', 'IV&V Project Report has been submitted', 'success', {
-    timer: 2000,
-  });
 };
 
 const AddProjectForm: React.FC = () => {
   const { status } = useSession();
+
   const {
     register,
     handleSubmit,
@@ -35,24 +29,34 @@ const AddProjectForm: React.FC = () => {
     resolver: yupResolver(AddProjectSchema),
   });
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin');
-  }
+  if (status === 'loading') return <LoadingSpinner />;
+  if (status === 'unauthenticated') redirect('/auth/signin');
+
+  const onSubmit = async (data: AddProjectFormData) => {
+    await addProject(data);
+    swal('Success', 'IV&V Project Report has been submitted', 'success', { timer: 2000 });
+  };
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
           <Col className="text-center">
-            <h2>Submit IV&V Project Report</h2>
-            <p className="text-muted">
-              Submit standardized project data for Independent Verification & Validation
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <FormButton href="/" variant="cancel" size="sm">
+                ← Back
+              </FormButton>
+              <div>
+                <h2>Submit IV&V Project Report</h2>
+                <p className="text-muted">
+                  Submit standardized project data for Independent Verification & Validation
+                </p>
+              </div>
+              <div style={{ width: '140px' }} />
+            </div>
           </Col>
-          <Card>
+
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
@@ -70,24 +74,6 @@ const AddProjectForm: React.FC = () => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Progress (%) *</Form.Label>
-                      <input
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        max="100"
-                        {...register('progress')}
-                        className={`form-control ${errors.progress ? 'is-invalid' : ''}`}
-                        placeholder="0.0"
-                      />
-                      <div className="invalid-feedback">{errors.progress?.message}</div>
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
                       <Form.Label>Original Contract Award ($) *</Form.Label>
                       <input
                         type="number"
@@ -103,21 +89,20 @@ const AddProjectForm: React.FC = () => {
                       </Form.Text>
                     </Form.Group>
                   </Col>
-                  <Col md={6}>
+                </Row>
+
+                <Row>
+                  <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Total Paid Out ($) *</Form.Label>
-                      <input
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        {...register('totalPaidOut')}
-                        className={`form-control ${errors.totalPaidOut ? 'is-invalid' : ''}`}
-                        placeholder="0.00"
+                      <Form.Label>Description *</Form.Label>
+                      <textarea
+                        {...register('description')}
+                        rows={5}
+                        className={`form-control ${errors.description ? 'is-invalid' : ''}`}
+                        style={{ resize: 'none' }}
+                        placeholder="Enter the description of the project"
                       />
-                      <div className="invalid-feedback">{errors.totalPaidOut?.message}</div>
-                      <Form.Text className="text-muted">
-                        Total amount paid to date in USD
-                      </Form.Text>
+                      <div className="invalid-feedback">{errors.description?.message}</div>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -125,20 +110,19 @@ const AddProjectForm: React.FC = () => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary" size="lg">
                         Submit Report
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end">
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
+                        variant="cancel"
                         size="lg"
-                        className="float-end"
+                        onClick={() => reset()}
                       >
                         Reset Form
-                      </Button>
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>

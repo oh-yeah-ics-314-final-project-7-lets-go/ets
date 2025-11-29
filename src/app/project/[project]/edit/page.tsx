@@ -6,7 +6,7 @@ import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import EditProjectForm from '@/components/project/EditProjectForm';
 
-export default async function EditProjectPage({ params }: { params: { id: string | string[] } }) {
+export default async function EditProjectPage({ params }: { params: { project: string | string[] } }) {
   // Protect the page, only logged in users can access it.
   const session = await getServerSession(authOptions);
   loggedInProtectedPage(
@@ -15,7 +15,7 @@ export default async function EditProjectPage({ params }: { params: { id: string
       // eslint-disable-next-line @typescript-eslint/comma-dangle
     } | null,
   );
-  const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
+  const id = Number(Array.isArray(params?.project) ? params?.project[0] : params?.project);
   // console.log(id);
   const project: Project | null = await prisma.project.findUnique({
     where: { id },

@@ -20,9 +20,6 @@ const NavBar: React.FC = () => {
       className="py-1"
       bg="light"
       expand="lg"
-      style={{
-      backgroundColor: 'rgba(248, 249, 250, 1)',
-      }}
     >
       <Container>
         <Navbar.Brand href="/" className="d-flex align-items-center">
@@ -41,8 +38,8 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
             {currentUser && (
-              <Nav.Link id="report-nav" href="/reports" active={pathName === '/reports'}>
-                Reports
+              <Nav.Link id="projects-nav" href="/projects" active={pathName === '/projects'}>
+                Projects
               </Nav.Link>
             )}
             <Nav.Link id="dashboard-nav" href="/dashboard" active={pathName === '/dashboard'}>
@@ -50,8 +47,8 @@ const NavBar: React.FC = () => {
             </Nav.Link>
 
             {currentUser && (
-              <Nav.Link id="add-nav" href="/add" active={pathName === '/add'}>
-                Add Report
+              <Nav.Link id="add-nav" href="/project/create" active={pathName === '/project/create'}>
+                Create Project
               </Nav.Link>
         )}
             {currentUser && role === 'ETS' ? (
@@ -61,7 +58,7 @@ const NavBar: React.FC = () => {
             ) : (
               ''
             )}
-            <Nav.Link id="about-nav" href="/about" active={pathName === '/about'}>
+            <Nav.Link id="about-nav" href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
               About
             </Nav.Link>
           </Nav>

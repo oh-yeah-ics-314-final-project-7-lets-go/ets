@@ -1,13 +1,17 @@
 'use client';
 
 import { Issue, Severity } from '@prisma/client';
+import Link from 'next/link';
 import { useState } from 'react';
+import { Button, Card, CardBody, CardHeader, Col, FormSelect, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 
 interface IssueTableProps {
+  projectId: string;
+  isApproved: boolean;
   issues: Issue[];
 }
 
-const IssueTable = ({ issues }: IssueTableProps) => {
+const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
   const [filter, setFilter] = useState<string>('OPEN');
 
   const getFilteredIssues = () => {
@@ -53,14 +57,14 @@ const IssueTable = ({ issues }: IssueTableProps) => {
   });
 
   return (
-    <div className="row mt-4">
-      <div className="col">
-        <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
+    <Row className="mt-4">
+      <Col>
+        <Card>
+          <CardHeader className="d-flex gap-2 align-items-center">
             <h3 className="mb-0">Issues</h3>
-            <div className="d-flex gap-2">
-              <select
-                className="form-select form-select-sm"
+            <div className="ms-auto d-flex gap-2">
+              <FormSelect
+                size="sm"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 style={{ width: 'auto' }}
@@ -69,22 +73,31 @@ const IssueTable = ({ issues }: IssueTableProps) => {
                 <option value="CLOSED">Closed</option>
                 <option value="LATEST">Latest 5</option>
                 <option value="ALL_OPEN_BY_SEVERITY">All Open (by Severity)</option>
-              </select>
+              </FormSelect>
             </div>
-          </div>
-          <div className="card-body">
-            <div className="list-group">
+            {!isApproved && (
+            <Button
+              variant="outline-primary"
+              size="sm"
+              href={`/project/${projectId}/issue/create`}
+            >
+              Add Issue
+            </Button>
+            )}
+          </CardHeader>
+          <CardBody>
+            <ListGroup>
               {sortedIssues.map((issue) => (
-                <div key={issue.id} className="list-group-item">
+                <ListGroupItem key={issue.id}>
                   <div className="d-flex w-100 justify-content-between align-items-start">
                     <div>
                       <h6 className="mb-1">
-                        <a
+                        <Link
                           href={`/project/${issue.projectId}/issue/${issue.id}`}
                           className="text-decoration-none text-dark"
                         >
                           {issue.remedy}
-                        </a>
+                        </Link>
                         {issue.status === 'CLOSED' && (
                           <span className="badge bg-success ms-2">Closed</span>
                         )}
@@ -108,13 +121,13 @@ const IssueTable = ({ issues }: IssueTableProps) => {
                       </small>
                     </div>
                   </div>
-                </div>
+                </ListGroupItem>
               ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </ListGroup>
+          </CardBody>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 

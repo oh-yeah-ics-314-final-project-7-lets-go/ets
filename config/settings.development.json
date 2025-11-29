@@ -10,8 +10,32 @@
     { 
       "id": 1,
       "name": "Give Keiki Cookies",
-      "firstRaised": "March 23, 2025",
-      "creatorEmail": "vendor@site.com",
+      "description": "This operation is to promote local businesses in Hawaii and to give keiki across O‘ahu free cookies.",
+      "createdAt": "March 23, 2025",
+      "updatedAt": "September 2, 2025",
+      "creatorEmail": "cookie_rep@site.com",
+      "status": "APPROVED",
+      "originalContractAward": 50000,
+      "comments": [
+        {
+          "id": 1,
+          "authorEmail": "admin@hawaii.gov",
+          "content": "Why do you need $50k to make cookies",
+          "createdAt": "March 23, 2025"
+        },
+        {
+          "id": 2,
+          "authorEmail": "vendor@site.com",
+          "content": "Because I'm making a LOT of cookies",
+          "createdAt": "March 24, 2025"
+        },
+        {
+          "id": 3,
+          "authorEmail": "admin@hawaii.gov",
+          "content": "Ok sounds good. Have an extra $70k on top of that.",
+          "createdAt": "March 29, 2025"
+        }
+      ],
       "issues": [
         {
           "id": 1,
@@ -54,11 +78,6 @@
           "status": "OPEN"
         }
       ],
-
-      "originalContractAward": 50000,
-      "totalPaidOut": 120000,
-      "progress": 67.3,
-
       "schedule": [
         {
           "id": 1,
@@ -99,24 +118,17 @@
           "completed": false
         }
       ],
-      "comments": [
+      "reports": [
         {
           "id": 1,
-          "authorEmail": "deleted@system.local",
-          "content": "Why do you need $50k to make cookies",
-          "createdAt": "March 23, 2025"
-        },
-        {
-          "id": 2,
-          "authorEmail": "vendor@site.com",
-          "content": "Because I'm making a LOT of cookies",
-          "createdAt": "March 24, 2025"
-        },
-        {
-          "id": 3,
-          "authorEmail": "deleted@system.local",
-          "content": "Ok sounds good. Have an extra $70k on top of that.",
-          "createdAt": "March 29, 2025"
+          "yearCreate": 2025,
+          "monthCreate": "APRIL",
+          "updatedAt": "May 5, 2025",
+          "creatorEmail": "vendor@site.com",
+          "status": "APPROVED",
+
+          "paidUpToNow": 120000,
+          "progress": 67.3
         }
       ]
     }

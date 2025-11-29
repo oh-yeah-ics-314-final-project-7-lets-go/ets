@@ -8,13 +8,13 @@ import AddCommentForm from '../comment/AddCommentForm';
 import CommentForm, { CommentWithUser } from '../comment/CommentForm';
 
 const ProjectPage = ({
-  firstRaised,
+  createdAt,
+  description,
+  status,
   updatedAt,
   id,
   name,
   originalContractAward,
-  progress,
-  totalPaidOut,
   creatorId,
   issues,
   events,
@@ -28,17 +28,12 @@ const ProjectPage = ({
     <Row>
       <Col>
         <h1 className="mb-0">{`About ${name} (${id})`}</h1>
-        <p>{firstRaised.toLocaleString()}</p>
         <h2>first raised</h2>
-        <p>{firstRaised.toLocaleString()}</p>
+        <p>{createdAt.toLocaleString()}</p>
         <h2>last updated</h2>
         <p>{updatedAt.toLocaleString()}</p>
         <h2>original contract award</h2>
         <p>{`$${originalContractAward}`}</p>
-        <h2>total paid out</h2>
-        <p>{`$${totalPaidOut}`}</p>
-        <h2>progress</h2>
-        <p>{`${progress}%`}</p>
       </Col>
       <Col>
         <h2>Issues</h2>
@@ -143,20 +138,21 @@ const ProjectPage = ({
           <CommentForm {...c} />
         ))}
         <AddCommentForm project={{
-          firstRaised,
+          createdAt,
+          description,
+          status,
           updatedAt,
           id,
           name,
           originalContractAward,
-          progress,
-          totalPaidOut,
           creatorId,
+
         }}
         />
       </Col>
     </Row>
     <div className="d-flex justify-content-between align-items-center mb-3">
-      <Button variant="outline-secondary" href={`/projects/${id}`}>
+      <Button variant="outline-secondary" href="/projects">
         ← Back to Overview
       </Button>
       <div style={{ width: '140px' }} />

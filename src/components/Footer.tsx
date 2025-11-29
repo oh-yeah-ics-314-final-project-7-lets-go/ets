@@ -19,18 +19,18 @@ const Footer = () => {
         <Col className="text-center">
           <Nav className="justify-content-center">
             <Nav.Link
-              href="/reports"
-              active={pathName === '/reports'}
+              href="/projects"
+              active={pathName === '/projects'}
               className="text-decoration-none text-secondary mx-2"
             >
-              Reports
+              Projects
             </Nav.Link>
             <Nav.Link
-              href="/add"
-              active={pathName === '/add'}
+              href="/project/create"
+              active={pathName === '/project/create'}
               className="text-decoration-none text-secondary mx-2"
             >
-              Add Report
+              Create Project
             </Nav.Link>
             <Nav.Link
               href="/dashboard"
@@ -53,19 +53,12 @@ const Footer = () => {
               ''
             )}
             <Nav.Link
-              href="/about"
-              active={pathName === '/about'}
+              href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/"
               className="text-decoration-none text-secondary mx-2"
             >
               About
             </Nav.Link>
           </Nav>
-
-          <br />
-
-          <a href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
-            Project Homepage
-          </a>
         </Col>
       </Container>
     </footer>

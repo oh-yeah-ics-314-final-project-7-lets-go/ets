@@ -1,7 +1,11 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import { Project, Event, Issue, Severity, Likelihood, Status, Comment, Role, User } from '@prisma/client';
+import { Project,
+  Event, Issue, Severity, Likelihood, Status, Comment, Role, User, ProjectStatus,
+  Month,
+  Report,
+} from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -14,9 +18,8 @@ import { prisma } from './prisma';
  */
 export async function addProject(project: {
   name: string;
+  description: string;
   originalContractAward: number;
-  totalPaidOut: number;
-  progress: number;
 }) {
   // Get the currently logged-in user
   const session = await getServerSession(authOptions);
@@ -37,14 +40,14 @@ export async function addProject(project: {
   await prisma.project.create({
     data: {
       name: project.name,
+      description: project.description,
       originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
+      status: ProjectStatus.PENDING,
       creatorId: user.id, // <-- records the logged-in user
     },
   });
 
-  redirect('/reports');
+  redirect('/projects');
 }
 
 /**
@@ -57,13 +60,12 @@ export async function editProject(project: Project) {
     where: { id: project.id },
     data: {
       name: project.name,
+      description: project.description,
       originalContractAward: project.originalContractAward,
-      totalPaidOut: project.totalPaidOut,
-      progress: project.progress,
     },
   });
   // After updating, redirect to the list page
-  redirect('/reports');
+  redirect(`/project/${project.id}`);
 }
 
 /**
@@ -86,6 +88,202 @@ export async function deleteProject(id: number) {
   redirect('/projects');
 }
 
+export async function changeProjectStatus(id: number, status: ProjectStatus) {
+  await prisma.project.update({
+    where: { id },
+    data: {
+      status,
+    },
+  });
+
+  redirect(`/project/${id}`);
+}
+
+const monthOrder: Record<Month, number> = {
+  JANUARY: 1,
+  FEBRUARY: 2,
+  MARCH: 3,
+  APRIL: 4,
+  MAY: 5,
+  JUNE: 6,
+  JULY: 7,
+  AUGUST: 8,
+  SEPTEMBER: 9,
+  OCTOBER: 10,
+  NOVEMBER: 11,
+  DECEMBER: 12,
+} as const;
+
+export type ProjectWithReports = Project & { reports: Report[]; };
+
+export async function findReports(query: {
+  term: string;
+  fromDate?: Date;
+  endDate?: Date;
+}) {
+  if (query.term.length < 3) return undefined;
+
+  const { fromDate = new Date(0), endDate = new Date() } = query;
+
+  const projects: ProjectWithReports[] = await prisma.project.findMany({
+    where: { name: { contains: query.term, mode: 'insensitive' } },
+    orderBy: {
+      id: 'desc',
+    },
+    include: {
+      reports: {
+        where: {
+          OR: [
+            {
+              yearCreate: {
+                lte: endDate.getUTCFullYear(),
+                gte: fromDate.getUTCFullYear(),
+              },
+            },
+            {
+              monthCreate: {
+                in: (Object.keys(monthOrder) as Month[]).filter(
+                  m => fromDate.getUTCMonth() + 1 <= monthOrder[m]
+                  && monthOrder[m] <= endDate.getUTCMonth() + 1,
+                ),
+              },
+            },
+          ],
+        },
+        orderBy: [
+          { yearCreate: 'desc' },
+          { monthCreate: 'desc' },
+        ],
+      },
+    },
+  });
+
+  return projects;
+}
+
+/**
+ * Adds a new project to the database for IV&V reporting.
+ * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
+ */
+export async function addReport(report: {
+  yearCreate: number,
+  monthCreate: Month,
+  paidUpToNow: number,
+  progress: number,
+  projectId: number,
+}) {
+  // Get the currently logged-in user
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  // Find the user in the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const project = await prisma.project.findUnique({
+    where: { id: report.projectId },
+  });
+
+  if (!project) {
+    throw new Error('Project not found');
+  }
+
+  // Create the project and assign the current user as creator
+  await prisma.report.create({
+    data: {
+      ...report,
+      status: ProjectStatus.PENDING,
+      creatorId: user.id, // <-- records the logged-in user
+    },
+  });
+
+  redirect(`/project/${report.projectId}/`);
+}
+
+export async function editReport(report: {
+  id: number,
+  yearCreate: number,
+  monthCreate: Month,
+  paidUpToNow: number,
+  progress: number,
+}) {
+  // Get the currently logged-in user
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  // Find the user in the database
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Create the project and assign the current user as creator
+  const updReport = await prisma.report.update({
+    where: { id: report.id },
+    data: {
+      ...report,
+    },
+  });
+
+  redirect(`/project/${updReport.projectId}/`);
+}
+
+export async function changeReportStatus(id: number, status: ProjectStatus) {
+  const report = await prisma.report.update({
+    where: { id },
+    data: {
+      status,
+    },
+  });
+
+  redirect(`/project/${report.projectId}/report/${id}`);
+}
+
+export async function deleteReport(id: number) {
+  const report = await prisma.report.delete({
+    where: { id },
+  });
+  // After deleting, redirect to the projects page
+  redirect(`/project/${report.projectId}`);
+}
+
+/**
+ * Use the report and check to see if:
+ * - Editing: compare IDs, make sure the one provided is the same.
+ * - Creating: check if a report for the same year and month already exists, reject.
+ * @param report
+ * @returns the report (if it exists)
+ */
+export async function reportAlreadyExists(report: {
+  yearCreate: number,
+  monthCreate: Month,
+  paidUpToNow: number,
+  progress: number,
+  projectId: number,
+}) {
+  const checkForReport = await prisma.report.findFirst({
+    where: {
+      yearCreate: report.yearCreate,
+      monthCreate: report.monthCreate,
+      projectId: report.projectId,
+    },
+  });
+
+  return checkForReport;
+}
+
 export async function addComment(comment: {
   authorId: number;
   content: string;
@@ -98,8 +296,6 @@ export async function addComment(comment: {
       content: comment.content,
     },
   });
-
-  redirect(`/projects/${comment.projectId}`);
 }
 
 export async function editComment(comment: Comment) {

@@ -1,27 +1,27 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
 import { editIssue } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FormButton from '@/components/FormButton';
 import { EditIssueSchema } from '@/lib/validationSchemas';
 import { Issue, Likelihood, Project, Severity, Status } from '@prisma/client';
 import { InferType } from 'yup';
+import Link from 'next/link';
 
 type EditIssueFormData = InferType<typeof EditIssueSchema>;
 
-const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) => {
+const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) => {
   const { status } = useSession();
 
   const onSubmit = async (data: EditIssueFormData) => {
     await editIssue({ ...issue, ...data });
-    swal('Success', 'Issue has been edited', 'success', {
-      timer: 2000,
-    });
+    swal('Success', 'Issue has been edited', 'success', { timer: 2000 });
   };
 
   const {
@@ -33,12 +33,8 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
     resolver: yupResolver(EditIssueSchema),
   });
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin');
-  }
+  if (status === 'loading') return <LoadingSpinner />;
+  if (status === 'unauthenticated') redirect('/auth/signin');
 
   return (
     <Container className="py-3">
@@ -46,27 +42,26 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
         <Col xs={8}>
           <Col className="text-center">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <a
+              <FormButton
                 href={`/project/${project.id}`}
-                className="btn btn-outline-secondary"
+                variant="cancel"
+                size="sm"
               >
                 ← Back to Overview
-              </a>
+              </FormButton>
               <div>
                 <h2 className="mb-0">Edit Issue</h2>
-                <p className="text-muted mb-0">
-                  {`Editing an issue for ${project.name}`}
-                </p>
+                <p className="text-muted mb-0">{`Editing an issue for ${project.name}`}</p>
               </div>
               <div style={{ width: '140px' }} />
-              {' '}
-              {/* Spacer for centering */}
             </div>
           </Col>
-          <Card>
+
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={issue.id} />
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -82,6 +77,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -97,9 +93,10 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col md={6}>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Severity</Form.Label>
                       <select
                         {...register('severity')}
@@ -114,7 +111,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                     </Form.Group>
                   </Col>
                   <Col md={6}>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Likelihood</Form.Label>
                       <select
                         {...register('likelihood')}
@@ -128,6 +125,8 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                       <div className="invalid-feedback">{errors.likelihood?.message}</div>
                     </Form.Group>
                   </Col>
+                </Row>
+                <Row>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Status</Form.Label>
@@ -147,20 +146,19 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue; }) 
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary" size="lg">
                         Submit Issue
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end">
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
+                        variant="cancel"
                         size="lg"
-                        className="float-end"
+                        onClick={() => reset()}
                       >
                         Reset Form
-                      </Button>
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>

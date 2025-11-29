@@ -3,18 +3,25 @@
 import { useState } from 'react';
 import { Button, Badge, ProgressBar, Modal } from 'react-bootstrap';
 import { Project } from '@prisma/client';
+import Link from 'next/link';
+import { formatCurrency, formatDateShort, getProgressVariant } from '@/lib/util';
+import StatusTooltip from './StatusTooltip';
 // import { deleteProject } from '@/lib/dbActions';
 
 interface ProjectItemProps extends Project {
   creatorEmail: string;
+  report: {
+    progress: number;
+    paidUpToNow: number;
+  };
 }
 
 const ProjectItem = ({
   id,
   name,
+  status,
   originalContractAward,
-  totalPaidOut,
-  progress,
+  report,
   updatedAt,
   creatorEmail,
 }: ProjectItemProps) => {
@@ -33,6 +40,8 @@ const ProjectItem = ({
     setShowDeleteModal(false);
   };
 
+  const { paidUpToNow: totalPaidOut, progress } = report;
+
   // Calculate budget utilization
   const budgetUtilized = (totalPaidOut / originalContractAward) * 100;
 
@@ -46,30 +55,15 @@ const ProjectItem = ({
     return <Badge bg="success">On Track</Badge>;
   };
 
-  // Determine progress bar variant
-  const getProgressVariant = () => {
-    if (progress < 25) return 'danger';
-    if (progress < 75) return 'warning';
-    return 'success';
-  };
-
-  // Format currency
-  const formatCurrency = (amount: number) => new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
-
-  // Format date
-  const formatDate = (date: Date) => new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(new Date(date));
-
   return (
     <>
-      <tr style={{ cursor: 'pointer' }} onClick={() => window.location.href = `/projects/${id}`}>
-        <td><strong>{name}</strong></td>
+      <tr style={{ cursor: 'pointer' }}>
+        <td>
+          <StatusTooltip {...{ status }} type="project" />
+          <Link className="fw-bold text-black" href={`/project/${id}`}>
+            {name}
+          </Link>
+        </td>
         <td>{formatCurrency(originalContractAward)}</td>
         <td>{formatCurrency(totalPaidOut)}</td>
         <td>
@@ -77,17 +71,17 @@ const ProjectItem = ({
             <ProgressBar
               now={progress}
               label={`${progress.toFixed(1)}%`}
-              variant={getProgressVariant()}
+              variant={getProgressVariant(progress)}
               style={{ height: '20px' }}
             />
           </div>
         </td>
         <td>{getBudgetStatus()}</td>
-        <td><small className="text-muted">{formatDate(updatedAt)}</small></td>
+        <td><small className="text-muted">{formatDateShort(updatedAt)}</small></td>
         <td>{creatorEmail}</td>
         <td onClick={(e) => e.stopPropagation()}>
           <div className="d-flex gap-2">
-            <Button variant="outline-secondary" size="sm" href={`/edit/${id}`}>Edit</Button>
+            <Button variant="outline-secondary" size="sm" href={`/project/${id}/edit/`}>Edit</Button>
             <Button variant="outline-danger" size="sm" onClick={handleDeleteClick}>Delete</Button>
           </div>
         </td>

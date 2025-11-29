@@ -12,3 +12,80 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* Set up some CSS variables to theme the application. */
+:root {
+  --nat-navbar-bg: #17828c;
+  --nat-navbar-bg-rgb: 23, 130, 140;
+  --nat-navbar-text-color: white;
+  --nat-navbar-highlight-text: white;
+  --bs-text-secondary: white;
+}
+
+/* Change text color of footer links to white */
+footer, footer a {
+  color: var(--nat-navbar-text-color);
+  --bs-text-secondary: var(--nat-navbar-text-color);
+  text-decoration: none;
+}
+
+body {
+  --bs-light: var(--nat-navbar-bg);
+  --bs-light-rgb: var(--nat-navbar-bg-rgb);
+}
+
+body .navbar {
+  --bs-navbar-active-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-brand-color: var(--nat-navbar-text-color);
+  --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-color: var(--nat-navbar-text-color);
+  --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
+}
+
+.bg-light a.dropdown-item {
+  color: var(--nat-navbar-bg);
+}
+
+footer .nav-link {
+  color: white !important;
+}
+
+.form-Card {
+  border: 3px solid #18828C !important;
+  border-radius: 12px !important;
+}
+
+/* --- Primary Button (default) --- */
+.form-btn {
+  background-color: #18828C !important;
+  border: 2px solid #18828C !important;
+  color: white !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border-radius: 8px !important;
+}
+
+.form-btn:hover,
+.form-btn:active,
+.form-btn:focus {
+  background-color: #175450 !important;
+  border-color: #175450 !important;
+  color: white !important;
+}
+
+/* Cancel Button */
+.form-btn-cancel {
+  background-color: #4E4848 !important;
+  border: 2px solid #4E4848 !important;
+  color: white !important;
+}
+
+.form-btn-cancel:hover,
+.form-btn-cancel:active,
+.form-btn-cancel:focus {
+  background-color: #444444 !important;
+  border-color: #444444 !important;
+  color: white !important;
+}
+
+
+
