@@ -4,16 +4,17 @@ import { createUser } from '@/lib/dbActions';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Role } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+import swal from 'sweetalert';
+import FormButton from './FormButton';
 
 type SignUpForm = {
   firstName: string;
   lastName: string;
   email: string;
   role: Role;
-  // acceptTerms: boolean;
 };
 
 const validationSchema = Yup.object().shape({
@@ -34,15 +35,16 @@ const CreateUserForm = () => {
   });
 
   const router = useRouter();
+
   const onSubmit = async (data: SignUpForm) => {
-    // console.log(JSON.stringify(data, null, 2));
     const password = await createUser(data);
-    // After creating, signIn with redirect to the add page
-    await swal('Success', `Please give the user the password for their account: ${password}`, 'success', {
-      timer: 2000,
-    });
+    await swal(
+      'Success',
+      `Please give the user the password for their account: ${password}`,
+      'success',
+      { timer: 2000 },
+    );
     router.push('/admin');
-    // await signIn('credentials', { callbackUrl: '/add', ...data });
   };
 
   return (
@@ -50,13 +52,20 @@ const CreateUserForm = () => {
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Create User</h1>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <FormButton size="sm" variant="cancel" onClick={() => router.push('/admin')}>
+                ← Back
+              </FormButton>
+              <h1 className="text-center mb-0">Create User</h1>
+              <div style={{ width: '70px' }} />
+            </div>
+
             <Card>
               <Card.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Row>
+                  <Row className="mb-3">
                     <Col>
-                      <Form.Group className="form-group">
+                      <Form.Group>
                         <Form.Label>First Name</Form.Label>
                         <input
                           type="text"
@@ -68,7 +77,7 @@ const CreateUserForm = () => {
                       </Form.Group>
                     </Col>
                     <Col>
-                      <Form.Group className="form-group">
+                      <Form.Group>
                         <Form.Label>Last Name</Form.Label>
                         <input
                           type="text"
@@ -80,7 +89,8 @@ const CreateUserForm = () => {
                       </Form.Group>
                     </Col>
                   </Row>
-                  <Form.Group className="form-group">
+
+                  <Form.Group className="mb-3">
                     <Form.Label>Email</Form.Label>
                     <input
                       type="text"
@@ -90,26 +100,30 @@ const CreateUserForm = () => {
                     />
                     <div className="invalid-feedback">{errors.email?.message}</div>
                   </Form.Group>
-                  <Form.Group className="form-group">
+
+                  <Form.Group className="mb-3">
                     <Form.Label>User Type</Form.Label>
                     <Form.Select {...register('role')} className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
-                      <option selected disabled>Select a role</option>
+                      <option value="" disabled selected>
+                        Select a role
+                      </option>
                       <option value={Role.ETS}>ETS Employee</option>
                       <option value={Role.VENDOR}>IV&V Vendor</option>
                     </Form.Select>
                     <div className="invalid-feedback">{errors.role?.message}</div>
                   </Form.Group>
-                  <Form.Group className="form-group py-3">
-                    <Row>
-                      <Col>
-                        <Button type="submit" className="btn btn-primary">
-                          Create account
-                        </Button>
+
+                  <Form.Group className="pt-3">
+                    <Row className="justify-content-between">
+                      <Col xs="auto">
+                        <FormButton type="submit" variant="primary" size="lg">
+                          Create Account
+                        </FormButton>
                       </Col>
-                      <Col className="d-flex">
-                        <Button type="button" onClick={() => reset()} className="btn btn-warning float-right">
+                      <Col xs="auto">
+                        <FormButton type="button" variant="cancel" size="lg" onClick={() => reset()}>
                           Reset
-                        </Button>
+                        </FormButton>
                       </Col>
                     </Row>
                   </Form.Group>

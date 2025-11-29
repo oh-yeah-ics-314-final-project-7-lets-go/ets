@@ -1,27 +1,27 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { editEvent } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { EditEventSchema } from '@/lib/validationSchemas';
 import { Event, Project } from '@prisma/client';
 import { InferType } from 'yup';
+import FormButton from '../FormButton';
 
 type EditEventFormData = InferType<typeof EditEventSchema>;
 
-const EditEventForm = ({ project, event }: { project: Project; event: Event; }) => {
+const EditEventForm = ({ project, event }: { project: Project; event: Event }) => {
   const { status } = useSession();
+  const router = useRouter();
 
   const onSubmit = async (data: EditEventFormData) => {
     await editEvent({ ...event, ...data });
-    swal('Success', 'Event has been edited', 'success', {
-      timer: 2000,
-    });
+    swal('Success', 'Event has been edited', 'success', { timer: 2000 });
   };
 
   const {
@@ -29,32 +29,42 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<EditEventFormData>({
     resolver: yupResolver(EditEventSchema),
     mode: 'onChange',
   });
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin');
-  }
+  if (status === 'loading') return <LoadingSpinner />;
+  if (status === 'unauthenticated') redirect('/auth/signin');
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
+          {/* Top Back button + Title */}
           <Col className="text-center">
-            <h2>Edit Event</h2>
-            <p className="text-muted">
-              {`Edit an event for ${project.name}`}
-            </p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <FormButton
+                type="button"
+                variant="cancel"
+                size="sm"
+                onClick={() => router.push(`/project/${project.id}`)}
+              >
+                ← Back to Overview
+              </FormButton>
+              <div>
+                <h2 className="mb-0">Edit Event</h2>
+                <p className="text-muted mb-0">{`Edit an event for ${project.name}`}</p>
+              </div>
+              <div style={{ width: '140px' }} />
+            </div>
           </Col>
-          <Card>
+
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={event.id} />
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -70,6 +80,7 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -85,6 +96,7 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -93,7 +105,6 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                         type="date"
                         {...register('plannedStart')}
                         className={`form-control ${errors.plannedStart ? 'is-invalid' : ''}`}
-                        placeholder="Set planned start date for event"
                         defaultValue={event.plannedStart.toISOString().split('T')[0]}
                       />
                       <div className="invalid-feedback">{errors.plannedStart?.message}</div>
@@ -106,13 +117,13 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                         type="date"
                         {...register('plannedEnd')}
                         className={`form-control ${errors.plannedEnd ? 'is-invalid' : ''}`}
-                        placeholder="Set planned end date for event"
                         defaultValue={event.plannedEnd.toISOString().split('T')[0]}
                       />
                       <div className="invalid-feedback">{errors.plannedEnd?.message}</div>
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
@@ -121,7 +132,6 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                         type="date"
                         {...register('actualStart')}
                         className={`form-control ${errors.actualStart ? 'is-invalid' : ''}`}
-                        placeholder="Set actual start date for event"
                         defaultValue={event.actualStart?.toISOString().split('T')[0]}
                       />
                       <div className="invalid-feedback">{errors.actualStart?.message}</div>
@@ -134,13 +144,13 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                         type="date"
                         {...register('actualEnd')}
                         className={`form-control ${errors.actualEnd ? 'is-invalid' : ''}`}
-                        placeholder="Set actual end date for event"
                         defaultValue={event.actualEnd?.toISOString().split('T')[0]}
                       />
                       <div className="invalid-feedback">{errors.actualEnd?.message}</div>
                     </Form.Group>
                   </Col>
                 </Row>
+
                 <Row>
                   <Form.Group className="mb-3">
                     <Form.Label>Completed?</Form.Label>
@@ -151,20 +161,20 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event; }) 
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" size="lg" variant="primary">
                         Edit Event
-                      </Button>
+                      </FormButton>
                     </Col>
-                    <Col>
-                      <Button
+                    <Col className="d-flex justify-content-end">
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
+                        variant="cancel"
                         size="lg"
-                        className="float-end"
+                        className="me-2"
+                        onClick={() => reset()}
                       >
                         Reset Form
-                      </Button>
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>
