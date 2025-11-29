@@ -1,7 +1,7 @@
 'use client';
 
 import { Event, Issue } from '@prisma/client';
-import { useEffect, useRef } from 'react';
+import { Container } from 'react-bootstrap';
 
 interface EventTimelineProps {
   events: Event[];
@@ -9,8 +9,9 @@ interface EventTimelineProps {
   projectId: string;
 }
 
-const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
-  const timelineRef = useRef<HTMLDivElement>(null);
+const getDaysInMonth = (year: number, month: number): number => new Date(year, month + 1, 0).getDate();
+
+const useTimelineUtils = (events: Event[], issues: Issue[]) => {
   const today = new Date();
   const issuesAsEvents = issues.filter(issue => issue.status !== 'CLOSED').map((issue) => ({
     id: issue.id,
@@ -29,67 +30,62 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const allItems = [...events, ...issuesAsEvents];
   const sortedEvents = allItems.sort((a, b) => new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime());
 
-  const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
   const getTimelineData = () => {
-    if (sortedEvents.length === 0) return { startDate: new Date(), endDate: new Date(), months: [] };
-    const startDate = new Date(sortedEvents[0].plannedStart);
-    const endDate = new Date(sortedEvents[sortedEvents.length - 1].plannedEnd);
-    const paddedStart = new Date(startDate.getFullYear(), startDate.getMonth() - 1, 1);
-    const paddedEnd = new Date(endDate.getFullYear(), endDate.getMonth() + 1, 1);
+    const today = new Date();
+    // Always show 1 year before to 1 year after today (exactly 24 months)
+    const startDate = new Date(today.getFullYear(), today.getMonth() - 12, 1);
+
     const months = [];
-    const current = new Date(paddedStart);
-    while (current <= paddedEnd) {
+    const current = new Date(startDate);
+    // Generate exactly 24 months
+    for (let i = 0; i < 24; i++) {
       months.push(new Date(current));
       current.setMonth(current.getMonth() + 1);
     }
 
-    return { startDate: paddedStart, endDate: paddedEnd, months };
+    const endDate = new Date(current); // End date is after the 24th month
+    return { startDate, endDate, months };
   };
 
-  const timelineData = getTimelineData();
-
-  // Calculate position relative to today's position on timeline
   const getEventPosition = (eventDate: Date | string) => {
-    if (sortedEvents.length === 0) return 50;
-
-    const currentDate = new Date();
+    const timelineData = getTimelineData();
     const date = new Date(eventDate);
-    const todayPosition = 50; // Today is always at 50% (center of timeline)
-    const pixelsPerDay = 1; // 1% per day spacing
+    const { startDate } = timelineData;
 
-    // Calculate days difference from today
-    const daysDifference = (date.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
+    // Calculate complete months from start
+    const monthsFromStart = (date.getFullYear() - startDate.getFullYear()) * 12
+                           + (date.getMonth() - startDate.getMonth());
 
-    // Calculate position: today's position + (days difference * pixels per day)
-    const position = todayPosition + (daysDifference * pixelsPerDay);
+    // Calculate precise position within the current month
+    const daysInCurrentMonth = getDaysInMonth(date.getFullYear(), date.getMonth());
+    const dayPosition = (date.getDate() - 1) / daysInCurrentMonth; // -1 because days start at 1
 
-    return Math.max(5, Math.min(95, position)); // Keep events within visible bounds
+    // Each month is 240px, calculate total position in pixels
+    const monthWidth = 240;
+    const totalWidth = 5760; // 24 months * 240px
+    const positionInPixels = (monthsFromStart * monthWidth) + (dayPosition * monthWidth);
+    return Math.max(0, Math.min(totalWidth, positionInPixels));
   };
 
   const getMonthPosition = (monthDate: Date) => {
-    if (sortedEvents.length === 0) return 0;
+    const timelineData = getTimelineData();
+    const { startDate } = timelineData;
 
-    const currentDate = new Date();
-    const todayPosition = 50;
-    const pixelsPerDay = 1; // 1% per day spacing (same as events)
+    // Calculate months from start
+    const monthsFromStart = (monthDate.getFullYear() - startDate.getFullYear()) * 12
+                           + (monthDate.getMonth() - startDate.getMonth());
 
-    const daysDifference = (monthDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
+    const totalWidth = 5760;
+    const position = ((monthsFromStart * 240) / totalWidth) * 100;
 
-    const position = todayPosition + (daysDifference * pixelsPerDay);
-
-    return Math.max(5, Math.min(95, position));
+    return Math.max(0, Math.min(100, position));
   };
 
-  const getEventLevels = () => {
+  const getLevels = (items: any[]) => {
     const levels: { event: Event; level: number; }[] = [];
     const occupiedRanges: { start: number; end: number; level: number; }[] = [];
 
-    sortedEvents.forEach((event) => {
+    items.forEach((event) => {
       const startPos = getEventPosition(event.plannedStart);
       const endPos = getEventPosition(event.plannedEnd);
       const eventStart = Math.min(startPos, endPos);
@@ -117,28 +113,439 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
     return levels;
   };
 
-  const eventLevels = getEventLevels();
-  const maxLevel = eventLevels.length > 0 ? Math.max(...eventLevels.map(el => el.level)) : 0;
-  const centerLevel = maxLevel / 2;
-  const baseTableheight = 300;
+  return {
+    sortedEvents,
+    getEventPosition,
+    getMonthPosition,
+    getTimelineData,
+    getLevels,
+    todayPosition: 50,
+  };
+};
 
-  // Always position Today at the center of the timeline container
-  const todayPosition = 50; // Always at 50% (center)
+// EventGraph Component (Upper Half)
+const EventGraph = ({ events, projectId, utils }: { events: Event[], projectId: string, utils: any }) => {
+  const eventLevels = utils.getLevels(events);
+  const containerHeight = 400;
 
-  // Scroll to today's position on mount
-  useEffect(() => {
-    if (timelineRef.current && sortedEvents.length > 0) {
-      const container = timelineRef.current;
-      const timelineWidth = container.scrollWidth;
-      const containerWidth = container.clientWidth;
+  const renderItem = (item: any, level: number) => {
+    const startPosition = utils.getEventPosition(item.plannedStart);
+    const endPosition = utils.getEventPosition(item.plannedEnd);
+    const isCompleted = item.completed;
+    const itemColor = isCompleted ? '#198754' : '#0d6efd';
+    const durationInDays = (new Date(item.plannedEnd)
+      .getTime() - new Date(item.plannedStart)
+      .getTime()) / (1000 * 60 * 60 * 24);
+    // Events should be positioned upward from bottom of container (400px container height)
+    // Place events from bottom upward: 400px - (level * spacing)
+    const spacing = 50; // increased spacing to prevent cramping
+    const itemTop = 400 - ((level + 1) * spacing);
+    const dotTop = itemTop - 9;
 
-      // Calculate scroll position to center today (50% of timeline width)
-      const scrollPosition = (timelineWidth * 0.5) - (containerWidth * 0.5);
-      container.scrollLeft = Math.max(0, scrollPosition);
+    const currentDate = new Date();
+    const eventEndDate = new Date(item.plannedEnd);
+    const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
+    const isOldEvent = eventEndDate <= twoMonthsAgo;
+
+    if (durationInDays <= 5 || isOldEvent) {
+      return (
+        <div
+          key={item.id}
+          style={{
+            position: 'absolute',
+            left: `${startPosition}px`,
+            top: `${dotTop}px`,
+            zIndex: 3 }}
+        >
+          <div
+            role="button"
+            tabIndex={0}
+            style={{
+              backgroundColor: itemColor,
+              color: 'white',
+              padding: '2px 6px',
+              borderRadius: '12px',
+              fontSize: '0.6rem',
+              fontWeight: 'bold',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              border: '2px solid #fff',
+              cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.location.href = `/project/${projectId}/event/${item.id}`;
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = `/project/${projectId}/event/${item.id}`;
+              }
+            }}
+          >
+            {new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            {' - '}
+            {item.name}
+            {' - '}
+            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
+          </div>
+        </div>
+      );
     }
-  }, [sortedEvents.length]);
 
-  if (sortedEvents.length === 0) {
+    const leftPosition = Math.min(startPosition, endPosition);
+    const width = Math.abs(endPosition - startPosition);
+
+    return (
+      <div key={item.id}>
+        <div style={{
+          position: 'absolute',
+          left: `${leftPosition}px`,
+          top: `${itemTop - 1}px`,
+          width: `${width}px`,
+          height: '4px',
+          backgroundColor: itemColor,
+          opacity: 0.7,
+          zIndex: 2,
+          borderRadius: '2px' }}
+        />
+        <div style={{
+          position: 'absolute',
+          left: `${startPosition}px`,
+          top: `${dotTop}px`,
+          zIndex: 3 }}
+        >
+          <div
+            style={{
+              backgroundColor: itemColor,
+              color: 'white',
+              padding: '2px 6px',
+              borderRadius: '12px',
+              fontSize: '0.6rem',
+              fontWeight: 'bold',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              border: '2px solid #fff',
+              cursor: 'pointer' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.location.href = `/project/${projectId}/event/${item.id}`;
+            }}
+          >
+            {item.name}
+            {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
+          </div>
+        </div>
+        <div style={{ position: 'absolute',
+          left: `${endPosition}px`,
+          top: `${dotTop}px`,
+          zIndex: 3 }}
+        >
+          <div style={{
+            backgroundColor: itemColor,
+            color: 'white',
+            padding: '2px 6px',
+            borderRadius: '12px',
+            fontSize: '0.6rem',
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+            border: '2px solid #fff' }}
+          >
+            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className="event-graph"
+      style={{
+        position: 'relative',
+        height: `${containerHeight}px`,
+        margin: '5px 0',
+        overflow: 'visible',
+      }}
+    >
+      <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
+        {eventLevels.map(({ event, level }) => renderItem(event, level))}
+      </div>
+    </div>
+  );
+};
+
+// Timeline Component (Middle Line)
+const Timeline = ({ utils }: { utils: any }) => {
+  const timelineData = utils.getTimelineData();
+
+  return (
+    <div
+      className="timeline-line"
+      style={{
+        position: 'relative',
+        height: '60px',
+        display: 'flex',
+        alignItems: 'center',
+        margin: '10px 0',
+      }}
+    >
+      <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
+        {/* Main timeline line */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '0',
+            width: '5760px',
+            height: '3px',
+            backgroundColor: '#6c757d',
+            borderRadius: '2px',
+            transform: 'translateY(-50%)',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+          }}
+        />
+
+        {/* Today Pointer - at 50% = 12 months from start = 2880px */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '2880px',
+            top: '0',
+            bottom: '0',
+              zIndex: 4,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div style={{
+            fontSize: '0.6rem',
+            color: 'white',
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            backgroundColor: '#dc3545',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            border: '2px solid #fff',
+          }}
+          >
+            {new Date().getDate()}
+          </div>
+        </div>
+
+        {/* Month Grid */}
+        {timelineData.months.map((month, index) => (
+          <div
+            key={`month-${month.getFullYear()}-${month.getMonth()}`}
+            style={{
+              position: 'absolute',
+              left: `${index * 240}px`,
+              top: '0',
+              width: '240px',
+              height: '100%',
+              zIndex: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <div style={{
+              fontSize: '0.6rem',
+              color: 'white',
+              fontWeight: 'bold',
+              whiteSpace: 'nowrap',
+              textAlign: 'center',
+              backgroundColor: '#6c757d',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              border: '2px solid #fff',
+            }}
+            >
+              {month.toLocaleDateString('en-US', { month: 'short' })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// IssueGraph Component (Lower Half)
+const IssueGraph = ({ issues, projectId, utils }: { issues: Issue[], projectId: string, utils: any }) => {
+  const filteredIssues = issues.filter(issue => issue.status !== 'CLOSED');
+  const issueLevels = utils.getLevels(filteredIssues.map(issue => ({
+    id: issue.id,
+    name: issue.remedy,
+    projectId: issue.projectId,
+    plannedStart: issue.firstRaised,
+    plannedEnd: issue.updatedAt,
+    completed: issue.status === 'CLOSED',
+    isIssue: true,
+  })));
+
+  const containerHeight = 340;
+
+  const renderItem = (item: any, level: number) => {
+    const startPosition = utils.getEventPosition(item.plannedStart);
+    const endPosition = utils.getEventPosition(item.plannedEnd);
+    const itemColor = '#ffc107';
+    const durationInDays = (new Date(item.plannedEnd)
+      .getTime() - new Date(item.plannedStart).getTime()) / (1000 * 60 * 60 * 24);
+    // Issues should be positioned downward from top of container (340px container height)
+    // Place issues from top downward: (level * spacing)
+    const spacing = 50; // increased spacing to prevent cramping
+    const itemTop = (level + 1) * spacing;
+    const dotTop = itemTop - 9;
+
+    const currentDate = new Date();
+    const eventEndDate = new Date(item.plannedEnd);
+    const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
+    const isOldEvent = eventEndDate <= twoMonthsAgo;
+
+    if (durationInDays <= 5 || isOldEvent) {
+      return (
+        <div
+          key={item.id}
+          style={{
+            position: 'absolute',
+            left: `${startPosition}px`,
+            top: `${dotTop}px`,
+            zIndex: 3 }}
+        >
+          <div
+            role="button"
+            tabIndex={0}
+            style={{
+              backgroundColor: itemColor,
+              color: 'white',
+              padding: '2px 6px',
+              borderRadius: '12px',
+              fontSize: '0.6rem',
+              fontWeight: 'bold',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              border: '2px solid #fff',
+              cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.location.href = `/project/${projectId}/issue/${item.id}`;
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = `/project/${projectId}/issue/${item.id}`;
+              }
+            }}
+          >
+            {new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            {' - '}
+            {item.name}
+            {' - '}
+            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          </div>
+        </div>
+      );
+    }
+
+    const leftPosition = Math.min(startPosition, endPosition);
+    const width = Math.abs(endPosition - startPosition);
+
+    return (
+      <div key={item.id}>
+        <div style={{ position: 'absolute',
+          left: `${leftPosition}px`,
+          top: `${itemTop - 1}px`,
+          width: `${width}px`,
+          height: '4px',
+          backgroundColor: itemColor,
+          opacity: 0.7,
+          zIndex: 2,
+          borderRadius: '2px' }}
+        />
+        <div style={{ position: 'absolute',
+          left: `${startPosition}px`,
+          top: `${dotTop}px`,
+          zIndex: 3 }}
+        >
+          <div
+            style={{ backgroundColor: itemColor,
+              color: 'white',
+              padding: '2px 6px',
+              borderRadius: '12px',
+              fontSize: '0.6rem',
+              fontWeight: 'bold',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+              border: '2px solid #fff',
+              cursor: 'pointer' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.location.href = `/project/${projectId}/issue/${item.id}`;
+            }}
+          >
+            {item.name}
+          </div>
+        </div>
+        <div style={{
+          position: 'absolute', left: `${endPosition}px`, top: `${dotTop}px`, transform: 'translateX(-50%)', zIndex: 3 }}
+        >
+          <div style={{
+            backgroundColor: itemColor,
+            color: 'white',
+            padding: '2px 6px',
+            borderRadius: '12px',
+            fontSize: '0.6rem',
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+            border: '2px solid #fff' }}
+          >
+            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className="issue-graph"
+      style={{
+        position: 'relative',
+        height: `${containerHeight}px`,
+        margin: '5px 0',
+        overflow: 'visible',
+      }}
+    >
+      <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
+        {issueLevels.map(({ event, level }) => renderItem(event, level))}
+      </div>
+    </div>
+  );
+};
+
+// Main EventTimeline Component
+const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
+  const utils = useTimelineUtils(events, issues);
+
+  if (utils.sortedEvents.length === 0) {
     return (
       <div className="text-center py-4 text-muted">
         <p>No events scheduled yet.</p>
@@ -148,8 +555,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   }
 
   return (
-    <div className="timeline-container">
-      {/* Timeline Header */}
+    <Container className="timeline-container">
       <div className="mb-3">
         <h5>
           Timeline (
@@ -163,322 +569,22 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
         </h5>
       </div>
 
-      {/* Timeline Visualization */}
       <div
-        ref={timelineRef}
-        className="position-relative"
         style={{
-          minHeight: `${baseTableheight + (maxLevel * 40)}px`,
-          marginBottom: '20px',
-          overflowX: 'auto',
-          overflowY: 'visible',
           border: '1px solid #dee2e6',
           borderRadius: '4px',
-          padding: '10px 0',
+          backgroundColor: '#fff',
+          overflowX: 'auto',
+          overflowY: 'hidden',
         }}
       >
-        <div
-          style={{
-            width: '300%', // Make timeline 3x wider than container
-            minWidth: '1200px', // Ensure minimum width for small events
-            position: 'relative',
-            height: '100%',
-          }}
-        >
-          {/* Timeline Line */}
-          <div
-            style={{
-              position: 'absolute',
-              top: `${(baseTableheight / 2) + (centerLevel * 40)}px`,
-              left: '20px',
-              right: '20px',
-              height: '2px',
-              backgroundColor: '#dee2e6',
-              zIndex: 1,
-            }}
-          />
-
-          {/* Today Pointer */}
-          <div
-            style={{
-              position: 'absolute',
-              left: `${todayPosition}%`,
-              top: '20px',
-              bottom: '20px',
-              transform: 'translateX(-50%)',
-              zIndex: 4,
-            }}
-          >
-            {/* Today Label */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '-25px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                backgroundColor: '#dc3545',
-                color: 'white',
-                padding: '2px 8px',
-                borderRadius: '12px',
-                fontSize: '0.7rem',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              }}
-            >
-              {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            </div>
-
-            {/* Arrow Pointer */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '-7px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 0,
-                height: 0,
-                borderLeft: '4px solid transparent',
-                borderRight: '4px solid transparent',
-                borderTop: '6px solid #dc3545',
-              }}
-            />
-          </div>
-          {timelineData.months.map((month) => {
-            const position = getMonthPosition(month);
-
-            return (
-              <div
-                key={`month-${month.getFullYear()}-${month.getMonth()}`}
-                style={{
-                  position: 'absolute',
-                  left: `${position}%`,
-                  top: `${(baseTableheight / 2) + (maxLevel * 40)}px`,
-                  transform: 'translateX(-50%)',
-                  zIndex: 0,
-                }}
-              >
-                <div
-                  style={{
-                    width: '1px',
-                    height: '15px',
-                    backgroundColor: '#adb5bd',
-                    marginLeft: '50%',
-                  }}
-                />
-              </div>
-            );
-          })}
-          {eventLevels.map(({ event, level }) => {
-            const startPosition = getEventPosition(event.plannedStart);
-            const endPosition = getEventPosition(event.plannedEnd);
-            const isCompleted = event.completed;
-            const isIssue = (event as any).isIssue || false;
-            // eslint-disable-next-line no-nested-ternary
-            const itemColor = isIssue ? '#ffc107' : (isCompleted ? '#198754' : '#0d6efd');
-
-            const durationInDays = (new Date(event.plannedEnd)
-              .getTime() - new Date(event.plannedStart)
-              .getTime()) / (1000 * 60 * 60 * 24);
-
-            const eventTop = (baseTableheight / 2) + (level * 40);
-            const dotTop = eventTop - 9;
-
-            // For events shorter than 5 days OR events that ended 2+ months ago, show single dot
-            const currentDate = new Date();
-            const eventEndDate = new Date(event.plannedEnd);
-            const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
-            const isOldEvent = eventEndDate <= twoMonthsAgo;
-            if (durationInDays <= 5 || isOldEvent) {
-              const midPoint = (startPosition + endPosition) / 2;
-              return (
-                <div key={event.id}>
-                  {/* Single dot for short events */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: `${midPoint}%`,
-                      top: `${dotTop}px`,
-                      transform: 'translateX(-50%)',
-                      zIndex: 3,
-                    }}
-                  >
-                    <div
-                      role="button"
-                      tabIndex={0}
-                      style={{
-                        backgroundColor: itemColor,
-                        color: 'white',
-                        padding: '2px 6px',
-                        borderRadius: '12px',
-                        fontSize: '0.6rem',
-                        fontWeight: 'bold',
-                        whiteSpace: 'nowrap',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                        border: '2px solid #fff',
-                        cursor: 'pointer',
-                        transition: 'background-color 0.2s ease',
-                      }}
-                      title={`${event.name} - ${formatDate(event.plannedStart)} to ${formatDate(event.plannedEnd)}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
-                          : `/project/${projectId}/event/${event.id}`;
-                        window.location.href = detailUrl;
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
-                            : `/project/${projectId}/event/${event.id}`;
-                          window.location.href = detailUrl;
-                        }
-                      }}
-                      onMouseEnter={(e) => {
-                        // eslint-disable-next-line no-nested-ternary
-                        const hoverColor = isIssue ? '#e0a800'
-                          : (isCompleted ? '#157347' : '#0b5ed7');
-                        e.currentTarget.style.backgroundColor = hoverColor;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = itemColor;
-                      }}
-                    >
-                      {new Date(event.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      {' '}
-                      -
-                      {' '}
-                      {event.name}
-                      {' '}
-                      -
-                      {' '}
-                      {new Date(event.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      {isCompleted && (
-                      <span style={{ marginLeft: '4px' }}>✓</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-
-            // For longer events, show start and end dots
-            const leftPosition = Math.min(startPosition, endPosition);
-            const width = Math.abs(endPosition - startPosition);
-
-            return (
-              <div
-                key={event.id}
-                role="button"
-                tabIndex={0}
-                style={{
-                  cursor: 'pointer',
-                  transition: 'opacity 0.2s ease',
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
-                    : `/project/${projectId}/event/${event.id}`;
-                  window.location.href = detailUrl;
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const detailUrl = isIssue ? `/project/${projectId}/issue/${event.id}`
-                      : `/project/${projectId}/event/${event.id}`;
-                    window.location.href = detailUrl;
-                  }
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = '0.8';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = '1';
-                }}
-                title={`Click to view ${event.name} details`}
-              >
-                {/* Event Duration Line */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: `${leftPosition}%`,
-                    top: `${eventTop - 1}px`,
-                    width: `${width}%`,
-                    height: '4px',
-                    backgroundColor: itemColor,
-                    opacity: 0.7,
-                    zIndex: 2,
-                    borderRadius: '2px',
-                  }}
-                />
-
-                {/* Start Date Dot - With event name */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: `${startPosition}%`,
-                    top: `${dotTop}px`,
-                    transform: 'translateX(-50%)',
-                    zIndex: 3,
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: itemColor,
-                      color: 'white',
-                      padding: '2px 6px',
-                      borderRadius: '12px',
-                      fontSize: '0.6rem',
-                      fontWeight: 'bold',
-                      whiteSpace: 'nowrap',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                      border: '2px solid #fff',
-                    }}
-                    title={`${event.name} - Start: ${formatDate(event.plannedStart)}`}
-                  >
-                    {event.name}
-                    {isCompleted && (
-                    <span style={{ marginLeft: '4px' }}>✓</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* End Date Dot - With date only */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: `${endPosition}%`,
-                    top: `${dotTop}px`,
-                    transform: 'translateX(-50%)',
-                    zIndex: 3,
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: itemColor,
-                      color: 'white',
-                      padding: '2px 6px',
-                      borderRadius: '12px',
-                      fontSize: '0.6rem',
-                      fontWeight: 'bold',
-                      whiteSpace: 'nowrap',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                      border: '2px solid #fff',
-                    }}
-                    title={`${event.name} - End: ${formatDate(event.plannedEnd)}`}
-                  >
-                    {new Date(event.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div style={{ width: '5760px', minWidth: '5760px' }}>
+          <EventGraph events={events} projectId={projectId} utils={utils} />
+          <Timeline utils={utils} />
+          <IssueGraph issues={issues} projectId={projectId} utils={utils} />
         </div>
       </div>
-
-    </div>
+    </Container>
   );
 };
 
