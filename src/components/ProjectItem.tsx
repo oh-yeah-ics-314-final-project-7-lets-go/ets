@@ -5,8 +5,8 @@ import { Button, Badge, ProgressBar, Modal } from 'react-bootstrap';
 import { Project } from '@prisma/client';
 import Link from 'next/link';
 import { formatCurrency, formatDateShort, getProgressVariant } from '@/lib/util';
+import { deleteProject } from '@/lib/dbActions';
 import StatusTooltip from './StatusTooltip';
-// import { deleteProject } from '@/lib/dbActions';
 
 interface ProjectItemProps extends Project {
   creatorEmail: string;
@@ -32,7 +32,7 @@ const ProjectItem = ({
   };
 
   const handleDeleteConfirm = async () => {
-    // await deleteProject(id);
+    await deleteProject(id);
     setShowDeleteModal(false);
   };
 

@@ -6,7 +6,7 @@ import { Role } from '@prisma/client';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
+import { BoxArrowRight, Lock, PersonFill } from 'react-bootstrap-icons';
 import Image from 'next/image';
 
 const NavBar: React.FC = () => {
@@ -46,17 +46,15 @@ const NavBar: React.FC = () => {
                 Dashboard
             </Nav.Link>
 
-            {currentUser && (
+            {currentUser && role !== 'ETS' && (
               <Nav.Link id="add-nav" href="/project/create" active={pathName === '/project/create'}>
                 Create Project
               </Nav.Link>
         )}
-            {currentUser && role === 'ETS' ? (
+            {currentUser && role === 'ETS' && (
               <Nav.Link id="admin-nav" href="/admin" key="admin" active={pathName === '/admin'}>
                 User Management
               </Nav.Link>
-            ) : (
-              ''
             )}
             <Nav.Link id="about-nav" href="https://oh-yeah-ics-314-final-project-7-lets-go.github.io/">
               About
@@ -67,11 +65,11 @@ const NavBar: React.FC = () => {
               <NavDropdown id="login-dropdown" title={`${userWithRole.firstName} ${userWithRole.lastName}`}>
                 <NavDropdown.Item id="login-dropdown-sign-out" href="/api/auth/signout">
                   <BoxArrowRight />
-                  Sign Out
+                  Sign out
                 </NavDropdown.Item>
                 <NavDropdown.Item id="login-dropdown-change-password" href="/auth/change-password">
                   <Lock />
-                  Change Password
+                  Change password
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
@@ -79,10 +77,6 @@ const NavBar: React.FC = () => {
                 <NavDropdown.Item id="login-dropdown-sign-in" href="/auth/signin">
                   <PersonFill />
                   Sign in
-                </NavDropdown.Item>
-                <NavDropdown.Item id="login-dropdown-sign-up" href="/auth/signup">
-                  <PersonPlusFill />
-                  Sign up
                 </NavDropdown.Item>
               </NavDropdown>
             )}

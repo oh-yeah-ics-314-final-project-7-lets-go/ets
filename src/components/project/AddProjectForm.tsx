@@ -111,7 +111,7 @@ const AddProjectForm: React.FC = () => {
                   <Row className="pt-3">
                     <Col>
                       <FormButton type="submit" variant="primary" size="lg">
-                        Submit Report
+                        Submit Project
                       </FormButton>
                     </Col>
                     <Col className="d-flex justify-content-end">

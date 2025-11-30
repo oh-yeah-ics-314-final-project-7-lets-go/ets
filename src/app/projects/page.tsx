@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { Col, Container, Row, Table, Badge } from 'react-bootstrap';
+import { Col, Container, Row, Table, Badge, Button } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import ProjectItem from '@/components/ProjectItem';
 import authOptions from '@/lib/authOptions';
@@ -72,14 +72,16 @@ const ListPage = async () => {
               <tbody>
                 {projects.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="text-center text-muted py-4">
-                      No project reports submitted yet.
-                      <Link
-                        href="/project/create"
-                        className="text-decoration-none ms-1"
-                      >
-                        Submit Report
-                      </Link>
+                    <td colSpan={8} className="text-center text-muted py-4 w-100">
+                      <Container className="align-items-center d-flex gap-2 justify-content-center">
+                        <span>No projects submitted yet.</span>
+                        <Button
+                          variant="primary"
+                          href="/project/create"
+                        >
+                          Create Project
+                        </Button>
+                      </Container>
                     </td>
                   </tr>
                 ) : (
