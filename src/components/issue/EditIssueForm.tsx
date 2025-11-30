@@ -12,7 +12,6 @@ import FormButton from '@/components/FormButton';
 import { EditIssueSchema } from '@/lib/validationSchemas';
 import { Issue, Likelihood, Project, Severity, Status } from '@prisma/client';
 import { InferType } from 'yup';
-import Link from 'next/link';
 
 type EditIssueFormData = InferType<typeof EditIssueSchema>;
 
