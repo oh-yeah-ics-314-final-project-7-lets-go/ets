@@ -4,10 +4,10 @@ import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import { Project, Report } from '@prisma/client';
 import Header from './components/Header';
 import MainGrid from './components/MainGrid';
 import AppTheme from './shared-theme/AppTheme';
-import { Project, Report } from '@prisma/client';
 import {
   chartsCustomizations,
   dataGridCustomizations,
@@ -50,14 +50,10 @@ export default function Dashboard({ report }: { report: ReportWithProject }) {
             }}
           >
             <Header />
-            <MainGrid report={report}/>
+            <MainGrid report={report} />
           </Stack>
         </Box>
       </Box>
     </AppTheme>
   );
 }
-
-Dashboard.defaultProps = {
-  disableCustomTheme: false,
-};

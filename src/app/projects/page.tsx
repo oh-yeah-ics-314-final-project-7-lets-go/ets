@@ -4,7 +4,6 @@ import { prisma } from '@/lib/prisma';
 import ProjectItem from '@/components/ProjectItem';
 import authOptions from '@/lib/authOptions';
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
 
 const ListPage = async () => {
   // Get session

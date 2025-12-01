@@ -25,7 +25,29 @@ const DashboardPage = async ({ params }: { params: { report: string | string[] }
   const report: ReportWithProject | null = await prisma.report.findUnique({
     where: { id: reportId },
     include: {
-      project: true,
+      project: {
+        include: {
+          issues: {
+            orderBy: { firstRaised: 'desc' },
+          },
+          schedule: {
+            orderBy: { plannedStart: 'asc' },
+          },
+          comments: {
+            orderBy: { updatedAt: 'desc' },
+            include: {
+              author: true,
+            },
+          },
+          creator: true,
+          reports: {
+            orderBy: [
+              { yearCreate: 'desc' },
+              { monthCreate: 'desc' },
+            ],
+          },
+        },
+      },
     },
   });
 
@@ -35,7 +57,7 @@ const DashboardPage = async ({ params }: { params: { report: string | string[] }
     <main>
       <Container id="list" fluid className="py-3">
         {reportName(report)}
-        <Dashboard report={report}/>
+        <Dashboard report={report} />
       </Container>
     </main>
   );
