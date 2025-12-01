@@ -8,6 +8,7 @@ import { Project } from '@prisma/client';
 import { EditProjectSchema } from '@/lib/validationSchemas';
 import { editProject } from '@/lib/dbActions';
 import FormButton from '@/components/FormButton';
+import FormRequired from '../FormRequired';
 
 type EditProjectFormData = {
   id: number;
@@ -20,7 +21,6 @@ const EditProjectForm = ({ project }: { project: Project }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<EditProjectFormData>({
     resolver: yupResolver(EditProjectSchema),
@@ -44,17 +44,13 @@ const EditProjectForm = ({ project }: { project: Project }) => {
       <Row className="justify-content-center">
         <Col xs={8}>
           <Col className="text-center mb-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <FormButton href="/" variant="cancel" size="sm">
-                ← Back
-              </FormButton>
-              <div>
-                <h2>Edit IV&V Project Report</h2>
-                <p className="text-muted">
-                  Update standardized project data for Independent Verification & Validation
-                </p>
-              </div>
-              <div style={{ width: '140px' }} />
+            <div className="align-items-center mb-3">
+              <h2>
+                {`Edit "${project.name}" Project`}
+              </h2>
+              <p className="text-muted">
+                {`Update project data for ${project.name}`}
+              </p>
             </div>
           </Col>
 
@@ -66,7 +62,10 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Project Name *</Form.Label>
+                      <Form.Label>
+                        Project Name
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('name')}
@@ -78,7 +77,10 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Original Contract Award ($) *</Form.Label>
+                      <Form.Label>
+                        Original Contract Award ($)
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         step="0.01"
@@ -95,7 +97,10 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Description *</Form.Label>
+                      <Form.Label>
+                        Description
+                        <FormRequired />
+                      </Form.Label>
                       <textarea
                         {...register('description')}
                         rows={5}
@@ -111,7 +116,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <FormButton type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary">
                         Update Report
                       </FormButton>
                     </Col>
@@ -119,10 +124,9 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                       <FormButton
                         type="button"
                         variant="cancel"
-                        size="lg"
-                        onClick={() => reset()}
+                        href={`/project/${project.id}`}
                       >
-                        Reset Form
+                        Cancel
                       </FormButton>
                     </Col>
                   </Row>

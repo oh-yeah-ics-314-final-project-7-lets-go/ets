@@ -12,6 +12,7 @@ import FormButton from '@/components/FormButton';
 import { EditIssueSchema } from '@/lib/validationSchemas';
 import { Issue, Likelihood, Project, Severity, Status } from '@prisma/client';
 import { InferType } from 'yup';
+import FormRequired from '../FormRequired';
 
 type EditIssueFormData = InferType<typeof EditIssueSchema>;
 
@@ -26,7 +27,6 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<EditIssueFormData>({
     resolver: yupResolver(EditIssueSchema),
@@ -39,20 +39,14 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
-          <Col className="text-center">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <FormButton
-                href={`/project/${project.id}`}
-                variant="cancel"
-                size="sm"
-              >
-                ← Back to Overview
-              </FormButton>
-              <div>
-                <h2 className="mb-0">Edit Issue</h2>
-                <p className="text-muted mb-0">{`Editing an issue for ${project.name}`}</p>
-              </div>
-              <div style={{ width: '140px' }} />
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                {`Edit Issue #${issue.id}`}
+              </h2>
+              <p className="text-muted">
+                {`Update issue data for ${project.name}`}
+              </p>
             </div>
           </Col>
 
@@ -60,11 +54,13 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={issue.id} />
-
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Issue Description</Form.Label>
+                      <Form.Label>
+                        Issue Description
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('description')}
@@ -80,7 +76,10 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Remedy for Issue</Form.Label>
+                      <Form.Label>
+                        Remedy for Issue
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('remedy')}
@@ -96,7 +95,10 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Severity</Form.Label>
+                      <Form.Label>
+                        Severity
+                        <FormRequired />
+                      </Form.Label>
                       <select
                         {...register('severity')}
                         className={`form-control ${errors.severity ? 'is-invalid' : ''}`}
@@ -111,7 +113,10 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Likelihood</Form.Label>
+                      <Form.Label>
+                        Likelihood
+                        <FormRequired />
+                      </Form.Label>
                       <select
                         {...register('likelihood')}
                         className={`form-control ${errors.likelihood ? 'is-invalid' : ''}`}
@@ -128,7 +133,10 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                 <Row>
                   <Col md={6}>
                     <Form.Group>
-                      <Form.Label>Status</Form.Label>
+                      <Form.Label>
+                        Status
+                        <FormRequired />
+                      </Form.Label>
                       <select
                         {...register('status')}
                         className={`form-control ${errors.status ? 'is-invalid' : ''}`}
@@ -145,7 +153,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <FormButton type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary">
                         Submit Issue
                       </FormButton>
                     </Col>
@@ -153,10 +161,9 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                       <FormButton
                         type="button"
                         variant="cancel"
-                        size="lg"
-                        onClick={() => reset()}
+                        href={`/project/${project.id}/issue/${issue.id}`}
                       >
-                        Reset Form
+                        Cancel
                       </FormButton>
                     </Col>
                   </Row>

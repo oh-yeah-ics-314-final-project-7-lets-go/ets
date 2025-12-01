@@ -25,7 +25,7 @@ const CreateReportPage = async ({ params }: { params: { project: string | string
 
   return (
     <main>
-      <AddReportForm projectId={project.id} />
+      <AddReportForm project={project} />
     </main>
   );
 };

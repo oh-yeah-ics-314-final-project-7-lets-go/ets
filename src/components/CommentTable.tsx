@@ -1,16 +1,16 @@
 'use client';
 
-import { Comment } from '@prisma/client';
+import { Comment, Project } from '@prisma/client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { deleteComment, editComment } from '@/lib/dbActions';
 import {
   Modal, Button, Card, CardHeader, Col, Row, CardBody, ListGroup, ListGroupItem, FormSelect } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import AddCommentForm from './comment/AddCommentForm';
 
 interface CommentTableProps {
-  projectId: string;
+  project: Project;
   comments: (Comment & {
     author: {
       firstName: string;
@@ -19,7 +19,7 @@ interface CommentTableProps {
   })[];
 }
 
-const CommentTable = ({ projectId, comments = [] }: CommentTableProps) => {
+const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
   const router = useRouter();
   const { data } = useSession();
 
@@ -29,6 +29,7 @@ const CommentTable = ({ projectId, comments = [] }: CommentTableProps) => {
   const [filter, setFilter] = useState<string>('LATEST');
 
   // STATE for Editing & Deleting
+  const [showCommentDialog, setShowCommentDialog] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
@@ -106,19 +107,17 @@ const CommentTable = ({ projectId, comments = [] }: CommentTableProps) => {
                 <option value="ALL">Show All</option>
               </FormSelect>
             </div>
-            <Link
-              href={`/project/${projectId}/comment/create`}
+            <Button
+              onClick={() => setShowCommentDialog(!showCommentDialog)}
+              variant="outline-primary"
+              size="sm"
             >
-              <Button
-                variant="outline-primary"
-                size="sm"
-              >
-                Add Comment
-              </Button>
-            </Link>
+              {showCommentDialog ? 'Hide Comment Dialog' : 'Add Comment'}
+            </Button>
           </CardHeader>
 
           <CardBody>
+            {showCommentDialog && <AddCommentForm project={project} />}
             <ListGroup>
               {sortedComments.length > 0 ? (
                 sortedComments.map((comment) => {

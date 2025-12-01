@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import { Form, Container, Row, Col, Card } from 'react-bootstrap';
 import { updateUser, getUserById } from '@/lib/dbActions';
 import { Role } from '@prisma/client';
 import FormButton from '@/components/FormButton';
+import FormRequired from '@/components/FormRequired';
 
 const EditUserPage = () => {
   const params = useParams();
@@ -52,69 +53,90 @@ const EditUserPage = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container className="py-3">
-      <h2 className="mb-3">Edit User</h2>
-
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-2">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-2">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-2">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Role</Form.Label>
-          <Form.Select
-            value={role}
-            onChange={e => setRole(e.target.value as Role)}
-          >
-            <option value="VENDOR">Vendor</option>
-            <option value="ETS">ETS</option>
-          </Form.Select>
-        </Form.Group>
-
-        {/* Buttons Row */}
-        <Row className="pt-3">
-          <Col>
-            <FormButton
-              type="button"
-              variant="cancel"
-              size="lg"
-              onClick={() => router.back()}
-            >
-              Back
-            </FormButton>
+    <Container className="my-3">
+      <Row className="justify-content-center">
+        <Col xs={5}>
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                {`Edit ${firstName} ${lastName}'s Account`}
+              </h2>
+              <p className="text-muted">
+                Update account data
+              </p>
+            </div>
           </Col>
+          <Card className="form-Card">
+            <Card.Body>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                  <Row>
+                    <Col>
+                      <Form.Label>
+                        First Name
+                        <FormRequired />
+                      </Form.Label>
+                      <Form.Control
+                        value={firstName}
+                        onChange={e => setFirstName(e.target.value)}
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Label>
+                        Last Name
+                        <FormRequired />
+                      </Form.Label>
+                      <Form.Control
+                        value={lastName}
+                        onChange={e => setLastName(e.target.value)}
+                      />
+                    </Col>
+                  </Row>
+                </Form.Group>
 
-          <Col className="d-flex justify-content-end">
-            <FormButton
-              type="submit"
-              variant="primary"
-              size="lg"
-            >
-              Save Changes
-            </FormButton>
-          </Col>
-        </Row>
-      </Form>
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    Email
+                    <FormRequired />
+                  </Form.Label>
+                  <Form.Control
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    Role
+                    <FormRequired />
+                  </Form.Label>
+                  <Form.Select
+                    value={role}
+                    onChange={e => setRole(e.target.value as Role)}
+                  >
+                    <option value="VENDOR">Vendor</option>
+                    <option value="ETS">ETS</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="pt-3">
+                  <Row className="justify-content-between">
+                    <Col xs="auto">
+                      <FormButton type="submit" variant="primary">
+                        Update Account
+                      </FormButton>
+                    </Col>
+                    <Col xs="auto">
+                      <FormButton type="button" variant="cancel" href="/admin">
+                        Cancel
+                      </FormButton>
+                    </Col>
+                  </Row>
+                </Form.Group>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };

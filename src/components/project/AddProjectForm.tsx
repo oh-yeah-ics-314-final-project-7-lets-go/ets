@@ -10,6 +10,7 @@ import { addProject } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import FormButton from '@/components/FormButton';
 import { AddProjectSchema } from '@/lib/validationSchemas';
+import FormRequired from '../FormRequired';
 
 type AddProjectFormData = {
   name: string;
@@ -23,7 +24,6 @@ const AddProjectForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<AddProjectFormData>({
     resolver: yupResolver(AddProjectSchema),
@@ -41,18 +41,14 @@ const AddProjectForm: React.FC = () => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
-          <Col className="text-center">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <FormButton href="/" variant="cancel" size="sm">
-                ← Back
-              </FormButton>
-              <div>
-                <h2>Submit IV&V Project Report</h2>
-                <p className="text-muted">
-                  Submit standardized project data for Independent Verification & Validation
-                </p>
-              </div>
-              <div style={{ width: '140px' }} />
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                Create a Project
+              </h2>
+              <p className="text-muted">
+                Create a new IV&V project for ETS review.
+              </p>
             </div>
           </Col>
 
@@ -62,7 +58,10 @@ const AddProjectForm: React.FC = () => {
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Project Name *</Form.Label>
+                      <Form.Label>
+                        Project Name
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('name')}
@@ -74,7 +73,10 @@ const AddProjectForm: React.FC = () => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Original Contract Award ($) *</Form.Label>
+                      <Form.Label>
+                        Original Contract Award ($)
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         step="0.01"
@@ -94,7 +96,10 @@ const AddProjectForm: React.FC = () => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Description *</Form.Label>
+                      <Form.Label>
+                        Description
+                        <FormRequired />
+                      </Form.Label>
                       <textarea
                         {...register('description')}
                         rows={5}
@@ -110,7 +115,7 @@ const AddProjectForm: React.FC = () => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <FormButton type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary">
                         Submit Project
                       </FormButton>
                     </Col>
@@ -118,10 +123,9 @@ const AddProjectForm: React.FC = () => {
                       <FormButton
                         type="button"
                         variant="cancel"
-                        size="lg"
-                        onClick={() => reset()}
+                        href="/projects"
                       >
-                        Reset Form
+                        Cancel
                       </FormButton>
                     </Col>
                   </Row>

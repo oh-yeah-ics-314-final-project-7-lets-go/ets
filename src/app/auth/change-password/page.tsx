@@ -5,9 +5,11 @@ import { useSession } from 'next-auth/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import swal from 'sweetalert';
-import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { changePassword } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FormRequired from '@/components/FormRequired';
+import FormButton from '@/components/FormButton';
 
 type ChangePasswordForm = {
   oldpassword: string;
@@ -53,15 +55,18 @@ const ChangePassword = () => {
 
   return (
     <main>
-      <Container>
+      <Container className="py-3">
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Change Password</h1>
-            <Card>
+            <h2 className="text-center mb-3">Change Password</h2>
+            <Card className="form-Card">
               <Card.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group className="form-group">
-                    <Form.Label>Old Passord</Form.Label>
+                  <Form.Group className="form-group mb-3">
+                    <Form.Label>
+                      Old Password
+                      <FormRequired />
+                    </Form.Label>
                     <input
                       type="password"
                       {...register('oldpassword')}
@@ -70,8 +75,11 @@ const ChangePassword = () => {
                     <div className="invalid-feedback">{errors.oldpassword?.message}</div>
                   </Form.Group>
 
-                  <Form.Group className="form-group">
-                    <Form.Label>New Password</Form.Label>
+                  <Form.Group className="form-group mb-3">
+                    <Form.Label>
+                      New Password
+                      <FormRequired />
+                    </Form.Label>
                     <input
                       type="password"
                       {...register('password')}
@@ -79,8 +87,11 @@ const ChangePassword = () => {
                     />
                     <div className="invalid-feedback">{errors.password?.message}</div>
                   </Form.Group>
-                  <Form.Group className="form-group">
-                    <Form.Label>Confirm Password</Form.Label>
+                  <Form.Group className="form-group mb-3">
+                    <Form.Label>
+                      Confirm Password
+                      <FormRequired />
+                    </Form.Label>
                     <input
                       type="password"
                       {...register('confirmPassword')}
@@ -88,17 +99,17 @@ const ChangePassword = () => {
                     />
                     <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
                   </Form.Group>
-                  <Form.Group className="form-group py-3">
-                    <Row>
-                      <Col>
-                        <Button type="submit" className="btn btn-primary">
-                          Change
-                        </Button>
+                  <Form.Group className="pt-3">
+                    <Row className="justify-content-between">
+                      <Col xs="auto">
+                        <FormButton type="submit" variant="primary">
+                          Change Password
+                        </FormButton>
                       </Col>
-                      <Col>
-                        <Button type="button" onClick={() => reset()} className="btn btn-warning float-right">
-                          Reset
-                        </Button>
+                      <Col xs="auto">
+                        <FormButton type="button" variant="cancel" href="/admin">
+                          Cancel
+                        </FormButton>
                       </Col>
                     </Row>
                   </Form.Group>

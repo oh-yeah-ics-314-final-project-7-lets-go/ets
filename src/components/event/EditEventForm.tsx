@@ -5,19 +5,19 @@ import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { editEvent } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { EditEventSchema } from '@/lib/validationSchemas';
 import { Event, Project } from '@prisma/client';
 import { InferType } from 'yup';
 import FormButton from '../FormButton';
+import FormRequired from '../FormRequired';
 
 type EditEventFormData = InferType<typeof EditEventSchema>;
 
 const EditEventForm = ({ project, event }: { project: Project; event: Event }) => {
   const { status } = useSession();
-  const router = useRouter();
 
   const onSubmit = async (data: EditEventFormData) => {
     await editEvent({ ...event, ...data });
@@ -27,7 +27,6 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<EditEventFormData>({
     resolver: yupResolver(EditEventSchema),
@@ -41,22 +40,14 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
-          {/* Top Back button + Title */}
-          <Col className="text-center">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <FormButton
-                type="button"
-                variant="cancel"
-                size="sm"
-                onClick={() => router.push(`/project/${project.id}`)}
-              >
-                ← Back to Overview
-              </FormButton>
-              <div>
-                <h2 className="mb-0">Edit Event</h2>
-                <p className="text-muted mb-0">{`Edit an event for ${project.name}`}</p>
-              </div>
-              <div style={{ width: '140px' }} />
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                {`Edit "${event.name}" Event`}
+              </h2>
+              <p className="text-muted">
+                {`Update event data for ${project.name}`}
+              </p>
             </div>
           </Col>
 
@@ -68,7 +59,10 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Event Name</Form.Label>
+                      <Form.Label>
+                        Event Name
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('name')}
@@ -84,7 +78,10 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Event Description</Form.Label>
+                      <Form.Label>
+                        Event Description
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('description')}
@@ -100,7 +97,10 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Planned Start Date</Form.Label>
+                      <Form.Label>
+                        Planned Start Date
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="date"
                         {...register('plannedStart')}
@@ -112,7 +112,10 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                   </Col>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Planned End Date</Form.Label>
+                      <Form.Label>
+                        Planned End Date
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="date"
                         {...register('plannedEnd')}
@@ -152,28 +155,35 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                 </Row>
 
                 <Row>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Completed?</Form.Label>
-                    <input type="checkbox" {...register('completed')} defaultChecked={event.completed} />
-                  </Form.Group>
+                  <Col xs={6}>
+                    <Form.Group className="mb-3 d-flex align-content-center">
+                      <Form.Label className="mb-0">
+                        Completed?
+                      </Form.Label>
+                      <input
+                        className="ms-auto"
+                        type="checkbox"
+                        {...register('completed')}
+                        defaultChecked={event.completed}
+                      />
+                    </Form.Group>
+                  </Col>
                 </Row>
 
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <FormButton type="submit" size="lg" variant="primary">
-                        Edit Event
+                      <FormButton type="submit" variant="primary">
+                        Update Event
                       </FormButton>
                     </Col>
                     <Col className="d-flex justify-content-end">
                       <FormButton
                         type="button"
                         variant="cancel"
-                        size="lg"
-                        className="me-2"
-                        onClick={() => reset()}
+                        href={`/project/${project.id}/event/${event.id}`}
                       >
-                        Reset Form
+                        Cancel
                       </FormButton>
                     </Col>
                   </Row>

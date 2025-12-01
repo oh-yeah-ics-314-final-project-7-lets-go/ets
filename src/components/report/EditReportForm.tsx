@@ -11,6 +11,9 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import { EditReportSchema } from '@/lib/validationSchemas';
 import { InferType } from 'yup';
 import { Project, Report } from '@prisma/client';
+import { reportName } from '@/lib/util';
+import FormButton from '../FormButton';
+import FormRequired from '../FormRequired';
 
 type EditReportFormData = InferType<typeof EditReportSchema>;
 
@@ -19,7 +22,6 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
     setError,
   } = useForm<EditReportFormData>({
@@ -54,20 +56,27 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
-          <Col className="text-center">
-            <h2>Submit IV&V Project Report</h2>
-            <p className="text-muted">
-              Enter report information for this project.
-            </p>
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                {`Edit ${reportName(report)} for "${project.name}"`}
+              </h2>
+              <p className="text-muted">
+                {`Update the report data for ${project.name}`}
+              </p>
+            </div>
           </Col>
-          <Card>
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" {...register('id')} value={report.id} required />
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Year Created *</Form.Label>
+                      <Form.Label>
+                        Year Created
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         min={1900}
@@ -81,7 +90,10 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Month Created *</Form.Label>
+                      <Form.Label>
+                        Month Created
+                        <FormRequired />
+                      </Form.Label>
                       <Form.Select
                         {...register('monthCreate')}
                         className={`form-control ${errors.monthCreate ? 'is-invalid' : ''}`}
@@ -107,7 +119,10 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Amount Invoiced up to now ($) *</Form.Label>
+                      <Form.Label>
+                        Amount Invoiced up to now ($)
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         min={0}
@@ -124,7 +139,10 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Progress (%) *</Form.Label>
+                      <Form.Label>
+                        Progress (%)
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         min={0}
@@ -142,20 +160,19 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
-                        Submit Report
+                      <Button type="submit" variant="primary">
+                        Update Report
                       </Button>
                     </Col>
                     <Col>
-                      <Button
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
-                        size="lg"
+                        href={`/project/${project.id}/report/${report.id}`}
+                        variant="cancel"
                         className="float-end"
                       >
-                        Reset Form
-                      </Button>
+                        Cancel
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>

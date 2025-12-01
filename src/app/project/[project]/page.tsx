@@ -182,7 +182,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
 
         <IssueTable isApproved={isApproved} projectId={projectId.toString()} issues={project.issues || []} />
         <EventTable isApproved={isApproved} projectId={projectId.toString()} events={project.schedule || []} />
-        <CommentTable projectId={projectId.toString()} comments={project.comments || []} />
+        <CommentTable project={project} comments={project.comments || []} />
         {isETS && isApproved && (
         <Container className="text-center mt-3">
           <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />

@@ -39,28 +39,12 @@ const AddCommentForm = ({ project }: { project: Project }) => {
     swal('Success', 'Added your comment', 'success', {
       timer: 2000,
     });
+    redirect(`/project/${project.id}`);
   };
 
   return (
-    <Container className="py-3">
-      <Col className="text-center mb-4">
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <FormButton
-            href={`/project/${project.id}`}
-            variant="cancel"
-            size="sm"
-          >
-            ← Back To Overview
-          </FormButton>
-          <div>
-            <h2 className="mb-0">Add Comment</h2>
-            <p className="text-muted mb-0">{`Add a comment for ${project.name}`}</p>
-          </div>
-          <div style={{ width: '140px' }} />
-        </div>
-      </Col>
-
-      <Card className="form-Card">
+    <Container>
+      <Card className="border-0">
         <Card.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <input type="hidden" {...register('projectId')} value={project.id} />
@@ -72,27 +56,21 @@ const AddCommentForm = ({ project }: { project: Project }) => {
             <Row>
               <Col>
                 <Form.Group>
-                  <Form.Label>Comment</Form.Label>
-                  <input
-                    type="text"
-                    {...register('content')}
-                    className={`form-control ${errors.content ? 'is-invalid' : ''}`}
-                    placeholder="Enter your comment..."
-                  />
-                  <div className="invalid-feedback">{errors.content?.message}</div>
+                  <div className="d-flex gap-2">
+                    <input
+                      type="text"
+                      {...register('content')}
+                      className={`form-control ${errors.content ? 'is-invalid' : ''}`}
+                      placeholder="Enter your comment..."
+                    />
+                    <FormButton className="text-nowrap" type="submit" variant="primary">
+                      Post Comment
+                    </FormButton>
+                  </div>
+                  <div className="d-block invalid-feedback">{errors.content?.message}</div>
                 </Form.Group>
               </Col>
             </Row>
-
-            <Form.Group className="form-group">
-              <Row className="pt-3">
-                <Col>
-                  <FormButton type="submit" size="lg" variant="primary">
-                    Create Comment
-                  </FormButton>
-                </Col>
-              </Row>
-            </Form.Group>
           </Form>
         </Card.Body>
       </Card>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { Button, Card, Col, Container, Form, Row, Alert, InputGroup, Modal } from 'react-bootstrap';
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
+import FormRequired from '@/components/FormRequired';
 
 const SignIn = () => {
   const [error, setError] = useState('');
@@ -49,10 +50,10 @@ const SignIn = () => {
 
   return (
     <main>
-      <Container>
+      <Container className="py-3">
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Sign In</h1>
+            <h1 className="text-center mb-3">Sign In</h1>
             <Card style={{ border: '3px solid #18828C', borderRadius: '12px' }}>
               <Card.Body>
 
@@ -64,7 +65,10 @@ const SignIn = () => {
 
                 <Form method="post" onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>
+                      Email
+                      <FormRequired />
+                    </Form.Label>
                     <Form.Control
                       name="email"
                       type="text"
@@ -73,7 +77,10 @@ const SignIn = () => {
                   </Form.Group>
 
                   <Form.Group className="mt-3">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>
+                      Password
+                      <FormRequired />
+                    </Form.Label>
 
                     <InputGroup>
                       <Form.Control
@@ -158,21 +165,7 @@ const SignIn = () => {
           This feature is not yet implemented.
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            style={{
-              backgroundColor: '#4D76A4',
-              borderColor: '#4D76A4',
-            }}
-            onClick={() => setShowForgotModal(false)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#395878';
-              e.currentTarget.style.borderColor = '#395878';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#4D76A4';
-              e.currentTarget.style.borderColor = '#4D76A4';
-            }}
-          >
+          <Button variant="primary" onClick={() => setShowForgotModal(false)}>
             OK
           </Button>
         </Modal.Footer>

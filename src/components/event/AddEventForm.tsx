@@ -5,24 +5,23 @@ import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { addEvent } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import FormButton from '@/components/FormButton';
 import { AddEventSchema } from '@/lib/validationSchemas';
 import { Project } from '@prisma/client';
 import { InferType } from 'yup';
+import FormRequired from '../FormRequired';
 
 type AddEventFormData = InferType<typeof AddEventSchema>;
 
 const AddEventForm = ({ project }: { project: Project }) => {
   const { status } = useSession();
-  const router = useRouter();
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<AddEventFormData>({
     resolver: yupResolver(AddEventSchema),
@@ -41,22 +40,14 @@ const AddEventForm = ({ project }: { project: Project }) => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
-          {/* Top Back button + Title */}
-          <Col className="text-center">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <FormButton
-                type="button"
-                variant="cancel"
-                size="sm"
-                onClick={() => router.push(`/project/${project.id}`)}
-              >
-                ← Back to Overview
-              </FormButton>
-              <div>
-                <h2 className="mb-0">Create Event</h2>
-                <p className="text-muted mb-0">{`Add an event for ${project.name}`}</p>
-              </div>
-              <div style={{ width: '140px' }} />
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                Create Event
+              </h2>
+              <p className="text-muted">
+                {`Create an event for "${project.name}"`}
+              </p>
             </div>
           </Col>
 
@@ -69,7 +60,10 @@ const AddEventForm = ({ project }: { project: Project }) => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Event Name</Form.Label>
+                      <Form.Label>
+                        Event Name
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('name')}
@@ -85,7 +79,10 @@ const AddEventForm = ({ project }: { project: Project }) => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Event Description</Form.Label>
+                      <Form.Label>
+                        Event Description
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="text"
                         {...register('description')}
@@ -101,7 +98,10 @@ const AddEventForm = ({ project }: { project: Project }) => {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Planned Start Date</Form.Label>
+                      <Form.Label>
+                        Planned Start Date
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="date"
                         {...register('plannedStart')}
@@ -113,7 +113,10 @@ const AddEventForm = ({ project }: { project: Project }) => {
                   </Col>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Planned End Date</Form.Label>
+                      <Form.Label>
+                        Planned End Date
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="date"
                         {...register('plannedEnd')}
@@ -155,17 +158,21 @@ const AddEventForm = ({ project }: { project: Project }) => {
 
                 {/* Completed */}
                 <Row>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Completed?</Form.Label>
-                    <input type="checkbox" {...register('completed')} />
-                  </Form.Group>
+                  <Col xs={6}>
+                    <Form.Group className="mb-3 d-flex align-content-center">
+                      <Form.Label className="mb-0">
+                        Completed?
+                      </Form.Label>
+                      <input className="ms-auto" type="checkbox" {...register('completed')} />
+                    </Form.Group>
+                  </Col>
                 </Row>
 
                 {/* Buttons */}
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <FormButton type="submit" variant="primary" size="lg">
+                      <FormButton type="submit" variant="primary">
                         Create Event
                       </FormButton>
                     </Col>
@@ -173,11 +180,8 @@ const AddEventForm = ({ project }: { project: Project }) => {
                       <FormButton
                         type="button"
                         variant="cancel"
-                        size="lg"
-                        className="me-2"
-                        onClick={() => reset()}
                       >
-                        Reset Form
+                        Cancel
                       </FormButton>
                     </Col>
                   </Row>

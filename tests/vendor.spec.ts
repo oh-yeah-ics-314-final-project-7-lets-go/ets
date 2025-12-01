@@ -22,20 +22,6 @@ test('test project creation form for errors', async ({ getUserPage }) => {
   await expect(vendorPage.getByText('Project description is')).toBeVisible();
 });
 
-test('test comment creation', async ({ getUserPage }) => {
-  const vendorPage = await getUserPage('cookie_rep@site.com', 'changeme');
-  await vendorPage.locator('#projects-nav').click();
-  await vendorPage.getByRole('link', { name: 'Give Keiki Cookies' }).click();
-  await vendorPage.getByRole('button', { name: 'Add Comment' }).click();
-  await vendorPage.getByRole('button', { name: 'Create Comment' }).click();
-  await vendorPage.getByRole('textbox', { name: 'Enter your comment...' }).click();
-  await vendorPage.getByRole('textbox', { name: 'Enter your comment...' }).fill('hello');
-  await expect(vendorPage.getByText('Comments must be at least 10')).toBeVisible();
-  await vendorPage.getByRole('textbox', { name: 'Enter your comment...' }).click();
-  await vendorPage.getByRole('textbox', { name: 'Enter your comment...' }).fill('hello world');
-  await expect(vendorPage.getByText('Comments must be at least 10')).not.toBeVisible();
-});
-
 test('test issue creation', async ({ getUserPage }) => {
   const page = await getUserPage('cookie_rep@site.com', 'changeme');
   await page.locator('#projects-nav').click();

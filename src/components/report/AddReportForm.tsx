@@ -10,6 +10,9 @@ import { addReport, reportAlreadyExists } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddReportSchema } from '@/lib/validationSchemas';
 import { InferType } from 'yup';
+import { Project } from '@prisma/client';
+import FormRequired from '../FormRequired';
+import FormButton from '../FormButton';
 
 type AddReportFormData = InferType<typeof AddReportSchema>;
 
@@ -25,12 +28,11 @@ const onSubmit = async (data: AddReportFormData, setError: UseFormSetError<AddRe
   }
 };
 
-const AddReportForm = ({ projectId }: { projectId: number }) => {
+const AddReportForm = ({ project }: { project: Project }) => {
   const { status } = useSession();
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
     setError,
   } = useForm<AddReportFormData>({
@@ -48,20 +50,27 @@ const AddReportForm = ({ projectId }: { projectId: number }) => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={8}>
-          <Col className="text-center">
-            <h2>Submit IV&V Project Report</h2>
-            <p className="text-muted">
-              Enter report information for this project.
-            </p>
+          <Col className="text-center mb-4">
+            <div className="align-items-center mb-3">
+              <h2>
+                Create a monthly report
+              </h2>
+              <p className="text-muted">
+                {`Create a monthly summary report for "${project.name}"`}
+              </p>
+            </div>
           </Col>
-          <Card>
+          <Card className="form-Card">
             <Card.Body>
               <Form onSubmit={handleSubmit((d) => onSubmit(d, setError))}>
-                <input type="hidden" {...register('projectId')} value={projectId} required />
+                <input type="hidden" {...register('projectId')} value={project.id} required />
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Year Created *</Form.Label>
+                      <Form.Label>
+                        Year Created
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         min={1900}
@@ -75,7 +84,10 @@ const AddReportForm = ({ projectId }: { projectId: number }) => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Month Created *</Form.Label>
+                      <Form.Label>
+                        Month Created
+                        <FormRequired />
+                      </Form.Label>
                       <Form.Select
                         {...register('monthCreate')}
                         className={`form-control ${errors.monthCreate ? 'is-invalid' : ''}`}
@@ -101,7 +113,10 @@ const AddReportForm = ({ projectId }: { projectId: number }) => {
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Amount Invoiced up to now ($) *</Form.Label>
+                      <Form.Label>
+                        Amount Invoiced up to now ($)
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         min={0}
@@ -118,7 +133,10 @@ const AddReportForm = ({ projectId }: { projectId: number }) => {
                   </Col>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Progress (%) *</Form.Label>
+                      <Form.Label>
+                        Progress (%)
+                        <FormRequired />
+                      </Form.Label>
                       <input
                         type="number"
                         min={0}
@@ -136,20 +154,19 @@ const AddReportForm = ({ projectId }: { projectId: number }) => {
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>
-                      <Button type="submit" variant="primary" size="lg">
-                        Submit Report
+                      <Button type="submit" variant="primary">
+                        Create Report
                       </Button>
                     </Col>
                     <Col>
-                      <Button
+                      <FormButton
                         type="button"
-                        onClick={() => reset()}
-                        variant="outline-secondary"
-                        size="lg"
+                        href={`/project/${project.id}`}
+                        variant="cancel"
                         className="float-end"
                       >
-                        Reset Form
-                      </Button>
+                        Cancel
+                      </FormButton>
                     </Col>
                   </Row>
                 </Form.Group>
