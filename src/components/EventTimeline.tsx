@@ -63,12 +63,20 @@ const createDateUtils = (startDate?: string, endDate?: string) => {
   const getLevels = (items: any[]) => {
     const levels: { event: any; level: number; }[] = [];
     const occupiedRanges: { start: number; end: number; level: number; }[] = [];
+    const MIN_EVENT_WIDTH = 250; // Minimum width for overlap detection (matches new tag minimum width)
 
     items.forEach((event) => {
       const startPos = dateToPixel(event.plannedStart);
       const endPos = dateToPixel(event.plannedEnd || event.plannedStart);
-      const eventStart = Math.min(startPos, endPos);
-      const eventEnd = Math.max(startPos, endPos);
+      let eventStart = Math.min(startPos, endPos);
+      let eventEnd = Math.max(startPos, endPos);
+      
+      // Ensure minimum width for overlap detection
+      if (eventEnd - eventStart < MIN_EVENT_WIDTH) {
+        const center = (eventStart + eventEnd) / 2;
+        eventStart = center - MIN_EVENT_WIDTH / 2;
+        eventEnd = center + MIN_EVENT_WIDTH / 2;
+      }
 
       let level = 0;
       let foundLevel = false;
@@ -232,19 +240,36 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
     const itemColor = isCompleted ? '#198754' : '#17828c';
     const durationInDays = (new Date(item.plannedEnd)
       .getTime() - new Date(item.plannedStart)
-        .getTime()) / (1000 * 60 * 60 * 24);
+      .getTime()) / (1000 * 60 * 60 * 24);
 
-    // Events positioned from bottom upward in upper 300px section
-    const spacing = 50;
-    const itemTop = 300 - ((level + 1) * spacing);
-    const dotTop = itemTop - 9;
+    // Events positioned from middle (300px) upward when there are overlaps
+    const spacing = 70; // Space between levels (increased for 50px circles + margin)
+    const baseTop = 250; // Start well above the timeline (300px)
+    const itemTop = baseTop - (level * spacing);
+    const dotTop = itemTop;
 
     const currentDate = new Date();
     const eventEndDate = new Date(item.plannedEnd);
     const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
     const isOldEvent = eventEndDate <= twoMonthsAgo;
 
-    // For now, render all events as circular tags (like today pointer)
+    // Format dates for display
+    const startDateLabel = new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const endDateLabel = new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const eventLabel = `${startDateLabel} - ${item.name} - ${endDateLabel}`;
+
+    // Calculate width based on text content (approximate character width calculation)
+    const checkmarkWidth = isCompleted ? 20 : 0; // Space for checkmark if completed
+    const estimatedTextWidth = (eventLabel.length * 6) + checkmarkWidth + 32; // ~6px per char + padding
+    const pixelDuration = Math.abs(endPosition - startPosition);
+    const minWidth = Math.max(250, estimatedTextWidth); // Use larger of minimum or calculated width
+    const maxWidth = 500; // Reasonable max to prevent excessive width
+    const eventWidth = Math.min(maxWidth, Math.max(minWidth, pixelDuration + 60));
+
+    // Consistent height and border radius for all events
+    const eventHeight = 40; // Same height for all events
+    const borderRadius = '20px'; // Consistent border radius
+
     return (
       <div
         key={item.id}
@@ -252,34 +277,35 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
           position: 'absolute',
           left: `${startPosition}px`,
           top: `${dotTop}px`,
-          transform: 'translate(-50%, -50%)',
+          transform: 'translateX(-50%)',
           zIndex: 3,
         }}
       >
         <div
           style={{
-            fontSize: '0.7rem',
+            fontSize: '0.6rem',
             color: 'white',
             fontWeight: 'bold',
             whiteSpace: 'nowrap',
             textAlign: 'center',
             backgroundColor: itemColor,
-            width: '50px',
-            height: '50px',
-            borderRadius: '50%',
+            width: `${eventWidth}px`,
+            height: `${eventHeight}px`,
+            borderRadius: borderRadius,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
             border: '2px solid #fff',
             cursor: 'pointer',
+            padding: '0 8px',
           }}
           onClick={(e) => {
             e.stopPropagation();
             window.location.href = `/project/${projectId}/event/${item.id}`;
           }}
         >
-          {item.name}
+          {eventLabel}
           {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
         </div>
       </div>
@@ -357,7 +383,7 @@ const Timeline = ({ dateUtils }: { dateUtils: any }) => {
   );
 };
 
-// IssueGraph Component (Lower Half) 
+// IssueGraph Component (Lower Half)
 // TODO: Implement IssueGraph component
 
 const EventTimeline = ({ events, issues, projectId, startDate, endDate }: EventTimelineProps) => {
