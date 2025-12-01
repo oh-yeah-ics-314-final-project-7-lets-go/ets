@@ -10,12 +10,12 @@ import { useTheme } from '@mui/material/styles';
 export default function PaidUpToNow(
   { paidUpToNow, originalContractAward }: { paidUpToNow: number; originalContractAward: number },
 ) {
-  const paymentLeft = originalContractAward - paidUpToNow;
+  const paymentLeft = Math.abs(originalContractAward - paidUpToNow);
   const labels = ['Contract Paid', 'Original Contract Award'];
   const payments = [paidUpToNow, originalContractAward];
   const paymentPercentage = `${((paidUpToNow / originalContractAward) * 100).toFixed(2)}%`;
   const contractLabel = ((paidUpToNow < originalContractAward) ? 'Payment Left' : 'Overbudget');
-
+  const currency = '$';
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
@@ -39,13 +39,16 @@ export default function PaidUpToNow(
             }}
           >
             <Typography variant="h4" component="p">
-              Contract Paid
+              Contract Paid (
+              {currency}
+              )
             </Typography>
             <Chip size="small" color="error" label={paymentPercentage} />
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {contractLabel}
-            : 
+            :
+            {currency}
             {paymentLeft.toLocaleString()}
           </Typography>
         </Stack>
@@ -61,7 +64,7 @@ export default function PaidUpToNow(
             },
           ]}
           yAxis={[{ width: 50 }]}
-          series={[{ type: 'bar', id: 'base', data: payments }]}
+          series={[{ type: 'bar', id: 'base', data: payments, label: currency }]}
           height={250}
           margin={{ left: 0, right: 0, top: 20, bottom: 0 }}
           grid={{ horizontal: true }}
