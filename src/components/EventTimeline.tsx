@@ -8,7 +8,9 @@ interface EventTimelineProps {
   events: Event[];
   issues: Issue[];
   projectId: string;
+  // eslint-disable-next-line react/require-default-props
   startDate?: string; // Timeline start date (0px) - format: "YYYY-MM-DD"
+  // eslint-disable-next-line react/require-default-props
   endDate?: string; // Timeline end date (5760px) - format: "YYYY-MM-DD"
 }
 
@@ -376,7 +378,113 @@ const Timeline = ({ dateUtils }: { dateUtils: any }) => {
 };
 
 // IssueGraph Component (Lower Half)
-// TODO: Implement IssueGraph component
+const IssueGraph = ({ issues, projectId, dateUtils }: { issues: Issue[], projectId: string, dateUtils: any }) => {
+  // Debug logging
+  console.log('IssueGraph - Total issues:', issues.length);
+  console.log('IssueGraph - Issues:', issues);
+
+  // Filter issues that are within safe plotting range and not closed
+  const openIssues = issues.filter(issue => issue.status !== 'CLOSED' && dateUtils
+    .isDateInSafePlottingRange(issue.firstRaised));
+
+  console.log('IssueGraph - Open issues after filtering:', openIssues.length);
+  console.log('IssueGraph - Open issues:', openIssues);
+  const issueLevels = dateUtils.getLevels(openIssues.map(issue => ({
+    id: issue.id,
+    name: issue.remedy,
+    plannedStart: issue.firstRaised,
+    plannedEnd: issue.updatedAt,
+    completed: false,
+    isIssue: true,
+  })));
+  const containerHeight = 300; // Lower half of 600px container
+
+  const renderIssue = (issue: Issue, level: number) => {
+    const startPosition = dateUtils.dateToPixel(issue.firstRaised);
+    const endPosition = dateUtils.dateToPixel(issue.updatedAt);
+    const itemColor = '#ffc107'; // Yellow for issues
+
+    // Issues positioned from middle (300px) downward when there are overlaps
+    const spacing = 70; // Space between levels
+    const baseTop = 350; // Start below the timeline (300px + 50px margin)
+    const itemTop = baseTop + (level * spacing);
+    const dotTop = itemTop;
+
+    // Format dates for display
+    const startDateLabel = new Date(issue.firstRaised).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const endDateLabel = new Date(issue.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const issueLabel = `${startDateLabel} - ${issue.remedy} - ${endDateLabel}`;
+
+    // Calculate width based on text content
+    const estimatedTextWidth = (issueLabel.length * 6) + 32;
+    const pixelDuration = Math.abs(endPosition - startPosition);
+    const minWidth = Math.max(250, estimatedTextWidth);
+    const maxWidth = 500;
+    const issueWidth = Math.min(maxWidth, Math.max(minWidth, pixelDuration + 60));
+
+    // Consistent height and border radius
+    const issueHeight = 40;
+    const borderRadius = '20px';
+
+    return (
+      <div
+        key={issue.id}
+        style={{
+          position: 'absolute',
+          left: `${startPosition}px`,
+          top: `${dotTop}px`,
+          transform: 'translateX(-50%)',
+          zIndex: 3,
+        }}
+      >
+        <button
+          type="button"
+          style={{
+            fontSize: '0.6rem',
+            color: 'white',
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            backgroundColor: itemColor,
+            width: `${issueWidth}px`,
+            height: `${issueHeight}px`,
+            borderRadius,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            border: '2px solid #fff',
+            cursor: 'pointer',
+            padding: '0 8px',
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.location.href = `/project/${projectId}/issue/${issue.id}`;
+          }}
+        >
+          {issueLabel}
+        </button>
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className="issue-graph"
+      style={{
+        position: 'relative',
+        height: `${containerHeight}px`,
+        width: '5760px',
+      }}
+    >
+      {issueLevels.map(({ event, level }: { event: any; level: number }) => {
+        // Find the original issue from the filtered list
+        const originalIssue = openIssues.find(issue => issue.id === event.id);
+        return originalIssue ? renderIssue(originalIssue, level) : null;
+      })}
+    </div>
+  );
+};
 
 const EventTimeline = ({ events, issues, projectId, startDate, endDate }: EventTimelineProps) => {
   const utils = useTimelineUtils(events, issues, startDate, endDate);
@@ -447,6 +555,7 @@ const EventTimeline = ({ events, issues, projectId, startDate, endDate }: EventT
         <div style={{ position: 'relative', width: '5760px', height: '600px' }}>
           <EventGraph events={events} projectId={projectId} dateUtils={utils.dateUtils} />
           <Timeline dateUtils={utils.dateUtils} />
+          <IssueGraph issues={issues} projectId={projectId} dateUtils={utils.dateUtils} />
         </div>
       </div>
     </Container>
