@@ -2,6 +2,7 @@
 
 import { Event, Issue } from '@prisma/client';
 import { Container } from 'react-bootstrap';
+import { useRef, useEffect } from 'react';
 
 interface EventTimelineProps {
   events: Event[];
@@ -124,426 +125,395 @@ const useTimelineUtils = (events: Event[], issues: Issue[]) => {
 };
 
 // EventGraph Component (Upper Half)
-const EventGraph = ({ events, projectId, utils }: { events: Event[], projectId: string, utils: any }) => {
-  const eventLevels = utils.getLevels(events);
-  const containerHeight = 400;
+// const EventGraph = ({ events, projectId, utils }: { events: Event[], projectId: string, utils: any }) => {
+//   const eventLevels = utils.getLevels(events);
+//   const containerHeight = 400;
 
-  const renderItem = (item: any, level: number) => {
-    const startPosition = utils.getEventPosition(item.plannedStart);
-    const endPosition = utils.getEventPosition(item.plannedEnd);
-    const isCompleted = item.completed;
-    const itemColor = isCompleted ? '#198754' : '#0d6efd';
-    const durationInDays = (new Date(item.plannedEnd)
-      .getTime() - new Date(item.plannedStart)
-      .getTime()) / (1000 * 60 * 60 * 24);
-    // Events should be positioned upward from bottom of container (400px container height)
-    // Place events from bottom upward: 400px - (level * spacing)
-    const spacing = 50; // increased spacing to prevent cramping
-    const itemTop = 400 - ((level + 1) * spacing);
-    const dotTop = itemTop - 9;
+//   const renderItem = (item: any, level: number) => {
+//     const startPosition = utils.getEventPosition(item.plannedStart);
+//     const endPosition = utils.getEventPosition(item.plannedEnd);
+//     const isCompleted = item.completed;
+//     const itemColor = isCompleted ? '#198754' : '#0d6efd';
+//     const durationInDays = (new Date(item.plannedEnd)
+//       .getTime() - new Date(item.plannedStart)
+//       .getTime()) / (1000 * 60 * 60 * 24);
+//     // Events should be positioned upward from bottom of container (400px container height)
+//     // Place events from bottom upward: 400px - (level * spacing)
+//     const spacing = 50; // increased spacing to prevent cramping
+//     const itemTop = 400 - ((level + 1) * spacing);
+//     const dotTop = itemTop - 9;
 
-    const currentDate = new Date();
-    const eventEndDate = new Date(item.plannedEnd);
-    const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
-    const isOldEvent = eventEndDate <= twoMonthsAgo;
+//     const currentDate = new Date();
+//     const eventEndDate = new Date(item.plannedEnd);
+//     const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
+//     const isOldEvent = eventEndDate <= twoMonthsAgo;
 
-    if (durationInDays <= 5 || isOldEvent) {
-      return (
-        <div
-          key={item.id}
-          style={{
-            position: 'absolute',
-            left: `${startPosition}px`,
-            top: `${dotTop}px`,
-            zIndex: 3 }}
-        >
-          <div
-            role="button"
-            tabIndex={0}
-            style={{
-              backgroundColor: itemColor,
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '12px',
-              fontSize: '0.6rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              border: '2px solid #fff',
-              cursor: 'pointer',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = `/project/${projectId}/event/${item.id}`;
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                e.stopPropagation();
-                window.location.href = `/project/${projectId}/event/${item.id}`;
-              }
-            }}
-          >
-            {new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            {' - '}
-            {item.name}
-            {' - '}
-            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
-          </div>
-        </div>
-      );
-    }
+//     if (durationInDays <= 5 || isOldEvent) {
+//       return (
+//         <div
+//           key={item.id}
+//           style={{
+//             position: 'absolute',
+//             left: `${startPosition}px`,
+//             top: `${dotTop}px`,
+//             zIndex: 3 }}
+//         >
+//           <div
+//             role="button"
+//             tabIndex={0}
+//             style={{
+//               backgroundColor: itemColor,
+//               color: 'white',
+//               padding: '2px 6px',
+//               borderRadius: '12px',
+//               fontSize: '0.6rem',
+//               fontWeight: 'bold',
+//               whiteSpace: 'nowrap',
+//               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+//               border: '2px solid #fff',
+//               cursor: 'pointer',
+//             }}
+//             onClick={(e) => {
+//               e.stopPropagation();
+//               window.location.href = `/project/${projectId}/event/${item.id}`;
+//             }}
+//             onKeyDown={(e) => {
+//               if (e.key === 'Enter' || e.key === ' ') {
+//                 e.preventDefault();
+//                 e.stopPropagation();
+//                 window.location.href = `/project/${projectId}/event/${item.id}`;
+//               }
+//             }}
+//           >
+//             {new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+//             {' - '}
+//             {item.name}
+//             {' - '}
+//             {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+//             {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
+//           </div>
+//         </div>
+//       );
+//     }
 
-    const leftPosition = Math.min(startPosition, endPosition);
-    const width = Math.abs(endPosition - startPosition);
+//     const leftPosition = Math.min(startPosition, endPosition);
+//     const width = Math.abs(endPosition - startPosition);
 
-    return (
-      <div key={item.id}>
-        <div style={{
-          position: 'absolute',
-          left: `${leftPosition}px`,
-          top: `${itemTop - 1}px`,
-          width: `${width}px`,
-          height: '4px',
-          backgroundColor: itemColor,
-          opacity: 0.7,
-          zIndex: 2,
-          borderRadius: '2px' }}
-        />
-        <div style={{
-          position: 'absolute',
-          left: `${startPosition}px`,
-          top: `${dotTop}px`,
-          zIndex: 3 }}
-        >
-          <div
-            style={{
-              backgroundColor: itemColor,
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '12px',
-              fontSize: '0.6rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              border: '2px solid #fff',
-              cursor: 'pointer' }}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = `/project/${projectId}/event/${item.id}`;
-            }}
-          >
-            {item.name}
-            {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
-          </div>
-        </div>
-        <div style={{ position: 'absolute',
-          left: `${endPosition}px`,
-          top: `${dotTop}px`,
-          zIndex: 3 }}
-        >
-          <div style={{
-            backgroundColor: itemColor,
-            color: 'white',
-            padding: '2px 6px',
-            borderRadius: '12px',
-            fontSize: '0.6rem',
-            fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-            border: '2px solid #fff' }}
-          >
-            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-          </div>
-        </div>
-      </div>
-    );
-  };
+//     return (
+//       <div key={item.id}>
+//         <div style={{
+//           position: 'absolute',
+//           left: `${leftPosition}px`,
+//           top: `${itemTop - 1}px`,
+//           width: `${width}px`,
+//           height: '4px',
+//           backgroundColor: itemColor,
+//           opacity: 0.7,
+//           zIndex: 2,
+//           borderRadius: '2px' }}
+//         />
+//         <div style={{
+//           position: 'absolute',
+//           left: `${startPosition}px`,
+//           top: `${dotTop}px`,
+//           zIndex: 3 }}
+//         >
+//           <div
+//             style={{
+//               backgroundColor: itemColor,
+//               color: 'white',
+//               padding: '2px 6px',
+//               borderRadius: '12px',
+//               fontSize: '0.6rem',
+//               fontWeight: 'bold',
+//               whiteSpace: 'nowrap',
+//               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+//               border: '2px solid #fff',
+//               cursor: 'pointer' }}
+//             onClick={(e) => {
+//               e.stopPropagation();
+//               window.location.href = `/project/${projectId}/event/${item.id}`;
+//             }}
+//           >
+//             {item.name}
+//             {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
+//           </div>
+//         </div>
+//         <div style={{ position: 'absolute',
+//           left: `${endPosition}px`,
+//           top: `${dotTop}px`,
+//           zIndex: 3 }}
+//         >
+//           <div style={{
+//             backgroundColor: itemColor,
+//             color: 'white',
+//             padding: '2px 6px',
+//             borderRadius: '12px',
+//             fontSize: '0.6rem',
+//             fontWeight: 'bold',
+//             whiteSpace: 'nowrap',
+//             boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+//             border: '2px solid #fff' }}
+//           >
+//             {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
 
-  return (
-    <div
-      className="event-graph"
-      style={{
-        position: 'relative',
-        height: `${containerHeight}px`,
-        margin: '5px 0',
-        overflow: 'visible',
-      }}
-    >
-      <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
-        {eventLevels.map(({ event, level }) => renderItem(event, level))}
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div
+//       className="event-graph"
+//       style={{
+//         position: 'relative',
+//         height: `${containerHeight}px`,
+//         margin: '5px 0',
+//         overflow: 'visible',
+//       }}
+//     >
+//       <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
+//         {eventLevels.map(({ event, level }) => renderItem(event, level))}
+//       </div>
+//     </div>
+//   );
+// };
 
 // Timeline Component (Middle Line)
-const Timeline = ({ utils }: { utils: any }) => {
-  const timelineData = utils.getTimelineData();
-
+const Timeline = () => {
+  const today = new Date();
+  const todayLabel = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  
   return (
     <div
       className="timeline-line"
       style={{
         position: 'relative',
-        height: '60px',
-        display: 'flex',
-        alignItems: 'center',
-        margin: '10px 0',
+        height: '600px',
+        width: '5760px',
       }}
     >
-      <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
-        {/* Main timeline line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '0',
-            width: '5760px',
-            height: '3px',
-            backgroundColor: '#6c757d',
-            borderRadius: '2px',
-            transform: 'translateY(-50%)',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-          }}
-        />
+      {/* Main timeline line - positioned at center of 600px container */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '300px',
+          left: '0',
+          width: '5760px',
+          height: '3px',
+          backgroundColor: '#6c757d',
+          borderRadius: '2px',
+          transform: 'translateY(-50%)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+        }}
+      />
 
-        {/* Today Pointer - at 50% = 12 months from start = 2880px */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '2880px',
-            top: '0',
-            bottom: '0',
-              zIndex: 4,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+      {/* Today Pointer - positioned at center (2880px = 50% of 5760px) */}
+      <div
+        style={{
+          position: 'absolute',
+          left: '2880px',
+          top: '300px',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 4,
+        }}
+      >
+        <div style={{
+          fontSize: '0.8rem',
+          color: 'white',
+          fontWeight: 'bold',
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+          backgroundColor: '#dc3545',
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+          border: '2px solid #fff',
+        }}
         >
-          <div style={{
-            fontSize: '0.6rem',
-            color: 'white',
-            fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            textAlign: 'center',
-            backgroundColor: '#dc3545',
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
-            border: '2px solid #fff',
-          }}
-          >
-            {new Date().getDate()}
-          </div>
+          {todayLabel}
         </div>
-
-        {/* Month Grid */}
-        {timelineData.months.map((month, index) => (
-          <div
-            key={`month-${month.getFullYear()}-${month.getMonth()}`}
-            style={{
-              position: 'absolute',
-              left: `${index * 240}px`,
-              top: '0',
-              width: '240px',
-              height: '100%',
-              zIndex: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <div style={{
-              fontSize: '0.6rem',
-              color: 'white',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              textAlign: 'center',
-              backgroundColor: '#6c757d',
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              border: '2px solid #fff',
-            }}
-            >
-              {month.toLocaleDateString('en-US', { month: 'short' })}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
 };
 
 // IssueGraph Component (Lower Half)
-const IssueGraph = ({ issues, projectId, utils }: { issues: Issue[], projectId: string, utils: any }) => {
-  const filteredIssues = issues.filter(issue => issue.status !== 'CLOSED');
-  const issueLevels = utils.getLevels(filteredIssues.map(issue => ({
-    id: issue.id,
-    name: issue.remedy,
-    projectId: issue.projectId,
-    plannedStart: issue.firstRaised,
-    plannedEnd: issue.updatedAt,
-    completed: issue.status === 'CLOSED',
-    isIssue: true,
-  })));
+// const IssueGraph = ({ issues, projectId, utils }: { issues: Issue[], projectId: string, utils: any }) => {
+//   const filteredIssues = issues.filter(issue => issue.status !== 'CLOSED');
+//   const issueLevels = utils.getLevels(filteredIssues.map(issue => ({
+//     id: issue.id,
+//     name: issue.remedy,
+//     projectId: issue.projectId,
+//     plannedStart: issue.firstRaised,
+//     plannedEnd: issue.updatedAt,
+//     completed: issue.status === 'CLOSED',
+//     isIssue: true,
+//   })));
 
-  const containerHeight = 340;
+//   const containerHeight = 340;
 
-  const renderItem = (item: any, level: number) => {
-    const startPosition = utils.getEventPosition(item.plannedStart);
-    const endPosition = utils.getEventPosition(item.plannedEnd);
-    const itemColor = '#ffc107';
-    const durationInDays = (new Date(item.plannedEnd)
-      .getTime() - new Date(item.plannedStart).getTime()) / (1000 * 60 * 60 * 24);
-    // Issues should be positioned downward from top of container (340px container height)
-    // Place issues from top downward: (level * spacing)
-    const spacing = 50; // increased spacing to prevent cramping
-    const itemTop = (level + 1) * spacing;
-    const dotTop = itemTop - 9;
+//   const renderItem = (item: any, level: number) => {
+//     const startPosition = utils.getEventPosition(item.plannedStart);
+//     const endPosition = utils.getEventPosition(item.plannedEnd);
+//     const itemColor = '#ffc107';
+//     const durationInDays = (new Date(item.plannedEnd)
+//       .getTime() - new Date(item.plannedStart).getTime()) / (1000 * 60 * 60 * 24);
+//     // Issues should be positioned downward from top of container (340px container height)
+//     // Place issues from top downward: (level * spacing)
+//     const spacing = 50; // increased spacing to prevent cramping
+//     const itemTop = (level + 1) * spacing;
+//     const dotTop = itemTop - 9;
 
-    const currentDate = new Date();
-    const eventEndDate = new Date(item.plannedEnd);
-    const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
-    const isOldEvent = eventEndDate <= twoMonthsAgo;
+//     const currentDate = new Date();
+//     const eventEndDate = new Date(item.plannedEnd);
+//     const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
+//     const isOldEvent = eventEndDate <= twoMonthsAgo;
 
-    if (durationInDays <= 5 || isOldEvent) {
-      return (
-        <div
-          key={item.id}
-          style={{
-            position: 'absolute',
-            left: `${startPosition}px`,
-            top: `${dotTop}px`,
-            zIndex: 3 }}
-        >
-          <div
-            role="button"
-            tabIndex={0}
-            style={{
-              backgroundColor: itemColor,
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '12px',
-              fontSize: '0.6rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              border: '2px solid #fff',
-              cursor: 'pointer',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = `/project/${projectId}/issue/${item.id}`;
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                e.stopPropagation();
-                window.location.href = `/project/${projectId}/issue/${item.id}`;
-              }
-            }}
-          >
-            {new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            {' - '}
-            {item.name}
-            {' - '}
-            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-          </div>
-        </div>
-      );
-    }
+//     if (durationInDays <= 5 || isOldEvent) {
+//       return (
+//         <div
+//           key={item.id}
+//           style={{
+//             position: 'absolute',
+//             left: `${startPosition}px`,
+//             top: `${dotTop}px`,
+//             zIndex: 3 }}
+//         >
+//           <div
+//             role="button"
+//             tabIndex={0}
+//             style={{
+//               backgroundColor: itemColor,
+//               color: 'white',
+//               padding: '2px 6px',
+//               borderRadius: '12px',
+//               fontSize: '0.6rem',
+//               fontWeight: 'bold',
+//               whiteSpace: 'nowrap',
+//               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+//               border: '2px solid #fff',
+//               cursor: 'pointer',
+//             }}
+//             onClick={(e) => {
+//               e.stopPropagation();
+//               window.location.href = `/project/${projectId}/issue/${item.id}`;
+//             }}
+//             onKeyDown={(e) => {
+//               if (e.key === 'Enter' || e.key === ' ') {
+//                 e.preventDefault();
+//                 e.stopPropagation();
+//                 window.location.href = `/project/${projectId}/issue/${item.id}`;
+//               }
+//             }}
+//           >
+//             {new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+//             {' - '}
+//             {item.name}
+//             {' - '}
+//             {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+//           </div>
+//         </div>
+//       );
+//     }
 
-    const leftPosition = Math.min(startPosition, endPosition);
-    const width = Math.abs(endPosition - startPosition);
+//     const leftPosition = Math.min(startPosition, endPosition);
+//     const width = Math.abs(endPosition - startPosition);
 
-    return (
-      <div key={item.id}>
-        <div style={{ position: 'absolute',
-          left: `${leftPosition}px`,
-          top: `${itemTop - 1}px`,
-          width: `${width}px`,
-          height: '4px',
-          backgroundColor: itemColor,
-          opacity: 0.7,
-          zIndex: 2,
-          borderRadius: '2px' }}
-        />
-        <div style={{ position: 'absolute',
-          left: `${startPosition}px`,
-          top: `${dotTop}px`,
-          zIndex: 3 }}
-        >
-          <div
-            style={{ backgroundColor: itemColor,
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '12px',
-              fontSize: '0.6rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              border: '2px solid #fff',
-              cursor: 'pointer' }}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = `/project/${projectId}/issue/${item.id}`;
-            }}
-          >
-            {item.name}
-          </div>
-        </div>
-        <div style={{
-          position: 'absolute', left: `${endPosition}px`, top: `${dotTop}px`, transform: 'translateX(-50%)', zIndex: 3 }}
-        >
-          <div style={{
-            backgroundColor: itemColor,
-            color: 'white',
-            padding: '2px 6px',
-            borderRadius: '12px',
-            fontSize: '0.6rem',
-            fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-            border: '2px solid #fff' }}
-          >
-            {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-          </div>
-        </div>
-      </div>
-    );
-  };
+//     return (
+//       <div key={item.id}>
+//         <div style={{ position: 'absolute',
+//           left: `${leftPosition}px`,
+//           top: `${itemTop - 1}px`,
+//           width: `${width}px`,
+//           height: '4px',
+//           backgroundColor: itemColor,
+//           opacity: 0.7,
+//           zIndex: 2,
+//           borderRadius: '2px' }}
+//         />
+//         <div style={{ position: 'absolute',
+//           left: `${startPosition}px`,
+//           top: `${dotTop}px`,
+//           zIndex: 3 }}
+//         >
+//           <div
+//             style={{ backgroundColor: itemColor,
+//               color: 'white',
+//               padding: '2px 6px',
+//               borderRadius: '12px',
+//               fontSize: '0.6rem',
+//               fontWeight: 'bold',
+//               whiteSpace: 'nowrap',
+//               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+//               border: '2px solid #fff',
+//               cursor: 'pointer' }}
+//             onClick={(e) => {
+//               e.stopPropagation();
+//               window.location.href = `/project/${projectId}/issue/${item.id}`;
+//             }}
+//           >
+//             {item.name}
+//           </div>
+//         </div>
+//         <div style={{
+//           position: 'absolute',
+//           left: `${endPosition}px`,
+//           top: `${dotTop}px`,
+//           transform: 'translateX(-50%)',
+//           zIndex: 3 }}
+//         >
+//           <div style={{
+//             backgroundColor: itemColor,
+//             color: 'white',
+//             padding: '2px 6px',
+//             borderRadius: '12px',
+//             fontSize: '0.6rem',
+//             fontWeight: 'bold',
+//             whiteSpace: 'nowrap',
+//             boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+//             border: '2px solid #fff' }}
+//           >
+//             {new Date(item.plannedEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
 
-  return (
-    <div
-      className="issue-graph"
-      style={{
-        position: 'relative',
-        height: `${containerHeight}px`,
-        margin: '5px 0',
-        overflow: 'visible',
-      }}
-    >
-      <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
-        {issueLevels.map(({ event, level }) => renderItem(event, level))}
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div
+//       className="issue-graph"
+//       style={{
+//         position: 'relative',
+//         height: `${containerHeight}px`,
+//         margin: '5px 0',
+//         overflow: 'visible',
+//       }}
+//     >
+//       <div style={{ width: '5760px', position: 'relative', height: '100%' }}>
+//         {issueLevels.map(({ event, level }) => renderItem(event, level))}
+//       </div>
+//     </div>
+//   );
+// };
 
 // Main EventTimeline Component
 const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const utils = useTimelineUtils(events, issues);
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (timelineContainerRef.current) {
+      // Scroll to center (today's position at 2880px) minus half the container width
+      const scrollPosition = 2880 - (timelineContainerRef.current.clientWidth / 2);
+      timelineContainerRef.current.scrollLeft = Math.max(0, scrollPosition);
+    }
+  }, []);
 
   if (utils.sortedEvents.length === 0) {
     return (
@@ -570,6 +540,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
       </div>
 
       <div
+        ref={timelineContainerRef}
         style={{
           border: '1px solid #dee2e6',
           borderRadius: '4px',
@@ -578,11 +549,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
           overflowY: 'hidden',
         }}
       >
-        <div style={{ width: '5760px', minWidth: '5760px' }}>
-          <EventGraph events={events} projectId={projectId} utils={utils} />
-          <Timeline utils={utils} />
-          <IssueGraph issues={issues} projectId={projectId} utils={utils} />
-        </div>
+        <Timeline />
       </div>
     </Container>
   );
