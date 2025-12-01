@@ -70,7 +70,6 @@ const createDateUtils = (startDate?: string, endDate?: string) => {
       const endPos = dateToPixel(event.plannedEnd || event.plannedStart);
       let eventStart = Math.min(startPos, endPos);
       let eventEnd = Math.max(startPos, endPos);
-      
       // Ensure minimum width for overlap detection
       if (eventEnd - eventStart < MIN_EVENT_WIDTH) {
         const center = (eventStart + eventEnd) / 2;
@@ -133,30 +132,30 @@ const useTimelineUtils = (events: Event[], issues: Issue[], startDate?: string, 
   const sortedEvents = allItems.sort((a, b) => new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime());
 
   const getTimelineData = () => {
-    const today = new Date();
+    const currentDate = new Date();
     // Always show 1 year before to 1 year after today (exactly 24 months)
-    const startDate = new Date(today.getFullYear(), today.getMonth() - 12, 1);
+    const timelineStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 12, 1);
 
     const months = [];
-    const current = new Date(startDate);
+    const current = new Date(timelineStartDate);
     // Generate exactly 24 months
     for (let i = 0; i < 24; i++) {
       months.push(new Date(current));
       current.setMonth(current.getMonth() + 1);
     }
 
-    const endDate = new Date(current); // End date is after the 24th month
-    return { startDate, endDate, months };
+    const timelineEndDate = new Date(current); // End date is after the 24th month
+    return { startDate: timelineStartDate, endDate: timelineEndDate, months };
   };
 
   const getEventPosition = (eventDate: Date | string) => {
     const timelineData = getTimelineData();
     const date = new Date(eventDate);
-    const { startDate } = timelineData;
+    const { startDate: timelineStart } = timelineData;
 
     // Calculate complete months from start
-    const monthsFromStart = (date.getFullYear() - startDate.getFullYear()) * 12
-      + (date.getMonth() - startDate.getMonth());
+    const monthsFromStart = (date.getFullYear() - timelineStart.getFullYear()) * 12
+      + (date.getMonth() - timelineStart.getMonth());
 
     // Calculate precise position within the current month
     const daysInCurrentMonth = getDaysInMonth(date.getFullYear(), date.getMonth());
@@ -171,11 +170,11 @@ const useTimelineUtils = (events: Event[], issues: Issue[], startDate?: string, 
 
   const getMonthPosition = (monthDate: Date) => {
     const timelineData = getTimelineData();
-    const { startDate } = timelineData;
+    const { startDate: timelineStart } = timelineData;
 
     // Calculate months from start
-    const monthsFromStart = (monthDate.getFullYear() - startDate.getFullYear()) * 12
-      + (monthDate.getMonth() - startDate.getMonth());
+    const monthsFromStart = (monthDate.getFullYear() - timelineStart.getFullYear()) * 12
+      + (monthDate.getMonth() - timelineStart.getMonth());
 
     const totalWidth = 5760;
     const position = ((monthsFromStart * 240) / totalWidth) * 100;
@@ -238,20 +237,12 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
     const endPosition = dateUtils.dateToPixel(item.plannedEnd);
     const isCompleted = item.completed;
     const itemColor = isCompleted ? '#198754' : '#17828c';
-    const durationInDays = (new Date(item.plannedEnd)
-      .getTime() - new Date(item.plannedStart)
-      .getTime()) / (1000 * 60 * 60 * 24);
 
     // Events positioned from middle (300px) upward when there are overlaps
     const spacing = 70; // Space between levels (increased for 50px circles + margin)
     const baseTop = 250; // Start well above the timeline (300px)
     const itemTop = baseTop - (level * spacing);
     const dotTop = itemTop;
-
-    const currentDate = new Date();
-    const eventEndDate = new Date(item.plannedEnd);
-    const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
-    const isOldEvent = eventEndDate <= twoMonthsAgo;
 
     // Format dates for display
     const startDateLabel = new Date(item.plannedStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -281,7 +272,8 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
           zIndex: 3,
         }}
       >
-        <div
+        <button
+          type="button"
           style={{
             fontSize: '0.6rem',
             color: 'white',
@@ -291,7 +283,7 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
             backgroundColor: itemColor,
             width: `${eventWidth}px`,
             height: `${eventHeight}px`,
-            borderRadius: borderRadius,
+            borderRadius,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -307,7 +299,7 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
         >
           {eventLabel}
           {isCompleted && <span style={{ marginLeft: '4px' }}>✓</span>}
-        </div>
+        </button>
       </div>
     );
   };
@@ -321,7 +313,7 @@ const EventGraph = ({ events, projectId, dateUtils }: { events: Event[], project
         width: '5760px',
       }}
     >
-      {eventLevels.map(({ event, level }) => renderItem(event, level))}
+      {eventLevels.map(({ event, level }: { event: Event; level: number }) => renderItem(event, level))}
     </div>
   );
 };
@@ -409,7 +401,7 @@ const EventTimeline = ({ events, issues, projectId, startDate, endDate }: EventT
 
   return (
     <Container className="timeline-container">
-      <div className="mb-3">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <h5>
           Timeline (
           {events.length}
@@ -420,6 +412,26 @@ const EventTimeline = ({ events, issues, projectId, startDate, endDate }: EventT
           {' '}
           open issues)
         </h5>
+        <div className="d-flex gap-2">
+          <a
+            href={`/project/${projectId}/event/add`}
+            className="btn btn-primary btn-sm"
+          >
+            Add Event
+          </a>
+          <a
+            href={`/project/${projectId}/issue/add`}
+            className="btn btn-warning btn-sm"
+          >
+            Add Issue
+          </a>
+          <a
+            href={`/project/${projectId}/comment/add`}
+            className="btn btn-info btn-sm"
+          >
+            Add Comment
+          </a>
+        </div>
       </div>
 
       <div
