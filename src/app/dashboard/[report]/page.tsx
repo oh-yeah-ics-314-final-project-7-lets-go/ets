@@ -35,7 +35,7 @@ const DashboardPage = async ({ params }: { params: { report: string | string[] }
     <main>
       <Container id="list" fluid className="py-3">
         {reportName(report)}
-        <Dashboard />
+        <Dashboard report={report}/>
       </Container>
     </main>
   );

@@ -1,9 +1,5 @@
 'use client';
 
-// import type {} from '@mui/x-date-pickers/themeAugmentation';
-// import type {} from '@mui/x-charts/themeAugmentation';
-// import type {} from '@mui/x-data-grid-pro/themeAugmentation';
-// import type {} from '@mui/x-tree-view/themeAugmentation';
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -11,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Header from './components/Header';
 import MainGrid from './components/MainGrid';
 import AppTheme from './shared-theme/AppTheme';
+import { Project, Report } from '@prisma/client';
 import {
   chartsCustomizations,
   dataGridCustomizations,
@@ -25,9 +22,11 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
-export default function Dashboard(props: { disableCustomTheme?: boolean }) {
+type ReportWithProject = Report & { project: Project; };
+
+export default function Dashboard({ report }: { report: ReportWithProject }) {
   return (
-    <AppTheme {...props} themeComponents={xThemeComponents}>
+    <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
         {/* Main content */}
@@ -51,7 +50,7 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
             }}
           >
             <Header />
-            <MainGrid />
+            <MainGrid report={report}/>
           </Stack>
         </Box>
       </Box>

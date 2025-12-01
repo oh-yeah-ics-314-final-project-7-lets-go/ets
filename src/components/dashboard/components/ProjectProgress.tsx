@@ -6,14 +6,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 
-const currentProgress = 30;
-const TOTALPROJECTPROGRESS = 100;
-const toDoProgress = TOTALPROJECTPROGRESS - currentProgress;
-const data = [
-  { label: 'Project Progress', value: currentProgress },
-  { label: 'Work Left', value: toDoProgress },
-];
-
 interface PieCenterLabelProps {
   primaryText: string;
   secondaryText: string;
@@ -37,7 +29,13 @@ const colors = [
   'hsla(0, 0%, 55%, 1.00)',
 ];
 
-export default function ProjectProgress() {
+export default function ProjectProgress({ currentProgress }: { currentProgress: number }) {
+  const TOTALPROJECTPROGRESS = 100;
+  const toDoProgress = TOTALPROJECTPROGRESS - currentProgress;
+  const data = [
+    { label: 'Project Progress', value: currentProgress },
+    { label: 'Work Left', value: toDoProgress },
+  ];
   return (
     <Card
       variant="outlined"
