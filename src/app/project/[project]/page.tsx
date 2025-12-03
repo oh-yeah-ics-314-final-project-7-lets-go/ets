@@ -139,14 +139,12 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
                 <Table striped>
                   <thead>
                     <tr>
-                      <th>Project Name</th>
                       <th>Contract Award</th>
                       <th>Total Paid Out</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><strong>{project.name}</strong></td>
                       <td>
                         $
                         {project.originalContractAward?.toLocaleString()}
@@ -155,6 +153,8 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
                     </tr>
                   </tbody>
                 </Table>
+                <h4>Description</h4>
+                <span style={{ whiteSpace: 'pre-line' }}>{project.description}</span>
               </CardBody>
             </Card>
           </Col>

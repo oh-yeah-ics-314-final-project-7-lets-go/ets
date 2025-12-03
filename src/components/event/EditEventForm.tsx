@@ -82,8 +82,7 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                         Event Description
                         <FormRequired />
                       </Form.Label>
-                      <input
-                        type="text"
+                      <textarea
                         {...register('description')}
                         className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                         placeholder="Enter description of event"

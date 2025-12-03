@@ -61,8 +61,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                         Issue Description
                         <FormRequired />
                       </Form.Label>
-                      <input
-                        type="text"
+                      <textarea
                         {...register('description')}
                         className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                         placeholder="Enter description of issue"
@@ -80,8 +79,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                         Remedy for Issue
                         <FormRequired />
                       </Form.Label>
-                      <input
-                        type="text"
+                      <textarea
                         {...register('remedy')}
                         className={`form-control ${errors.remedy ? 'is-invalid' : ''}`}
                         placeholder="Enter remedy for issue"

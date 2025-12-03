@@ -99,7 +99,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
               <Row>
                 <Col md={12} className="mb-4">
                   <h6 className="text-muted">Description</h6>
-                  <p className="mb-0">{event.description}</p>
+                  <p className="mb-0" style={{ whiteSpace: 'pre-line' }}>{event.description}</p>
                 </Col>
               </Row>
 
