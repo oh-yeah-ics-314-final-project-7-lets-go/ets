@@ -106,7 +106,7 @@ const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
                           <span className="badge bg-warning ms-2">Open</span>
                         )}
                       </h6>
-                      <p className="mb-1">{truncate(issue.description, 50)}</p>
+                      <p className="mb-1">{truncate(issue.description, 150)}</p>
                       <small className="text-muted">
                         First Raised:
                         {' '}
