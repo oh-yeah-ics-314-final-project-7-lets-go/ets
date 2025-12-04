@@ -179,6 +179,7 @@ const AddEventForm = ({ project }: { project: Project }) => {
                       <FormButton
                         type="button"
                         variant="cancel"
+                        href={`/project/${project.id}`}
                       >
                         Cancel
                       </FormButton>
