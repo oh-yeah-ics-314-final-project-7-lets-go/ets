@@ -68,6 +68,7 @@ async function main() {
         create: {
           projectId: prismaProj.id,
           creatorId: issueCreatorId,
+          title: issue.title,
           description: issue.description,
           remedy: issue.remedy,
           severity,

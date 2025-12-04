@@ -395,6 +395,7 @@ export async function deleteEvent(id: number) {
 export async function addIssue(issue: {
   projectId: number;
   creatorId: number;
+  title: string;
   description: string;
   remedy: string;
   severity: string;
@@ -443,6 +444,7 @@ export async function addIssue(issue: {
     data: {
       projectId: issue.projectId,
       creatorId: issue.creatorId,
+      title: issue.title,
       description: issue.description,
       remedy: issue.remedy,
       severity,
@@ -461,6 +463,7 @@ export async function editIssue(issue: Issue) {
   await prisma.issue.update({
     where: { id: issue.id },
     data: {
+      title: issue.title,
       description: issue.description,
       remedy: issue.remedy,
       severity: issue.severity,

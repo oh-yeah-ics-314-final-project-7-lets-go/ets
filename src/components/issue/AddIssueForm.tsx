@@ -63,6 +63,23 @@ const AddIssueForm = ({ project }: { project: Project }) => {
                 <input type="hidden" {...register('projectId')} value={project.id} />
                 <input type="hidden" {...register('creatorId')} value={userId} />
                 <input type="hidden" {...register('status')} value={Status.OPEN} />
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3">
+                      <Form.Label>
+                        Issue Title
+                        <FormRequired />
+                      </Form.Label>
+                      <input
+                        type="text"
+                        {...register('title')}
+                        className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                        placeholder="Enter title of issue"
+                      />
+                      <div className="invalid-feedback">{errors.title?.message}</div>
+                    </Form.Group>
+                  </Col>
+                </Row>
 
                 <Row>
                   <Col>

@@ -7,6 +7,7 @@ import { deleteComment, editComment } from '@/lib/dbActions';
 import {
   Modal, Button, Card, CardHeader, Col, Row, CardBody, ListGroup, ListGroupItem, FormSelect } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
+import { Pencil, Trash } from 'react-bootstrap-icons';
 import AddCommentForm from './comment/AddCommentForm';
 
 interface CommentTableProps {
@@ -181,22 +182,24 @@ const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
                           {isAuthor && editingId !== comment.id && (
                             <Button
                               variant="warning"
+                              title="Edit"
                               type="button"
                               size="sm"
                               onClick={() => startEdit(comment)}
                             >
-                              Edit
+                              <Pencil />
                             </Button>
                           )}
 
                           {(isETS) && (
                             <Button
                               type="button"
+                              title="Delete"
                               variant="danger"
                               size="sm"
                               onClick={() => askDelete(comment.id)}
                             >
-                              Delete
+                              <Trash />
                             </Button>
                           )}
                         </div>

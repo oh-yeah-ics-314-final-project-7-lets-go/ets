@@ -38,6 +38,7 @@ export const EditEventSchema = Yup.object({
 export const AddIssueSchema = Yup.object({
   projectId: Yup.number().required(),
   creatorId: Yup.number().required(),
+  title: Yup.string().required(),
   description: Yup.string().required(),
   remedy: Yup.string().required(),
   severity: Yup.string().oneOf(['LOW', 'MEDIUM', 'HIGH']).required(),
@@ -47,6 +48,7 @@ export const AddIssueSchema = Yup.object({
 
 export const EditIssueSchema = Yup.object({
   id: Yup.number().required(),
+  title: Yup.string().required(),
   description: Yup.string().required(),
   remedy: Yup.string().required(),
   severity: Yup.string().oneOf(['LOW', 'MEDIUM', 'HIGH']).required(),

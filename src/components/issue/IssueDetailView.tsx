@@ -97,6 +97,8 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                 <h4 className="mb-0">
                   Issue #
                   {issue.id}
+                  {' – '}
+                  {issue.title}
                 </h4>
                 <div className="mt-2">
                   {getStatusBadge()}

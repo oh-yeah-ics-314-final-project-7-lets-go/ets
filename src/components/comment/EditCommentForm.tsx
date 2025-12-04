@@ -72,7 +72,7 @@ const EditCommentForm = ({ comment, setEdit }: { comment: Comment; setEdit: Disp
                   <Row className="pt-3">
                     <Col>
                       <Button type="submit" variant="primary" size="lg">
-                        Create Comment
+                        Update Comment
                       </Button>
                     </Col>
                   </Row>

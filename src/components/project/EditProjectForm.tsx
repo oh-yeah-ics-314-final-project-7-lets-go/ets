@@ -117,7 +117,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
                   <Row className="pt-3">
                     <Col>
                       <FormButton type="submit" variant="primary">
-                        Update Report
+                        Update Project
                       </FormButton>
                     </Col>
                     <Col className="d-flex justify-content-end gap-2">

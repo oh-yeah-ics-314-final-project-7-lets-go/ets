@@ -40,7 +40,8 @@
         {
           "id": 1,
           "creatorEmail": "vendor@site.com",
-          "description": "Get ingredients for cookies",
+          "title": "Get ingredients for cookies",
+          "description": "Find a place(s) where ingredients for cookies can be bought",
           "remedy": "Go to Shorts Drugs and buy the ingredients",
           "severity": "HIGH",
           "likelihood": "MEDIUM",
@@ -50,7 +51,8 @@
         {
           "id": 2,
           "creatorEmail": "vendor@site.com",
-          "description": "Don't have a way to mix the ingredients together",
+          "title": "Don't have a way to mix the ingredients together",
+          "description": "There's no kitchen tool that we have so that we can mix the ingredients",
           "remedy": "Buy a ShowerAid from Flooormart to blend the ingredients together",
           "severity": "MEDIUM",
           "likelihood": "LOW",
@@ -60,6 +62,7 @@
         {
           "id": 3,
           "creatorEmail": "vendor@site.com",
+          "title": "Cookies can't be baked",
           "description": "Can't bake the cookies because I don't have an oven",
           "remedy": "Poach the cookies using a pot of boiling water",
           "severity": "MEDIUM",
@@ -70,6 +73,7 @@
         {
           "id": 4,
           "creatorEmail": "vendor@site.com",
+          "title": "Distribution",
           "description": "Can't distribute the cookies",
           "remedy": "Possibly abuse shipping service return address",
           "severity": "LOW",

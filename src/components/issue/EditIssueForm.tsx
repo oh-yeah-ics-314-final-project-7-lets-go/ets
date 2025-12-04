@@ -58,6 +58,25 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                   <Col>
                     <Form.Group className="mb-3">
                       <Form.Label>
+                        Issue Title
+                        <FormRequired />
+                      </Form.Label>
+                      <input
+                        type="text"
+                        {...register('title')}
+                        className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                        placeholder="Enter title of issue"
+                        defaultValue={issue.title}
+                      />
+                      <div className="invalid-feedback">{errors.title?.message}</div>
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3">
+                      <Form.Label>
                         Issue Description
                         <FormRequired />
                       </Form.Label>
@@ -152,7 +171,7 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                   <Row className="pt-3">
                     <Col>
                       <FormButton type="submit" variant="primary">
-                        Submit Issue
+                        Update Issue
                       </FormButton>
                     </Col>
                     <Col className="d-flex justify-content-end">

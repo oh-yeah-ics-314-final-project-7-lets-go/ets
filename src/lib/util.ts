@@ -1,5 +1,10 @@
 import { Report } from '@prisma/client';
 
+export const truncate = (str: string, len: number) => {
+  if (str.length <= len) return str;
+  return `${str.slice(0, len - 1)}…`;
+};
+
 // Determine progress bar variant
 export const getProgressVariant = (progress: number) => {
   if (progress < 25) return 'danger';

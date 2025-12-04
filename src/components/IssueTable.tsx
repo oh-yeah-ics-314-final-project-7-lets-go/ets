@@ -1,5 +1,6 @@
 'use client';
 
+import { truncate } from '@/lib/util';
 import { Issue, Severity } from '@prisma/client';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -96,7 +97,7 @@ const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
                           href={`/project/${issue.projectId}/issue/${issue.id}`}
                           className="text-decoration-none text-dark"
                         >
-                          {issue.remedy}
+                          {issue.title}
                         </Link>
                         {issue.status === 'CLOSED' && (
                           <span className="badge bg-success ms-2">Closed</span>
@@ -105,7 +106,7 @@ const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
                           <span className="badge bg-warning ms-2">Open</span>
                         )}
                       </h6>
-                      <p className="mb-1">{issue.description}</p>
+                      <p className="mb-1">{truncate(issue.description, 50)}</p>
                       <small className="text-muted">
                         First Raised:
                         {' '}
