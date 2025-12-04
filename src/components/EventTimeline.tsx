@@ -1,5 +1,6 @@
 'use client';
 
+import { truncate } from '@/lib/util';
 import { Event, Issue } from '@prisma/client';
 
 interface EventTimelineProps {
@@ -13,9 +14,9 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const today = new Date();
   const issuesAsEvents = issues.filter(issue => issue.status !== 'CLOSED').map((issue) => ({
     id: issue.id, // Keep issue ID as number
-    name: issue.remedy, // Use remedy as the name
+    name: truncate(issue.title, 100), // Use remedy as the name
     projectId: issue.projectId,
-    description: issue.description, // Use issue description
+    description: truncate(issue.description, 150), // Use issue title
     plannedStart: issue.firstRaised, // Use firstRaised as start
     plannedEnd: issue.status === 'CLOSED' ? issue.updatedAt : today, // Use updatedAt if closed, today if open
     completed: issue.status === 'CLOSED', // Use status to determine completion
