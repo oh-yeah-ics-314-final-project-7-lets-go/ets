@@ -56,7 +56,9 @@ const AddReportForm = ({ project }: { project: Project }) => {
                 Create a monthly report
               </h2>
               <p className="text-muted">
-                {`Create a monthly summary report for "${project.name}"`}
+                Create a monthly summary report for
+                {' '}
+                <i>{project.name}</i>
               </p>
             </div>
           </Col>

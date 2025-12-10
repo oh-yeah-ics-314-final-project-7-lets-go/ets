@@ -6,7 +6,6 @@ import { useSession } from 'next-auth/react';
 import { deleteComment, editComment } from '@/lib/dbActions';
 import {
   Modal, Button, Card, CardHeader, Col, Row, CardBody, ListGroup, ListGroupItem, FormSelect } from 'react-bootstrap';
-import { useRouter } from 'next/navigation';
 import { Pencil, Trash } from 'react-bootstrap-icons';
 import AddCommentForm from './comment/AddCommentForm';
 
@@ -21,7 +20,6 @@ interface CommentTableProps {
 }
 
 const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
-  const router = useRouter();
   const { data } = useSession();
 
   const userId = (data?.user as { id?: string })?.id;
@@ -75,7 +73,6 @@ const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
     });
 
     setEditingId(null);
-    router.refresh();
   };
 
   const askDelete = (id: number) => {
@@ -86,7 +83,6 @@ const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
   const confirmDelete = async () => {
     if (commentToDelete) {
       await deleteComment(commentToDelete);
-      router.refresh();
     }
     setShowConfirm(false);
   };
@@ -129,13 +125,13 @@ const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
                       <div className="d-flex justify-content-between align-items-start">
                         <div className="flex-grow-1 pe-3">
                           <small className="text-muted">
-                            Author:
+                            <b className="me-1">
+                              {comment.author.firstName}
+                              {' '}
+                              {comment.author.lastName}
+                            </b>
                             {' '}
-                            {comment.author.firstName}
-                            {' '}
-                            {comment.author.lastName}
-                            {' '}
-                            | Created:
+                            Created:
                             {' '}
                             {formatDate(comment.createdAt)}
                             {' '}
@@ -191,7 +187,7 @@ const CommentTable = ({ project, comments = [] }: CommentTableProps) => {
                             </Button>
                           )}
 
-                          {(isETS) && (
+                          {(isETS || isAuthor) && (
                             <Button
                               type="button"
                               title="Delete"

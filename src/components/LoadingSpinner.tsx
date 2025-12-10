@@ -1,12 +1,16 @@
-import { Container, Row, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 
 const LoadingSpinner = () => (
-  <Container>
-    <Row className="justify-content-md-center">
-      <Spinner className="me-2" animation="border" />
-      Getting data
-    </Row>
-  </Container>
+  <div
+    className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    style={{
+      zIndex: 1050,
+      pointerEvents: 'none',
+    }}
+  >
+    <Spinner animation="border" className="me-2" role="status" />
+    Loading...
+  </div>
 );
 
 export default LoadingSpinner;

@@ -46,7 +46,9 @@ const EditEventForm = ({ project, event }: { project: Project; event: Event }) =
                 {`Edit "${event.name}" Event`}
               </h2>
               <p className="text-muted">
-                {`Update event data for ${project.name}`}
+                Update event data for
+                {' '}
+                <i>{project.name}</i>
               </p>
             </div>
           </Col>

@@ -86,7 +86,7 @@ const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
                   <div className="d-flex w-100 justify-content-between align-items-start">
                     <div>
                       <h6 className="mb-1">
-                        {event.name}
+                        <span className="align-middle">{event.name}</span>
                         {event.completed && (
                           <span className="badge bg-success ms-2">Completed</span>
                         )}
@@ -104,6 +104,7 @@ const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
                           <>
                             {' '}
                             | Actual:
+                            {' '}
                             {formatDate(event.actualStart)}
                             {event.actualEnd && ` - ${formatDate(event.actualEnd)}`}
                           </>

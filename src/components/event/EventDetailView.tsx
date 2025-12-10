@@ -34,7 +34,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
     } if (now >= startDate && now <= endDate) {
       return <span className="badge bg-primary">In Progress</span>;
     }
-    return <span className="badge bg-warning">Overdue</span>;
+    return <span className="badge bg-warning text-dark">Overdue</span>;
   };
 
   return (
@@ -56,7 +56,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
       {/* Event Details Card */}
       <Row>
         <Col lg={8}>
-          <Card>
+          <Card className="mb-4">
             <CardHeader className="d-flex justify-content-between align-items-center">
               <div>
                 <h4 className="mb-0">{event.name}</h4>

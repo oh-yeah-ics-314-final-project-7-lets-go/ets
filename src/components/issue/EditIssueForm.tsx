@@ -45,7 +45,9 @@ const EditIssueForm = ({ project, issue }: { project: Project; issue: Issue }) =
                 {`Edit Issue #${issue.id}`}
               </h2>
               <p className="text-muted">
-                {`Update issue data for ${project.name}`}
+                Update issue data for
+                {' '}
+                <i>{project.name}</i>
               </p>
             </div>
           </Col>

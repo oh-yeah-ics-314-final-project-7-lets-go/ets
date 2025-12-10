@@ -17,9 +17,9 @@ const StatusTooltip = ({ status, type }: { status: ProjectStatus, type: StatusFo
             {' '}
             is pending admin approval.
           </Tooltip>
-)}
+        )}
       >
-        <ExclamationTriangleFill className="text-warning me-2" />
+        <ExclamationTriangleFill className="text-warning me-2 align-middle" />
       </OverlayTrigger>
     );
   }
@@ -38,7 +38,7 @@ const StatusTooltip = ({ status, type }: { status: ProjectStatus, type: StatusFo
 )}
       >
         <ExclamationOctagonFill
-          className="text-danger me-2"
+          className="text-danger me-2 align-middle"
         />
       </OverlayTrigger>
     );
@@ -57,7 +57,7 @@ const StatusTooltip = ({ status, type }: { status: ProjectStatus, type: StatusFo
 )}
     >
       <CheckCircleFill
-        className="text-success me-2"
+        className="text-success me-2 align-middle"
       />
     </OverlayTrigger>
   );

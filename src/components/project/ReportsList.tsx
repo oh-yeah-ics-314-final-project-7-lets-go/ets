@@ -40,7 +40,7 @@ const ReportsList = ({ reports, projectId }: ReportsListProps) => (
                     <CardHeader className="d-flex align-items-center">
                       <Link
                         href={`/project/${projectId}/report/${r.id}`}
-                        className="text-black"
+                        className="text-body"
                       >
                         {/* makes every char except the first one lowercase. month enums are all caps. */}
                         {reportName(r)}
@@ -56,13 +56,24 @@ const ReportsList = ({ reports, projectId }: ReportsListProps) => (
                     </CardHeader>
                     <CardBody>
                       <b>Cumulative Progress</b>
-                      <ProgressBar
-                        now={r.progress}
-                        className="mb-2"
-                        label={`${r.progress.toFixed(1)}%`}
-                        variant={getProgressVariant(r.progress)}
-                        style={{ height: '20px' }}
-                      />
+                      <ProgressBar style={{ height: '20px' }}>
+                        <ProgressBar
+                          now={r.progress}
+                          className={`mb-2 ${getProgressVariant(r.progress) === 'warning' && 'text-dark'}`}
+                          label={r.progress >= 20 ? `${r.progress.toFixed(1)}%` : ' '}
+                          variant={getProgressVariant(r.progress)}
+                          style={{ height: '20px' }}
+                        />
+                        {r.progress < 20 && (
+                          <div
+                            className="position-absolute start-50"
+                            style={{ transform: 'translate(-50%, 5%)' }}
+                          >
+                            {r.progress.toFixed(1)}
+                            %
+                          </div>
+                        )}
+                      </ProgressBar>
                       <b>Total Invoiced</b>
                       <br />
                       {formatCurrency(r.paidUpToNow)}

@@ -59,10 +59,12 @@ const EditReportForm = ({ project, report }: { project: Project, report: Report 
           <Col className="text-center mb-4">
             <div className="align-items-center mb-3">
               <h2>
-                {`Edit ${reportName(report)} for "${project.name}"`}
+                {`Edit ${reportName(report)}`}
               </h2>
               <p className="text-muted">
-                {`Update the report data for ${project.name}`}
+                Update the report data for
+                {' '}
+                <i>{project.name}</i>
               </p>
             </div>
           </Col>

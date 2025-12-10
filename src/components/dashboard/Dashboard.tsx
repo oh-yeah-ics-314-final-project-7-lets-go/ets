@@ -15,7 +15,7 @@ import {
   treeViewCustomizations,
 } from './theme/customizations';
 
-const xThemeComponents = {
+export const xThemeComponents = {
   ...chartsCustomizations,
   ...dataGridCustomizations,
   ...datePickersCustomizations,

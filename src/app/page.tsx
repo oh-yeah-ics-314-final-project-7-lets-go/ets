@@ -7,17 +7,16 @@ import Image from 'next/image';
 /** The Home page. */
 const Home = () => (
   <main>
-    <Container id="landing-page" fluid className="py-3">
+    <Container id="landing-page" fluid className="py-4">
       <Row className="justify-content-center">
         <Col
           md={8}
-          className="mx-auto p-4"
-          style={{ backgroundColor: '#f0f0f0', borderRadius: '8px' }}
+          className="mx-auto bg-dark-subtle rounded-3"
         >
           {/* Header Row */}
           <Row
-            className="align-items-center mb-3"
-            style={{ height: '16.66vh', backgroundColor: '#F5D25A', padding: '0.5rem' }}
+            className="align-items-center mb-3 rounded-top-3 ps-3 text-black"
+            style={{ height: '10vh', backgroundColor: '#F5D25A', padding: '0.5rem' }}
           >
 
             {/* Header Text */}

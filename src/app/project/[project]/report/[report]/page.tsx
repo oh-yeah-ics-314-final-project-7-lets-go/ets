@@ -42,7 +42,7 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
   if (report.status === ProjectStatus.PENDING) {
     if (isETS) {
       statusBanner = (
-        <Banner className="mt-3" variant="warning" dismissible={false}>
+        <Banner className="mt-3 border-start-0 border-end-0" variant="warning" dismissible={false}>
           This report is being revised and is pending approval.
           <br />
           <ApproveReportBtn report={report} author={userId} id={report.id} />
@@ -51,24 +51,24 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
       );
     } else {
       statusBanner = (
-        <Banner className="mt-3" variant="warning">
-          This project is in a provisional state
+        <Banner className="mt-3 border-start-0 border-end-0" variant="warning">
+          This report is in a provisional state
         </Banner>
       );
     }
   } else if (report.status === ProjectStatus.DENIED) {
     if (isETS) {
       statusBanner = (
-        <Banner className="mt-3" variant="danger">
-          This project was rejected.
+        <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
+          This report was rejected.
           <br />
           <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
         </Banner>
       );
     } else {
       statusBanner = (
-        <Banner className="mt-3" variant="danger">
-          This project was rejected. Please see the comments for more information.
+        <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
+          This report was rejected. Please see the comments for more information.
           <br />
           <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
         </Banner>

@@ -39,7 +39,7 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
       case 'CLOSED':
         return <span className="badge bg-success">Closed</span>;
       case 'OPEN':
-        return <span className="badge bg-warning">Open</span>;
+        return <span className="badge bg-warning text-dark">Open</span>;
       default:
         return <span className="badge bg-secondary">Unknown</span>;
     }
@@ -48,26 +48,26 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
   const getSeverityBadge = () => {
     switch (issue.severity) {
       case 'HIGH':
-        return <span className="badge bg-danger">High</span>;
+        return <span className="badge bg-danger">High Severity</span>;
       case 'MEDIUM':
-        return <span className="badge bg-warning">Medium</span>;
+        return <span className="badge bg-warning text-dark">Medium Severity</span>;
       case 'LOW':
-        return <span className="badge bg-success">Low</span>;
+        return <span className="badge bg-success">Low Severity</span>;
       default:
-        return <span className="badge bg-secondary">Unknown</span>;
+        return <span className="badge bg-secondary">Unknown Severity</span>;
     }
   };
 
   const getLikelihoodBadge = () => {
     switch (issue.likelihood) {
       case 'HIGH':
-        return <span className="badge bg-danger">High</span>;
+        return <span className="badge bg-danger">High Likelihood</span>;
       case 'MEDIUM':
-        return <span className="badge bg-warning">Medium</span>;
+        return <span className="badge bg-warning text-dark">Medium Likelihood</span>;
       case 'LOW':
-        return <span className="badge bg-success">Low</span>;
+        return <span className="badge bg-success">Low Likelihood</span>;
       default:
-        return <span className="badge bg-secondary">Unknown</span>;
+        return <span className="badge bg-secondary">Unknown Likelihood</span>;
     }
   };
 
@@ -91,13 +91,10 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
       {/* Issue Details Card */}
       <Row>
         <Col lg={8}>
-          <Card>
+          <Card className="mb-4">
             <CardHeader className="d-flex justify-content-between align-items-center">
               <div>
                 <h4 className="mb-0">
-                  Issue #
-                  {issue.id}
-                  {' – '}
                   {issue.title}
                 </h4>
                 <div className="mt-2">

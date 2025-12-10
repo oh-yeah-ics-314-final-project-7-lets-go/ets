@@ -46,7 +46,9 @@ const AddEventForm = ({ project }: { project: Project }) => {
                 Create Event
               </h2>
               <p className="text-muted">
-                {`Create an event for "${project.name}"`}
+                Create an event for
+                {' '}
+                <i>{project.name}</i>
               </p>
             </div>
           </Col>

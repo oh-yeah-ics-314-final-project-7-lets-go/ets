@@ -5,7 +5,7 @@ import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { addComment } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddCommentSchema } from '@/lib/validationSchemas';
@@ -16,6 +16,7 @@ import FormButton from '../FormButton';
 type AddCommentFormData = InferType<typeof AddCommentSchema>;
 
 const AddCommentForm = ({ project }: { project: Project }) => {
+  const router = useRouter();
   const { status, data } = useSession();
 
   const {
@@ -39,7 +40,7 @@ const AddCommentForm = ({ project }: { project: Project }) => {
     swal('Success', 'Added your comment', 'success', {
       timer: 2000,
     });
-    redirect(`/project/${project.id}`);
+    router.push(`/project/${project.id}`);
   };
 
   return (

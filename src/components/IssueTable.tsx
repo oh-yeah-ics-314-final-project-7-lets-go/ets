@@ -95,7 +95,7 @@ const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
                       <h6 className="mb-1">
                         <Link
                           href={`/project/${issue.projectId}/issue/${issue.id}`}
-                          className="text-decoration-none text-dark"
+                          className="text-decoration-none text-body"
                         >
                           {issue.title}
                         </Link>
@@ -103,7 +103,7 @@ const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
                           <span className="badge bg-success ms-2">Closed</span>
                         )}
                         {issue.status === 'OPEN' && (
-                          <span className="badge bg-warning ms-2">Open</span>
+                          <span className="badge bg-warning text-dark ms-2">Open</span>
                         )}
                       </h6>
                       <p className="mb-1">{truncate(issue.description, 150)}</p>

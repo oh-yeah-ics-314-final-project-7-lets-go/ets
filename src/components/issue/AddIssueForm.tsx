@@ -52,7 +52,9 @@ const AddIssueForm = ({ project }: { project: Project }) => {
                 Create Issue
               </h2>
               <p className="text-muted">
-                {`Create an issue for ${project.name}`}
+                Create an issue for
+                {' '}
+                <i>{project.name}</i>
               </p>
             </div>
           </Col>

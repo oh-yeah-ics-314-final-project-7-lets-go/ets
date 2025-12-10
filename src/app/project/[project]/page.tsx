@@ -73,7 +73,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
   if (project.status === ProjectStatus.PENDING) {
     if (isETS) {
       statusBanner = (
-        <Banner className="mt-3" variant="warning" dismissible={false}>
+        <Banner className="mt-3 border-start-0 border-end-0" variant="warning" dismissible={false}>
           This project is in a provisional state and is pending approval.
           {' '}
           <i>
@@ -94,7 +94,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
       );
     } else {
       statusBanner = (
-        <Banner className="mt-3" variant="warning">
+        <Banner className="mt-3 border-start-0 border-end-0" variant="warning">
           This project is in a provisional state
         </Banner>
       );
@@ -102,7 +102,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
   } else if (project.status === ProjectStatus.DENIED) {
     if (isETS) {
       statusBanner = (
-        <Banner className="mt-3" variant="danger">
+        <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
           This project was rejected.
           <br />
           <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
@@ -110,7 +110,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
       );
     } else {
       statusBanner = (
-        <Banner className="mt-3" variant="danger">
+        <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
           This project was rejected. Please see the comments for more information.
           <br />
           <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
@@ -123,11 +123,13 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
     <main>
       {statusBanner}
       <Container className="py-3">
-        <h1 className="align-items-center d-flex">
+        <h1>
           <StatusTooltip status={project.status} type="project" />
-          {project.name}
-          {' '}
-          Overview
+          <span className="align-middle">
+            {project.name}
+            {' '}
+            Overview
+          </span>
         </h1>
         <Row className="mt-4">
           <Col>

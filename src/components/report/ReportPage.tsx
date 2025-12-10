@@ -55,7 +55,7 @@ const ReportPage = ({ report, project }: ReportProjectProps) => {
                   {!isApproved && (
                   <Link href={`/project/${project.id}/report/${report.id}/edit`}>
                     <Button
-                      variant="primary"
+                      variant="warning"
                       size="sm"
                       type="button"
                     >
@@ -103,10 +103,6 @@ const ReportPage = ({ report, project }: ReportProjectProps) => {
                 </Row>
 
                 <Row>
-                  <Col md={6} className="mb-3">
-                    <h6 className="text-muted">Created?</h6>
-                    <p className="mb-0">...</p>
-                  </Col>
                   <Col md={6} className="mb-3">
                     <h6 className="text-muted">Last Updated</h6>
                     <p className="mb-0">{formatDate(report.updatedAt)}</p>

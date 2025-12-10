@@ -120,51 +120,79 @@ const monthOrder: Record<Month, number> = {
   DECEMBER: 12,
 } as const;
 
-export type ProjectWithReports = Project & { reports: Report[]; };
+export type ReportWithProject = Report & { project: Project; };
+
+export async function countReports(query: {
+  term: string;
+  fromDate?: Date;
+  endDate?: Date;
+}) {
+  if (query.term.length < 3) return 0;
+
+  const { fromDate = new Date(0), endDate = new Date() } = query;
+
+  const count = await prisma.report.count({
+    where: {
+      project: {
+        name: { contains: query.term, mode: 'insensitive' },
+      },
+      OR: [
+        {
+          yearCreate: {
+            lte: endDate.getUTCFullYear(),
+            gte: fromDate.getUTCFullYear(),
+          },
+        },
+        {
+          monthCreate: {
+            in: (Object.keys(monthOrder) as Month[]).filter(
+              m => fromDate.getUTCMonth() + 1 <= monthOrder[m]
+              && monthOrder[m] <= endDate.getUTCMonth() + 1,
+            ),
+          },
+        },
+      ],
+    },
+  });
+
+  return count;
+}
 
 export async function findReports(query: {
   term: string;
+  page: number;
   fromDate?: Date;
   endDate?: Date;
 }) {
   if (query.term.length < 3) return undefined;
 
   const { fromDate = new Date(0), endDate = new Date() } = query;
-
-  const projects: ProjectWithReports[] = await prisma.project.findMany({
-    where: { name: { contains: query.term, mode: 'insensitive' } },
-    orderBy: {
-      id: 'desc',
-    },
-    include: {
-      reports: {
-        where: {
-          OR: [
-            {
-              yearCreate: {
-                lte: endDate.getUTCFullYear(),
-                gte: fromDate.getUTCFullYear(),
-              },
-            },
-            {
-              monthCreate: {
-                in: (Object.keys(monthOrder) as Month[]).filter(
-                  m => fromDate.getUTCMonth() + 1 <= monthOrder[m]
-                  && monthOrder[m] <= endDate.getUTCMonth() + 1,
-                ),
-              },
-            },
-          ],
-        },
-        orderBy: [
-          { yearCreate: 'desc' },
-          { monthCreate: 'desc' },
-        ],
+  const reports: ReportWithProject[] = await prisma.report.findMany({
+    where: {
+      project: {
+        name: { contains: query.term, mode: 'insensitive' },
       },
+      OR: [
+        { yearCreate: { lte: endDate.getUTCFullYear(), gte: fromDate.getUTCFullYear() } },
+        { monthCreate: { in: (Object.keys(monthOrder) as Month[]).filter(
+          m => fromDate.getUTCMonth() + 1 <= monthOrder[m]
+             && monthOrder[m] <= endDate.getUTCMonth() + 1,
+        ) } },
+      ],
+    },
+    orderBy: [
+      { projectId: 'desc' },
+      { yearCreate: 'desc' },
+      { monthCreate: 'desc' },
+    ],
+    take: 9,
+    skip: 9 * (query.page - 1),
+    include: {
+      project: true,
     },
   });
 
-  return projects;
+  return reports;
 }
 
 /**

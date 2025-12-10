@@ -60,7 +60,7 @@ const ProjectItem = ({
       <tr style={{ cursor: 'pointer' }}>
         <td>
           <StatusTooltip {...{ status }} type="project" />
-          <Link className="fw-bold text-black" href={`/project/${id}`}>
+          <Link className="fw-bold text-body" href={`/project/${id}`}>
             {name}
           </Link>
         </td>
@@ -68,12 +68,24 @@ const ProjectItem = ({
         <td>{formatCurrency(totalPaidOut)}</td>
         <td>
           <div style={{ minWidth: '120px' }}>
-            <ProgressBar
-              now={progress}
-              label={`${progress.toFixed(1)}%`}
-              variant={getProgressVariant(progress)}
-              style={{ height: '20px' }}
-            />
+            <ProgressBar style={{ height: '20px' }}>
+              <ProgressBar
+                now={progress}
+                className={`mb-2 ${getProgressVariant(progress) === 'warning' && 'text-dark'}`}
+                label={progress >= 20 ? `${progress.toFixed(1)}%` : ' '}
+                variant={getProgressVariant(progress)}
+                style={{ height: '20px' }}
+              />
+              {progress < 20 && (
+                <div
+                  className="position-relative start-50"
+                  style={{ transform: 'translate(-50%, 5%)' }}
+                >
+                  {progress.toFixed(1)}
+                  %
+                </div>
+              )}
+            </ProgressBar>
           </div>
         </td>
         <td>{getBudgetStatus()}</td>
