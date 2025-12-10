@@ -1,0 +1,2599 @@
+{
+  "project": {
+    "name": "Hawaii Department of Human Services Systems Modernization Project",
+    "description": "The project aims to refine the project delivery framework including requirements, architecture, schedule, and approach to deliver quality services and solutions to the State of Hawaii.",
+    "originalContractAward": 621000.0,
+    "status": "PENDING"
+  },
+  "reports": [
+    {
+      "yearCreate": 2024,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 1000.0,
+      "progress": 4.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 2000.0,
+      "progress": 8.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "SEPTEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 24000.0,
+      "progress": 12.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "AUGUST",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "JUNE",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "NOVEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2020,
+      "monthCreate": "MAY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "AUGUST",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "AUGUST",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JULY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JUNE",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JUNE",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JUNE",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 0.0,
+      "progress": 0.5,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MAY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MAY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MAY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "NOVEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "NOVEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "SEPTEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "SEPTEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "SEPTEMBER",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "SEPTEMBER",
+      "paidUpToNow": 62100.0,
+      "progress": 100.0,
+      "status": "PENDING"
+    }
+  ],
+  "issues": [
+    {
+      "title": "High SIT Failure Rate",
+      "description": "The System Integration Testing (SIT) failure rate for Epics ranges from 51% to 83%, with the highest being eligibility client correspondence, at 83%. There are over 800 defects found in SIT, possibly impacting the Project’s ability to enter Final Acceptance Testing (FAT).",
+      "remedy": "Address defects and improve testing processes.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Incomplete SSP Documentation",
+      "description": "The Independent Security Assessment team has requested 60 documents supporting the System Security Plan (SSP), highlighting the risk of the SSP and supporting documentation not being completed for federal reviews.",
+      "remedy": "Complete and submit required SSP documentation.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Schedule Variances Increasing",
+      "description": "The schedule variances are increasing, with some task completion dates delayed twenty days or more, potentially revealing unexpected complexity and an increased level of effort.",
+      "remedy": "Reassess project schedule and resource allocation.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Findings Unresolved",
+      "description": "The project team is challenged to remediate security findings within the required timeframes; currently, 80 findings are past due.",
+      "remedy": "Progress was made regarding the Secure Enclave, leading to the beginning of end-to-end testing activities.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Management Delays",
+      "description": "The ASI has increased meeting frequency with DHS to more precisely categorize and define all requirements, delaying the development of the RTM.",
+      "remedy": "Efforts are ongoing to validate scope and confirm functionality availability or identify workarounds.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Process Challenges",
+      "description": "Resolving defects from past UAT activities has been challenging, impacting future testing effectiveness.",
+      "remedy": "The ASI revised its testing processes to enhance effectiveness and improve reporting.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Testing Delays",
+      "description": "Functional and technical testing of interfaces did not progress, impacting readiness for SIT testing.",
+      "remedy": "The project team is working through these issues, with no key implementation dates affected.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Delays in eDRS Approval",
+      "description": "Delays in getting FNS approval to use the eDRS interface may result in not having this ready for SIT.",
+      "remedy": "Form #674 needs to be submitted for approval to access eDRS data and perform validation.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "BES Pilot Delay",
+      "description": "Discussions to delay the start of the BES Pilot due to defects identified in the Final Acceptance Testing Phase.",
+      "remedy": "Address defects and complete necessary developments.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Assessment Report",
+      "description": "BES third-party security assessment report submitted with 34 critical and 204 high findings.",
+      "remedy": "Provide DHS with assessment pending evidence of security awareness training.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "RTM and Conversion Results",
+      "description": "Final Requirements Traceability Matrix and Conversion results not delivered on due dates.",
+      "remedy": "Deliver final RTM and Conversion results to DHS.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Overlap Risk",
+      "description": "Overlap of Integration Testing and System Integration Testing may cause delays.",
+      "remedy": "Coordinate testing schedules to achieve desired outcomes.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "IRS Data Sharing Concerns",
+      "description": "IRS raised concerns about data sharing for the Federal Tax Offset Program interface.",
+      "remedy": "Redesign the interface to reside in the Secure Enclave.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Test Development Delays",
+      "description": "Delays in test development for BI-20 Release 0.12 BES Test Scenarios.",
+      "remedy": "Evaluate options to move forward without DHS approval.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Epic Demos Delay",
+      "description": "Delay in completing Epic demos may affect Agile system design.",
+      "remedy": "Ensure designs align with client expectations.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Interface Issues",
+      "description": "Security issues with the TOP interface may delay the BES Pilot.",
+      "remedy": "Develop a solution meeting federal requirements.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Aggressive Testing Schedule",
+      "description": "Aggressive schedule impacts testing with incomplete deliverables.",
+      "remedy": "Review and adjust testing schedules.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Incomplete Security Plan",
+      "description": "BI-13 System Security Plan has incomplete designs and missing documentation.",
+      "remedy": "Complete designs and documentation to avoid delays.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Complexity",
+      "description": "The ASI published a draft Go-to-Green Plan, which may increase implementation complexity by separating key functionality into three Roll-out Phases.",
+      "remedy": "Evaluate and adjust the plan to manage complexity.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Delays",
+      "description": "Minimal design activities due to focus on Go-to-Green Plan. New issues with eligibility design identified.",
+      "remedy": "Include slack in the schedule to mitigate future delays.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Code Quality Issues",
+      "description": "Draft Go-to-Green Plan highlighted code quality issues as a root cause of development and schedule delays.",
+      "remedy": "Address issues going forward.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration Schedule Delays",
+      "description": "Issues within Integration and Interface Management causing schedule delays.",
+      "remedy": "Resolve issues and maintain high visibility into detailed interface activities.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Incomplete Test Scripts",
+      "description": "Majority of test scripts remain incomplete for Release 0.12 System Integration Testing.",
+      "remedy": "Complete test scripts and coordinate defect resolution.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Documentation Delays",
+      "description": "Delivery date for technical documentation needed for System Security Plan delayed.",
+      "remedy": "Complete 3rd Party Security Assessment before Pilot.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Schedule Inaccurate Estimates",
+      "description": "The initial review of the revised schedule has identified several tasks with inaccurate estimates, prompting concerns about the overall accuracy of the estimates.",
+      "remedy": "Review and adjust schedule estimates to ensure accuracy.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Vulnerabilities Unresolved",
+      "description": "Ongoing delays in remediating security vulnerabilities add risk to the project, potentially impacting development and the overall project schedule.",
+      "remedy": "Address security vulnerabilities promptly to mitigate risks.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Contractual Alignment Issues",
+      "description": "The ASI continues to struggle with providing DHS visibility into which contractual requirements have been met by completed functionality.",
+      "remedy": "Enable the creation of a Requirements Traceability Matrix (RTM) to meet this critical need for DHS.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Defects Unresolved",
+      "description": "UAT defects are being actively resolved by the vendor, with 147 ready to be retested by DHS.",
+      "remedy": "Continue resolving defects and prepare for retesting.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Vulnerability Management Delays",
+      "description": "Critical and high vulnerability and configuration scan findings are not remediated within the documented timeframes, potentially impacting the project schedule and causing delays.",
+      "remedy": "Update the BES Vulnerability Management Procedures document and implement an escalation process if deadlines are missed.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Challenges",
+      "description": "Corrective actions by ASI did not address schedule challenges, risking the August BES Go-live date.",
+      "remedy": "Develop a 'Go-to-Green' Action Plan.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Sprint Demo Defects",
+      "description": "Sprint demos led to defects requiring rework, impacting ASI's ability to conduct future demos.",
+      "remedy": "Review outstanding Epics.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Development Delays",
+      "description": "Adding sprints for development impacted downstream activities, causing additional delays.",
+      "remedy": "Complete BES development effort.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Agreement Delays",
+      "description": "Delays in interface agreements impacted designs, development, and testing schedules.",
+      "remedy": "Finalize agreements with partners.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Phase Delays",
+      "description": "Corrective actions to avoid overlap in testing phases were not realized, causing further delays.",
+      "remedy": "Develop SIT test scripts.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Documentation Delays",
+      "description": "Outstanding documentation for System Security Plan impacts Security Controls Assessment.",
+      "remedy": "Complete outstanding security documentation.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Delays",
+      "description": "The revised schedule adds 18 months to the previously approved schedule.",
+      "remedy": "Mitigate project risks by allowing more time to complete the work.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Process Improvements",
+      "description": "IV&V is awaiting the RCA report and details on the shift from Agile to Waterfall methodologies.",
+      "remedy": "ASI to improve unit testing.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Policy Updates",
+      "description": "ASI has rewritten most SSP responses to meet NIST 800-53 requirements.",
+      "remedy": "Develop new security policies for BES.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "FAT Defect Correction Delays",
+      "description": "ASI development resources needed to support FAT defect correction have caused delays in developing required functionality.",
+      "remedy": "ASI is adding additional resources to address this problem.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Time Travel Testing Concerns",
+      "description": "DHS raised concerns about time travel testing scenarios during FAT.",
+      "remedy": "IV&V is collaborating with DHS and ASI to review pre-FAT data conversion testing.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Post-Conversion Report Delay",
+      "description": "ASI delay in providing the required post-conversion report due to corrective actions in FAT data conversion.",
+      "remedy": "IV&V is collaborating with DHS and ASI to improve Pilot preparation.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Assessment Concerns",
+      "description": "Missing and incomplete supporting documents in the System Security Plan (SSP) remain a concern.",
+      "remedy": "DHS and ASI are working to provide responses to SSA requests.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "RTM Not Ready for Review",
+      "description": "BI-21 Requirements Traceability Matrix (RTM) was not ready for DHS deliverable review and approval by end of July.",
+      "remedy": "IV&V is concerned that delays in finalizing the RTM may lead to requirements tracing issues.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Challenges",
+      "description": "Progress continued with the implementation of the Security Enclave and Email microservices. However, the project team faces challenges in resolving security findings within required timeframes.",
+      "remedy": "Obtain federal approval for BES data sources.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Incomplete RTM",
+      "description": "The ASI may not have a complete and accurate Requirements Traceability Matrix (RTM) ready for DHS review before the start of SIT as planned.",
+      "remedy": "Finalize the RTM before SIT to avoid potential rework, missing functionality, increased costs, and schedule delays.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Testing Delays",
+      "description": "The ASI reported they have performed technical testing on seven of the twenty-one interfaces. Little time remains to create test scripts and conduct Integration Testing for the remaining interfaces.",
+      "remedy": "Conduct Integration Testing for the remaining interfaces prior to the start of SIT.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Root Cause Analysis Delay",
+      "description": "The ASI is working on a Root Cause Analysis for schedule delay to inform project changes and reduce risk of future issues.",
+      "remedy": "Release an RCA report to DHS incorporating feedback.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "User Acceptance Testing Stopped",
+      "description": "DHS stopped User Acceptance Testing with 297 unresolved defects to avoid unnecessary rework.",
+      "remedy": "Address open UAT defects as soon as possible.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Change Management Paused",
+      "description": "Organizational Change Management and Training activities paused due to Pilot go-live date replanning.",
+      "remedy": "Continue work on project tasks and activities.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Methodology Change Proposal",
+      "description": "ASI proposed changing BES Software Development Methodology from Agile to Waterfall.",
+      "remedy": "Finalize decision to impact BES contract and project schedule.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Vendor Testing Challenges",
+      "description": "Vendor challenges with testing functionality completely and comprehensively have led to multiple project delays.",
+      "remedy": "Change approach to testing and improve criteria for exiting a testing phase.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Traceability Matrix",
+      "description": "Understanding the contractual requirements that have been met and those that are outstanding will be key to the replanning efforts.",
+      "remedy": "Provide a complete Requirements Traceability Matrix (RTM) for BES 1.0.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Delays",
+      "description": "Despite multiple extensions and re-baselining of the project schedule, the BES project continues to encounter schedule delays.",
+      "remedy": "Perform a joint critical analysis of the project to determine the root cause of the delays.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "High Number of Defects",
+      "description": "UAT testing resumed with 373 unresolved defects (123 high severity, 177 medium severity).",
+      "remedy": "Focus on defect resolution before proceeding with future Pilot UAT.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Concerns",
+      "description": "Due to the high number of Critical and High items in the Plan of Action and Milestones (200+) to be remediated.",
+      "remedy": "Assess system risks and ensure IRS security requirements are met.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Not Mapped",
+      "description": "Significant work remains for ASI and DHS to complete requirement refinement with 392 requirements still not mapped.",
+      "remedy": "Complete requirement refinement work.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Velocity Slow",
+      "description": "Velocity of testing slowed down with many cases blocked from execution.",
+      "remedy": "Improve testing processes to unblock cases.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "UAT Start Delayed",
+      "description": "ASI and DHS delayed User Acceptance Testing start to complete new federally mandated Change Requests.",
+      "remedy": "Finalize new project schedule or funding solution.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Federal Shutdown Impact",
+      "description": "US Federal Government Shutdown may delay BES project due to lack of FNS input.",
+      "remedy": "Document assumptions, identify alternative paths, and maintain communication.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Approval Delays",
+      "description": "Project Management Plan and Project Schedule are not approved, affecting quality expectations.",
+      "remedy": "Resolve outstanding approvals and improve quality measures.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Concerns",
+      "description": "Issues with Siebel instances, cloud environments, and portal shift from Liferay to Adobe.",
+      "remedy": "Continue discussions and finalize decisions on proposed approaches.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Insufficient Use of Productivity Tools",
+      "description": "Lack of utilization of modern productivity tools like SharePoint.",
+      "remedy": "Increase adoption and training on productivity tools.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Overall Productivity Issues",
+      "description": "Lack of productivity since project inception.",
+      "remedy": "Implement measures to boost productivity.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Challenges",
+      "description": "The Project Management category includes findings addressing project schedule, solution architecture, quality of project artifacts, communications, and COVID-19 impact.",
+      "remedy": "Plan and execute according to the project plan.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development",
+      "description": "The project team lacks a shared understanding of ASI’s development approach.",
+      "remedy": "ASI to provide a detailed review of their approach.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Workflow Issues",
+      "description": "Workflow inconsistently addressed during BES design sessions.",
+      "remedy": "Adjust project schedule to ensure consistent workflow design.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Deployment Planning Issues",
+      "description": "ASI Release Management practices identified as an area to improve.",
+      "remedy": "Apply process lessons in future releases.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Management Risks",
+      "description": "Functional requirements breakdown to eliminate 'partially met' requirements.",
+      "remedy": "Complete final list of agreed upon requirements.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "OCM and Knowledge Transfer",
+      "description": "Risk due to anticipated staffing limitations as new State hiring guidelines are initiated.",
+      "remedy": "Execute transition plan and interview candidates.",
+      "severity": "MEDIUM",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "Poor Quality Deliverables",
+      "description": "Poor quality project deliverables may lead to rework and negatively impact the system design, testing artifacts and project schedule.",
+      "remedy": "Improve quality of deliverables.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Insufficient Requirements Elaboration",
+      "description": "Insufficient requirements elaboration prior to executing the contract amendment may result in a solution that does not meet DHS business needs.",
+      "remedy": "Ensure complete requirements elaboration.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Delays",
+      "description": "Delays in project schedule due to KOLEA ATC impact and CMM Interview.",
+      "remedy": "Revise project schedule and improve communication.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "BES Design Concerns",
+      "description": "Concerns on availability of JAD documentation and lack of expertise.",
+      "remedy": "Implement corrective actions and lessons learned.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration Timing Issues",
+      "description": "High criticality in integration timing between BES Modules and partners.",
+      "remedy": "Improve planning, coordination, and communication.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Corrective Action Plan Delay",
+      "description": "DHS requested a CAP from the ASI to address schedule delays. ASI provided a 'plan to create the plan', requiring more time.",
+      "remedy": "DHS to decide on accepting the approach.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Not Delivered",
+      "description": "ASI agreed to provide a revised Project Schedule by August 12, 2022, but failed to deliver.",
+      "remedy": "ASI to provide a revised target date.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Severe ASI Staffing Shortages",
+      "description": "Development delays due to severe ASI staffing shortages. ASI developed a staffing mitigation plan but not shared with DHS or IV&V.",
+      "remedy": "Implement staffing mitigation plan.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Impact",
+      "description": "Senior BA for the CMM module left the project, impacting design sessions.",
+      "remedy": "Assign multiple BA staff to design sessions.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Delays",
+      "description": "ASI plans to add 50 resources but will not hire until schedule is approved by DHS.",
+      "remedy": "Approve schedule for resource hiring.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration and Interface Management",
+      "description": "Lack of schedule to share with interface partners may impact activities.",
+      "remedy": "Finalize Memorandums of Agreements.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing ADA Compliance Tool",
+      "description": "ASI recommended ADA Compliance tool to DHS, awaiting DHS approval.",
+      "remedy": "DHS to evaluate and approve.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Staffing",
+      "description": "Significant work for BES Security functionality, adjusting security staffing assignments.",
+      "remedy": "Determine impact and adjust staffing.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Unapproved Design Changes",
+      "description": "The ASI changed the BES design documentation without DHS awareness, presenting a risk to the BES project.",
+      "remedy": "IV&V is researching and will provide an update in the next report.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Sprint Demo Feedback Delays",
+      "description": "Sprint demos are recorded and sent to DHS for review, leading to potential delays in feedback.",
+      "remedy": "Consider holding joint open feedback sessions.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "UAT Confusion Release 11",
+      "description": "Confusion during UAT for Release 11 due to unclear functionality readiness.",
+      "remedy": "Provide clear understanding of functionality for Pilot vs. post-Pilot.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Weaknesses",
+      "description": "Weaknesses in project management discipline and process. High degree of churn and lack of finalized Project Management Plan.",
+      "remedy": "Finalize and approve Project Management Plan and subordinate plans.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Issues",
+      "description": "Issues in reaching understanding on preferred tools and environments for DDI.",
+      "remedy": "Facilitate discussion and resolution with ASI.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "SI DDI Approach Understanding",
+      "description": "Lack of clear understanding of SI DDI approach may reduce effectiveness of JARs and JADs.",
+      "remedy": "Improve understanding of SI DDI approach.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "SharePoint Decision Log Usage",
+      "description": "The SharePoint Decision Log is not being used to record project decisions.",
+      "remedy": "Utilize SharePoint Decision Log for recording decisions.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "CLOSED"
+    },
+    {
+      "title": "Project Management Concerns",
+      "description": "The new ASI continued to work on the revisions to the project management approach to include historical lessons learned.",
+      "remedy": "The revised project schedule will be published in early January 2023.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Review",
+      "description": "IV&V will review and assess the new ASI approach to ensure the BES design meets all requirements.",
+      "remedy": "Documents will be made available to IV&V.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development",
+      "description": "The new ASI is working to finalize its Design, Development, and Implementation (DDI) approach.",
+      "remedy": "IV&V will review to verify it meets the contract requirements and applicable best practices.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration and Interface Management",
+      "description": "No additional interface details have been provided by the new ASI.",
+      "remedy": "The decision to integrate the Self-Service Portal (SSP) or Public Assistance Information System (PAIS) portal with BES remains outstanding.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Challenges",
+      "description": "The new ASI plans to follow Agile principles using close collaboration of the testing and design teams within sprints.",
+      "remedy": "IV&V can review and assess to verify the required testing resources are available.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Issues",
+      "description": "This has been a historically challenging area because of the integration required with the BES technical solution.",
+      "remedy": "IV&V will review the security artifacts when the documents are made available to the team.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Incomplete",
+      "description": "Project Management Plan and Project Schedule remain incomplete or unapproved.",
+      "remedy": "Complete and approve the Project Management Plan and Project Schedule.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration Understanding Lacking",
+      "description": "Inability to reach understanding between DHS and vendors on tools and environments.",
+      "remedy": "Finalize and approve tools and environments for DDI support.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Approval",
+      "description": "An overall project schedule was approved by DHS and baselined. The weekly project status meeting has been streamlined, efficiently providing visibility to stakeholders on overall project progress.",
+      "remedy": "Continue monitoring and adjusting as necessary.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Sessions",
+      "description": "The ASI continued to lead design sessions, including focused SME discussions, internal ASI pre-design discussions, and reviews of planned Epic design with the expanded DHS team.",
+      "remedy": "Maintain regular sessions and document outcomes.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration Schedule Published",
+      "description": "The ASI published a schedule for System Design, Development, and Implementation (DDI) work, which is included in the overall project schedule (BI-5) to track cross-project dependencies.",
+      "remedy": "Ensure adherence to the schedule and adjust as needed.",
+      "severity": "LOW",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Management Dashboard",
+      "description": "The ASI started work on a Dashboard to provide the status of the remaining work with interface partners, which will be available for viewing in Confluence.",
+      "remedy": "Complete dashboard development and ensure accessibility.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Lead Determined",
+      "description": "The DHS testing lead was determined this month. The ASI continued research for an ADA compliance tool.",
+      "remedy": "Finalize tool selection and begin implementation.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Meetings Started",
+      "description": "Weekly security touchpoints meetings started in February. Additionally, the completion date for BI-13 System Security Plan has been pushed out from March, recognizing the amount of work to still be completed. The ASI has not published a new completion date.",
+      "remedy": "Publish a new completion date and continue regular meetings.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Lack of Documented Plan",
+      "description": "DHS does not have a documented plan specific to the BES Optimization.",
+      "remedy": "Complete analysis and document the plan.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Adobe Portal RFP Delay",
+      "description": "RFP for Adobe Portal has not yet been released.",
+      "remedy": "Release the RFP as soon as possible.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Key Team Members Departing",
+      "description": "Key DHS, BES, and ASI Project Team members are departing or transitioning.",
+      "remedy": "Implement succession planning and knowledge transfer.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Challenges",
+      "description": "The new ASI provided a draft schedule for the 2023 BES Project, which is under review by both DHS and IV&V. The weekly project status meeting was also restarted in the reporting period.",
+      "remedy": "Review and finalize the draft schedule.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Concerns",
+      "description": "The new ASI restarted design sessions in this reporting period. Sessions are focused at the Epic level instead of a singular use case, with the goal of generating designs that cover functionally-related use cases.",
+      "remedy": "Ensure comprehensive design coverage.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Issues",
+      "description": "The new ASI published an addendum to the BI-6 System Design, Development, and Implementation (DDI) Plan, which is under review by DHS and IV&V. The new ASI also plans to publish a related DDI schedule in February.",
+      "remedy": "Review and approve the addendum and schedule.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration and Interface Management",
+      "description": "The new ASI is proposing a portal design that uses the Public Assistance Information System (PAIS) portal as the BES Portal platform while incorporating the User Interface (UI) designs from the Self-Service Portal (SSP). This BES-SSP Portal is expected to be ready for UAT in July 2023.",
+      "remedy": "Monitor progress towards UAT readiness.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Leadership Gap",
+      "description": "DHS restructured their project team, and a DHS Test Lead has not been named. IV&V looks to see how DHS fills this role and conducts testing with the new ASI.",
+      "remedy": "Appoint a DHS Test Lead.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Planning",
+      "description": "Planning for the BI-13 System Security Plan is underway and weekly security touchpoint meetings will start in February. The new ASI plan to complete the BI-13 by March 2023 appears ambitious given the amount of work outstanding.",
+      "remedy": "Ensure realistic planning and execution.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "UAT Defects Concern",
+      "description": "The number and types of defects identified in UAT remains a concern.",
+      "remedy": "Conduct a root cause analysis and review testing approach.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Delay",
+      "description": "Project schedule not approved due to KOLEA ATC impact.",
+      "remedy": "Review options to revise the testing approach.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Management Timing",
+      "description": "Timing of integration between BES Modules and interface partners remains a high criticality rating.",
+      "remedy": "Update communication plans for interface partners.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "BES Project Schedule Delays",
+      "description": "The BES Project schedule has not been approved by DHS and continues to be revised.",
+      "remedy": "ASI to communicate revised schedule to DHS and IV&V.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "BES Application Development Delays",
+      "description": "Delays in the development of the BES application due to staffing shortages and unrealistic estimates.",
+      "remedy": "ASI to include DHS and IV&V in analysis to address root causes.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Control Planning Issues",
+      "description": "Security control efforts are still in planning stages, raising concerns about implementation effort.",
+      "remedy": "ASI to address security and privacy staffing concerns.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Unresolved GCP Change Request",
+      "description": "The Google Cloud Platform change request for BES environments remains unresolved.",
+      "remedy": "ASI to submit a formal Project Impact Assessment in August.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Usability Concerns",
+      "description": "System navigation of the BES application emulates that of an old legacy system versus a modern one – limiting DHS’ ability to realize planned efficiencies.",
+      "remedy": "Improve system navigation to align with modern standards.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "No Revised Schedule",
+      "description": "The BES project schedules reflecting changes to Release 12 were still under revision.",
+      "remedy": "Finalize and communicate the revised project schedule.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Quality Issues",
+      "description": "Multiple issues with testing raised by DHS and IV&V need to be addressed to avoid impacting the quality of the final BES application.",
+      "remedy": "Address testing issues to ensure quality.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Lack of Approved Schedule",
+      "description": "The BES Project continued to move forward without an approved schedule.",
+      "remedy": "Evaluate the current schedule to determine if other actions are necessary.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Development Delays",
+      "description": "The ASI has not presented corrective action plans to address reported development delays.",
+      "remedy": "Prepare corrective action plans to address delays.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Use Cases Pushed",
+      "description": "Several Use Cases planned for releases currently underway were pushed to future releases.",
+      "remedy": "Ensure resources are sufficient to complete future releases as planned.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Complex Infrastructure",
+      "description": "Complexity of the BES infrastructure may contribute to development delays.",
+      "remedy": "Adjust design sprint process to better prepare for infrastructure complexity.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Release 12 Schedule Changes",
+      "description": "DHS and IV&V discovered changes to the Release 12 schedule that reduced the time to complete Release 12 work.",
+      "remedy": "ASI has been asked for details regarding the information used to make these schedule changes.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "ADA Compliance Testing Delay",
+      "description": "DHS and ASI agreed to push ADA compliance testing to Release 12. ADA test results have not been shared with DHS or IV&V.",
+      "remedy": "Ensure ADA test results are shared and address ADA test outcomes in the development process.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Documentation Delay",
+      "description": "A delay in completing system technical documentation is impacting the completion of security and privacy implementation statements.",
+      "remedy": "Complete the necessary documentation to avoid rework.",
+      "severity": "LOW",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Defects in FAT",
+      "description": "The quantity and severity of defects found in FAT will show the strength of SIT in verifying that BES is ready for DHS testing and acceptance.",
+      "remedy": "Additional coordination between DHS and the ASI.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Risk",
+      "description": "The Project’s ability to perform according to the approved BES Project Schedule continues to be a high-risk area.",
+      "remedy": "Monitor the project team’s execution of tasks according to the scheduled dates.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Lack of Documentation",
+      "description": "DHS has requested documented workarounds from the ASI that address how requirements will be met in areas where the BES functionality will not be delivered for Pilot.",
+      "remedy": "Ensure documentation is available for DHS's preparation for Pilot and end-user training.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Schedule Approval",
+      "description": "The lack of an approved, baselined project schedule obscures the ability of stakeholders to accurately measure project progress and/or impacts to the schedule.",
+      "remedy": "Finalize and approve the project schedule.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Limited BES Demonstrations",
+      "description": "Concerns with the ASI on the limited number of BES software demonstrations conducted for a larger DHS and IV&V audience.",
+      "remedy": "Plan to conduct several demonstrations in the next reporting period.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Plan Delays",
+      "description": "The submission and approval of the Security Plan shifted from March 2023 to November 2023.",
+      "remedy": "Include implemented security and privacy controls versus planned controls.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Deficiencies",
+      "description": "JAD/workgroups are behind schedule, key deliverables outstanding, poor project management execution.",
+      "remedy": "Improve scheduling and project management processes.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Incomplete DD&I Plan",
+      "description": "ASI has not delivered an approved DD&I Plan describing their SDLC approach.",
+      "remedy": "Deliver complete DD&I Plan.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Resource Overallocation Risk",
+      "description": "Draft baseline schedule lacks proper resource loading, risking schedule delays.",
+      "remedy": "Adjust resource allocation in schedule.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Lack of Written Communication",
+      "description": "Lack of written communication may cause confusion within the project team.",
+      "remedy": "Implement clear communication protocols.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Unapproved Project Schedule",
+      "description": "The inability of the BES Project Team to develop and deliver to a planned schedule continues to be a significant risk.",
+      "remedy": "Adjustments to the design sprint process and staffing assignments.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "GCP Change Request",
+      "description": "IV&V raised the GCP change request finding to a High-criticality rating.",
+      "remedy": "Further adjustments to the design sprint process.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Inconsistent SDLC Use",
+      "description": "IV&V continues to see inconsistent use of the SDLC process causing confusion within the project team.",
+      "remedy": "Reassignment of ASI leads and added architects to improve communication.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Analyst Departure",
+      "description": "The DHS Security Analyst departed as expected, and the IV&V risk has been classified as a High-criticality issue.",
+      "remedy": "ASI continues to try to fill their open Security Architect position.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Release 11 Test Coverage Gaps",
+      "description": "IV&V opened a preliminary concern to research possible gaps in test coverage of Release 11 requirements.",
+      "remedy": "Working with DHS and ASI to ensure all requirements and functionality are tested before UAT verification.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "BES Functionality Demonstrations",
+      "description": "Two additional BES functionality demonstrations occurred in May.",
+      "remedy": "IV&V is concerned that issues discovered will require development teams to remain focused on Release 11 and delay Release 12.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Jira Overview and Delays",
+      "description": "The ASI delivered a Jira overview to DHS to manage project activities. Release 11 development delays identified.",
+      "remedy": "Corrective actions planned.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Release 11 Design Confirmation",
+      "description": "Software demonstrations to confirm the design of Release 11 functionality occurring late in the schedule.",
+      "remedy": "May impact schedule based on DHS feedback.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "Development Team Velocity",
+      "description": "ASI reported increasing development team velocity.",
+      "remedy": "Unclear if this will mitigate further development delays.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "Release 11 User Acceptance Plan",
+      "description": "The Release 11 User Acceptance Plan draft has been released for DHS and IV&V review.",
+      "remedy": "The ASI will deploy the ADA compliance tool in June.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Plan Implementation Delays",
+      "description": "Incomplete implementation statements in the BES System Security Plan may lead to delays.",
+      "remedy": "Developing and executing the BI-13 System Security Plan.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Deliverables Delayed",
+      "description": "Late delivery of project deliverables may result in schedule delays.",
+      "remedy": "Implement stricter timeline management.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Missing Project Status Info",
+      "description": "The Project Status Report is missing key information, which may inhibit effective project management.",
+      "remedy": "Ensure all necessary information is included in reports.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Unclear Deliverable Process",
+      "description": "An unclear deliverable review and acceptance process may be contributing to project delays.",
+      "remedy": "Clarify and document the deliverable process.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "PPU Not Approved by CMS",
+      "description": "The Project Partnership Understanding (PPU) for the BES Project has not been approved by CMS, which may impact the project schedule and funding.",
+      "remedy": "Obtain CMS approval for the PPU.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Risk and Issues Log Lacks Data",
+      "description": "The BES Risk and Issues Log lacks necessary data elements, which are needed to afford complete transparency.",
+      "remedy": "Include all necessary data elements in the log.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Change Management Not Documented",
+      "description": "The Change Management Process is not fully documented and approved, which could delay Change Requests and affect scope, schedule, cost, and quality.",
+      "remedy": "Document and approve the Change Management Process.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "BESSD Leads Not Assigned",
+      "description": "BESSD leads and/or teams have not been assigned to the Project, which negatively impact the schedule and workload.",
+      "remedy": "Assign BESSD leads and teams to the project.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Siebel Instances Undecided",
+      "description": "The number of instances of Siebel to be implemented for BES Project is undecided, which may impact the project schedule and project costs.",
+      "remedy": "Decide on the number of Siebel instances.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "BI Tool Direction Changes",
+      "description": "Changes in direction regarding the preferred business intelligence (BI)/reporting tool may impact project schedule and cost.",
+      "remedy": "Finalize the BI tool decision.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Portal Development Platform Changes",
+      "description": "Changes in direction regarding the preferred platform for portal development may impact project schedule and cost.",
+      "remedy": "Finalize the portal development platform.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Differing ASI and ESI Expectations",
+      "description": "Differing ASI and ESI expectations regarding the number of contractually committed DDI environments.",
+      "remedy": "Align ASI and ESI expectations.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Undefined Decision Log Process",
+      "description": "The Decision Log process is undefined, which may hamper communication and discovery of Project Decisions.",
+      "remedy": "Define and implement the Decision Log process.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Decision Log Lacks Data",
+      "description": "The Decision Log lacks data elements needed for tracking and reporting on key Project Decisions, which may hamper discovery of decisions.",
+      "remedy": "Include necessary data elements in the Decision Log.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Impact",
+      "description": "IV&V has determined that 4 out of 6 findings in the project management category are likely to be significantly impacted by the 'Pivot'.",
+      "remedy": "Reassess findings post 'Pivot' documentation review.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Impact",
+      "description": "Of the two IV&V findings in the Configuration and Development category, one is likely to be impacted by the 'Pivot'.",
+      "remedy": "Update findings after 'Pivot' review.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Impact",
+      "description": "The lone active finding in this category is likely to be directly impacted by the 'Pivot'.",
+      "remedy": "Provide updates on active finding as appropriate.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Deployment Challenges",
+      "description": "IV&V has suspended the Assessment Category rating for the November reporting period while the project continues to make plans for the 'Pivot'.",
+      "remedy": "Track release and deployment progress in December.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Analysis Concerns",
+      "description": "IV&V has suspended the Assessment Category rating for the November reporting while the project continues to make plans for the 'Pivot'.",
+      "remedy": "Advise project on improving tracking and documenting partially met requirements.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "Epic Demos Uncertainty",
+      "description": "Epic Demos for Release12 not conducted; potential functional limitations.",
+      "remedy": "Conduct demos and address feedback.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Integration Testing",
+      "description": "SIT planned for December; DHS approval needed for test cases.",
+      "remedy": "Approve test cases and execute SIT.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Core Solution Go-Live Risk",
+      "description": "Risk of implementing Core Solution for go-live; deferred functionality may impact user adoption.",
+      "remedy": "Manage mitigation closely.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Development Delays",
+      "description": "Delays may overlap development and integration testing.",
+      "remedy": "Deliver interface functionality for DHS validation.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Challenges",
+      "description": "Concerns with SIT and FAT planning; training approach misaligned.",
+      "remedy": "Align with best practices.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Plan Incomplete",
+      "description": "Security Plan sections not ready for review; high risk to project.",
+      "remedy": "Complete documentation and review.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Concerns",
+      "description": "DHS has replaced their contract Project Manager, and the former PM remains available to the BES Project as needed. The new ASI has added a new Project Manager with significant DHS experience. The new ASI and DHS are planning a new approach and methodology to complete the BES project, and IV&V waits to review the details.",
+      "remedy": "Review new approach and methodology.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Vision",
+      "description": "DHS management has communicated a high-level vision for completing the BES project that will deliver functionality to BESSD sooner. The new ASI is reassessing the BES design and architecture to best align with this vision. Additionally, DHS project team members have identified and documented design concerns they want addressed as the project resumes.",
+      "remedy": "Reassess BES design and architecture.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Adjustments",
+      "description": "The Project restart under the new ASI’s leadership presents an opportunity to adjust/improve the development approach. IV&V concerns with the accuracy of development estimates and the resultant schedule delays that previously occurred will inform our review of the new ASI’s planning.",
+      "remedy": "Review development estimates and schedule.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration and Interface Management Timeline",
+      "description": "The timeline for integrating the BES project components and the various interfaces is included in the Project restart planning that the new ASI started.",
+      "remedy": "Include integration timeline in planning.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Approach Review",
+      "description": "The approach, staffing, and tools used for testing the BES application are all under review by the new ASI and may change.",
+      "remedy": "Review testing approach and tools.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Concerns",
+      "description": "The new ASI has not yet named a new Security Lead. IV&V remains concerned about the amount of security and privacy work outstanding.",
+      "remedy": "Name a new Security Lead.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Schedule Delays",
+      "description": "The ASI pushed the MDM portion of the October release into late November, and many standard release management practices were not in play.",
+      "remedy": "Implement standard release management practices.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Resource Overallocation",
+      "description": "Improvement was seen regarding unnamed resource overallocation in the schedule.",
+      "remedy": "Continue monitoring and adjusting resource allocation.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "CLOSED"
+    },
+    {
+      "title": "Project Management Risks",
+      "description": "IV&V observed little movement in the project management process area during September.",
+      "remedy": "Enhance project communication and increase transparency.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Concerns",
+      "description": "IV&V is concerned regarding the order in which some design and design-related deliverables have been produced and circulated for approval.",
+      "remedy": "Ensure proper sequencing and approval of deliverables.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Concerns",
+      "description": "Project management and the ability of the ASI to deliver the BES solution has been a prevalent concern throughout the project.",
+      "remedy": "Active project management is required.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "User Experience Issues",
+      "description": "DHS Users are concerned the overall User Experience may not meet DHS expectations and may result in low customer satisfaction.",
+      "remedy": "Ensure an overall plan and understanding of functionality.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Resource Planning Risks",
+      "description": "ASI resourcing continued to be a risk to ongoing development of the BES solution.",
+      "remedy": "Ensure reasonable planning and scheduling.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Management Concerns",
+      "description": "Memoranda of Agreements remain outstanding for the DAGS, DLIR, and HYCF interfaces.",
+      "remedy": "Improve planning and coordination with interface partners.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Opportunities Reduced",
+      "description": "DHS remains concerned with the opportunity to thoroughly test the system.",
+      "remedy": "Ensure adequate test phases for System Testing or Final Acceptance Testing.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Delays",
+      "description": "IV&V is concerned with the pace of Security and Privacy activities.",
+      "remedy": "Have a clear plan to define, implement, test, and validate all Security and Privacy Requirements/Controls.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Minimal Feedback on Demos",
+      "description": "The new process of the ASI delivering Sprint Demo recordings for DHS review has generated minimal feedback.",
+      "remedy": "DHS is adding more review staff to ensure timely feedback.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Detailed Functionality List Needed",
+      "description": "The ASI has an open action item to provide a detailed list of functionality in Release 12.",
+      "remedy": "ASI plans to assign Business Analysts to this activity.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Testing Criticality",
+      "description": "Project testing remains a high-criticality area with ASI implementing improvements.",
+      "remedy": "Await ASI's plan for full system test of all BES functionality.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "SMEs Concern on Design Changes",
+      "description": "SMEs raised concerns regarding ASI 'pushing back' on suggested design changes.",
+      "remedy": "Control scope to avoid rework later in the development process.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "DoTAX Interface Decision",
+      "description": "A key decision was made to design a new interface rather than pursuing the legacy interface.",
+      "remedy": "Address DHS's concerns regarding ASI updates to Functional Design Documents.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "ADA Testing Concerns",
+      "description": "ASI's formal ADA testing started ahead of schedule with numerous testing concerns.",
+      "remedy": "ASI is implementing several improvements to the testing process.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Impact",
+      "description": "4 out of 6 findings in Project Management likely impacted by BES Optimization.",
+      "remedy": "Continue reviewing BES Optimization planning documents.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Impact",
+      "description": "1 of 2 findings in Configuration and Development likely impacted by BES Optimization.",
+      "remedy": "Review BES Optimization planning documents.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "System Design Impact",
+      "description": "Only open finding in System Design likely impacted by BES Optimization.",
+      "remedy": "Suspend System Design category rating.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Deployment Impact",
+      "description": "Only open finding in Deployment likely impacted by BES Optimization.",
+      "remedy": "Suspend Deployment category rating.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Analysis Impact",
+      "description": "Requirements Analysis & Management category rating suspended.",
+      "remedy": "Continue planning BES Optimization.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "JAD Session Alignment",
+      "description": "JAD session results alignment to the test cases.",
+      "remedy": "Ensure alignment of JAD session results with test cases.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Data Conversion Issues",
+      "description": "Data conversion issues affecting project schedule.",
+      "remedy": "Address data conversion issues to maintain schedule.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Critical Path Risks",
+      "description": "Critical path within the project schedule.",
+      "remedy": "Monitor and adjust project schedule to mitigate risks.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Development Team Velocity",
+      "description": "Inability to measure development team velocity.",
+      "remedy": "Calculate average velocity from past iterations.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Concerns",
+      "description": "High criticality due to schedule concerns and inability to measure development team velocity.",
+      "remedy": "Improve schedule management and velocity measurement.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Workflow JAD Timing",
+      "description": "Open finding related to timing of Workflow JADs occurring late in release cycles.",
+      "remedy": "Adjust timing of JAD sessions.",
+      "severity": "LOW",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration Planning Issues",
+      "description": "High criticality findings related to planning, coordination, and communication with Interface Partners.",
+      "remedy": "Enhance planning and communication strategies.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Delays",
+      "description": "High-criticality findings in Project Management include Project Schedule, communications, DHS staffing, and inability to measure development team velocity.",
+      "remedy": "Determine impact of staffing and communication changes.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration Gaps",
+      "description": "Gaps in planning and execution activities for BES Interfaces.",
+      "remedy": "Evaluate gap analysis and clarify roles and responsibilities.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "MQD Portal RFP Release",
+      "description": "One of the two open findings is related to the MQD Portal, for which DHS indicated the RFP was released in this reporting period.",
+      "remedy": "Ensure timely release and follow-up on RFP.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "ASI DDI Approach Understanding",
+      "description": "The second finding is related to the project teams lack of a shared understanding of the ASI DDI approach.",
+      "remedy": "Facilitate workshops to align understanding.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Workflow Sequencing Discussion",
+      "description": "The only open finding in the System Design category is related to the planned sequencing of discussion(s) about Workflow at the end of JADs instead of during the JAD sessions for each of the functional areas.",
+      "remedy": "Adjust JAD sessions to include workflow discussions.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "DDI Release Management Planning",
+      "description": "The only open finding in the Deployment category is related to the planning and approach of the DDI Release Management practices.",
+      "remedy": "Review and refine DDI release management practices.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Partially Met Requirements",
+      "description": "In March, the project team continued to 'break down' the project’s functional requirements to eliminate the instance of 'partially met' requirements within design deliverables.",
+      "remedy": "Define clear requirements and update design deliverables.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Staff Transition Management",
+      "description": "DHS and the ASI made good progress to address this finding in March. DHS is actively managing their staff transition plan and the ASI has hired additional staff.",
+      "remedy": "Continue to monitor and support staff transitions.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN"
+    },
+    {
+      "title": "CMS OBC Requirements Delay",
+      "description": "The CMS Outcomes-Based Certification (OBC) Requirements have not been published by CMS, which may impact the project schedule and funding.",
+      "remedy": "Engage with CMS to expedite requirement publication.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "COVID-19 Impact on Schedule",
+      "description": "The COVID-19 pandemic and the related 'stay at home' order could hinder project activities and negatively impact the project schedule and budget.",
+      "remedy": "Implement remote work strategies and adjust timelines.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "High Defect Rate in UAT",
+      "description": "An excessive number of issues/defects in UAT may cause rework. The number of defects identified during R0.3 UAT was much larger than expected, indicating potential SIT test coverage and depth concerns.",
+      "remedy": "Perform a Root Cause Analysis (RCA) to identify and take corrective actions. Validate all UAT defects are re-tested in SIT to ensure they are included in Regression Testing.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Discrepancies in Design Artifacts",
+      "description": "Discrepancies between the ASI's design artifacts and DHS' requirements, not mitigated by modifications to the SDLC process.",
+      "remedy": "Align design artifacts with DHS requirements.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Delays in Release 6 Development",
+      "description": "Delays in release 6 development, including CMM Interview, SSP, FMM Overpayments, and Interfaces.",
+      "remedy": "Accelerate development and address bottlenecks.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Inefficient Project Management",
+      "description": "Continued inability to accurately plan and execute tasks, absence of an approved project schedule.",
+      "remedy": "Develop and adhere to an approved project schedule.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Complex System Design Concerns",
+      "description": "Concerns about the complex design of the BES Infrastructure and possible impacts.",
+      "remedy": "Simplify design and ensure alignment with project goals.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Issues",
+      "description": "DHS POs asked to finalize designs before fully vetted, DDI process inconsistently followed.",
+      "remedy": "Ensure designs are fully vetted and follow DDI process.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Integration and Interface Management",
+      "description": "Concerns with additional scope regarding IRS interface, DLIR modernization, and tax interface.",
+      "remedy": "Clarify scope and manage integration tasks effectively.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Defects and Remediation",
+      "description": "Elevated category due to Regression testing finding, need for detailed root cause analysis.",
+      "remedy": "Conduct detailed root cause analysis and implement remediation plans.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security and Privacy Compliance",
+      "description": "Discussions on BES Security Plan DED to ensure compliance with State and Federal requirements.",
+      "remedy": "Ensure BES Security Plan meets all compliance requirements.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Vulnerabilities",
+      "description": "High number of security vulnerabilities in the enterprise platform environment.",
+      "remedy": "Implement a Vulnerability Management System.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Resolution Time Concerns",
+      "description": "Longer resolution times impacting users with high business value.",
+      "remedy": "Discuss business priorities with Unisys.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Inexperienced Resources",
+      "description": "ESI staff expertise is lacking in key areas such as ECM solution components and project management, resulting in longer resolution times.",
+      "remedy": "Bring in technical and project management staff knowledgeable about technical components.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Lack of Repeatable Processes",
+      "description": "Absence of ESI-established governance processes has led to confusion about platform rules and guidelines.",
+      "remedy": "Develop a governance structure for shared services to handle multiple vendors.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Inefficient Communications",
+      "description": "ESI did not develop formal communications protocols, leading to inefficient communications and stakeholder confusion.",
+      "remedy": "Establish and execute clear and documented communication protocols.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Unclear OIT Responsibilities",
+      "description": "OIT roles and responsibilities are not clearly understood, leading to confusion and incorrect assumptions.",
+      "remedy": "Clarify roles and responsibilities for OIT, PMO, and individual staff involved in multi-vendor management.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "High Security Vulnerabilities",
+      "description": "Thousands of vulnerabilities exist in the Enterprise Platform environment, posing critical security risks.",
+      "remedy": "Establish an aggressive and thoughtfully planned schedule to resolve outstanding threats.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Project Management Concerns",
+      "description": "The Project Management category continues to represent most of the IV&V findings, which consist of risks and issues specific to the project schedule, solution architecture, quality of project artifacts, communications, roles and responsibilities and DHS staffing.",
+      "remedy": "The project team is taking steps to remedy these challenges but the ASI stated progress will not happen quickly.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Configuration and Development Understanding",
+      "description": "The project team is still attempting to understand the ASI’s development approach.",
+      "remedy": "DHS will gain more insight as the ASI further defines the architecture, completes and delivers the remainder of the Release 0.1 and Release 2.0 deliverables, and UAT testing in October.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    }
+  ],
+  "events": [
+    {
+      "name": "Final Acceptance Testing Start",
+      "description": "FAT for BES 1.0 scheduled to start.",
+      "plannedStart": "2024-05-13T00:00:00Z",
+      "plannedEnd": "2024-05-20T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-13T00:00:00Z",
+      "actualEnd": "2024-05-20T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing",
+      "description": "Preparation for the next significant milestone, System Integration Testing (SIT), planned to begin.",
+      "plannedStart": "2025-06-23T00:00:00Z",
+      "plannedEnd": "2025-06-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-06-23T00:00:00Z",
+      "actualEnd": "2025-06-30T00:00:00Z"
+    },
+    {
+      "name": "BES Pilot Start",
+      "description": "Planned start of the BES Pilot.",
+      "plannedStart": "2024-09-16T00:00:00Z",
+      "plannedEnd": "2024-09-16T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-09-16T00:00:00Z",
+      "actualEnd": "2024-09-16T00:00:00Z"
+    },
+    {
+      "name": "Phase I Pilot Rollout",
+      "description": "Contains revised core BES functionality agreed to by DHS and ASI.",
+      "plannedStart": "2024-07-22T00:00:00Z",
+      "plannedEnd": "2024-10-19T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-07-22T00:00:00Z",
+      "actualEnd": "2024-10-19T00:00:00Z"
+    },
+    {
+      "name": "Phase II Statewide Rollout",
+      "description": "Adds reports and interfaces to the functionality provided in the Pilot Rollout.",
+      "plannedStart": "2024-10-28T00:00:00Z",
+      "plannedEnd": "2024-10-28T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-10-28T00:00:00Z",
+      "actualEnd": "2024-10-28T00:00:00Z"
+    },
+    {
+      "name": "Phase III Post Statewide Rollout",
+      "description": "Adds the security Enclave and related IRS and SSA interfaces.",
+      "plannedStart": "2025-02-24T00:00:00Z",
+      "plannedEnd": "2025-02-24T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-02-24T00:00:00Z",
+      "actualEnd": "2025-02-24T00:00:00Z"
+    },
+    {
+      "name": "Pilot Implementation",
+      "description": "The Pilot Implementation is planned to start.",
+      "plannedStart": "2026-07-13T00:00:00Z",
+      "plannedEnd": "2026-07-13T00:00:00Z",
+      "completed": false,
+      "actualStart": "2026-07-13T00:00:00Z",
+      "actualEnd": "2026-07-13T00:00:00Z"
+    },
+    {
+      "name": "Statewide Implementation",
+      "description": "The Statewide Implementation is planned.",
+      "plannedStart": "2026-10-19T00:00:00Z",
+      "plannedEnd": "2026-10-19T00:00:00Z",
+      "completed": false,
+      "actualStart": "2026-10-19T00:00:00Z",
+      "actualEnd": "2026-10-19T00:00:00Z"
+    },
+    {
+      "name": "Project Reset Kick-off",
+      "description": "ASI published a list of process improvements to reduce future schedule delays.",
+      "plannedStart": "2025-01-23T00:00:00Z",
+      "plannedEnd": "2025-01-23T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-01-23T00:00:00Z",
+      "actualEnd": "2025-01-23T00:00:00Z"
+    },
+    {
+      "name": "Pilot User Training",
+      "description": "Pilot users start training in August for BES 1.0 application functionality.",
+      "plannedStart": "2024-08-01T00:00:00Z",
+      "plannedEnd": "2024-08-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-08-01T00:00:00Z",
+      "actualEnd": "2024-08-31T00:00:00Z"
+    },
+    {
+      "name": "Pilot Start",
+      "description": "Pilot is planned to start on September 16, 2024.",
+      "plannedStart": "2024-09-16T00:00:00Z",
+      "plannedEnd": "2024-09-16T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-09-16T00:00:00Z",
+      "actualEnd": "2024-09-16T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing",
+      "description": "Systems Integration Testing set to start in mid-June 2025.",
+      "plannedStart": "2025-06-15T00:00:00Z",
+      "plannedEnd": "2025-06-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-06-15T00:00:00Z",
+      "actualEnd": "2025-06-30T00:00:00Z"
+    },
+    {
+      "name": "UAT Testing Stopped",
+      "description": "UAT testing was stopped on November 15th with 279 defects left to be resolved.",
+      "plannedStart": "2024-11-01T00:00:00Z",
+      "plannedEnd": "2024-11-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-11-01T00:00:00Z",
+      "actualEnd": "2024-11-15T00:00:00Z"
+    },
+    {
+      "name": "Demonstration Scheduled",
+      "description": "A demonstration is scheduled for December 5th for ASI to show how current Requirements Traceability Matrix can confirm all contractual requirements.",
+      "plannedStart": "2024-12-05T00:00:00Z",
+      "plannedEnd": "2024-12-05T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-12-05T00:00:00Z",
+      "actualEnd": "2024-12-05T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing",
+      "description": "Execute System Integration Testing while ramping up work in OCM, Implementation Readiness, and Training.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "User Acceptance Testing",
+      "description": "Start of User Acceptance Testing delayed to complete work on new federally mandated Change Requests.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "BES Project Schedule Revision",
+      "description": "The ASI revised the BES project schedule, adding 8 weeks to design and development.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "BES Project Restart Planning",
+      "description": "DHS and the new ASI completed the joint BES project restart planning meetings.",
+      "plannedStart": "2023-01-17T00:00:00Z",
+      "plannedEnd": "2023-01-17T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-01-17T00:00:00Z",
+      "actualEnd": "2023-01-17T00:00:00Z"
+    },
+    {
+      "name": "BES 2023 DDI Project Kick-off",
+      "description": "The BES 2023 DDI Project officially re-started in this reporting period with a kick-off session attended by participants from all aspects of the project.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Release 0.4 UAT",
+      "description": "UAT for Release 0.4 was stopped due to numerous defects.",
+      "plannedStart": "2024-07-01T00:00:00Z",
+      "plannedEnd": "2024-07-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-07-01T00:00:00Z",
+      "actualEnd": "2024-07-31T00:00:00Z"
+    },
+    {
+      "name": "Corrective Action Plan Request",
+      "description": "DHS requested ASI to develop a Corrective Action Plan to address performance issues.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Security Staff Addition",
+      "description": "DHS and ASI have added Security staff who plan to begin work on the Project in July.",
+      "plannedStart": "2024-07-01T00:00:00Z",
+      "plannedEnd": "2024-07-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-07-01T00:00:00Z",
+      "actualEnd": "2024-07-31T00:00:00Z"
+    },
+    {
+      "name": "Release 11 Testing Assessment",
+      "description": "IV&V continued to assess the testing of Release 11, including the ongoing identification of possible gaps in testing coverage.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "BES Functionality Demonstrations",
+      "description": "ASI provided 21 demonstrations of BES functionality developed and tested.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Final Acceptance Testing Start",
+      "description": "FAT was able to start on June 24, 2024.",
+      "plannedStart": "2024-06-24T00:00:00Z",
+      "plannedEnd": "2024-06-24T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-06-24T00:00:00Z",
+      "actualEnd": "2024-06-24T00:00:00Z"
+    },
+    {
+      "name": "Pilot Start",
+      "description": "Preparing for the September 16, 2024, Pilot start.",
+      "plannedStart": "2024-09-16T00:00:00Z",
+      "plannedEnd": "2024-09-16T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-09-16T00:00:00Z",
+      "actualEnd": "2024-09-16T00:00:00Z"
+    },
+    {
+      "name": "BES Security Plan Submission",
+      "description": "Submission and approval of the BES Security Plan.",
+      "plannedStart": "2023-03-01T00:00:00Z",
+      "plannedEnd": "2023-11-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-03-01T00:00:00Z",
+      "actualEnd": "2023-11-01T00:00:00Z"
+    },
+    {
+      "name": "JAD/Workgroup Sessions",
+      "description": "Re-initiation of JAD/workgroup sessions to address project management issues.",
+      "plannedStart": "2024-05-01T00:00:00Z",
+      "plannedEnd": "2024-05-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-01T00:00:00Z",
+      "actualEnd": "2024-05-31T00:00:00Z"
+    },
+    {
+      "name": "BES Functionality Demonstrations",
+      "description": "Two additional BES functionality demonstrations occurred in May.",
+      "plannedStart": "2023-05-01T00:00:00Z",
+      "plannedEnd": "2023-05-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-05-01T00:00:00Z",
+      "actualEnd": "2023-05-31T00:00:00Z"
+    },
+    {
+      "name": "MDM Release Delay",
+      "description": "The MDM functionality planned for the October release would be delayed until the end of November.",
+      "plannedStart": "2024-10-01T00:00:00Z",
+      "plannedEnd": "2024-11-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-10-01T00:00:00Z",
+      "actualEnd": "2024-11-30T00:00:00Z"
+    },
+    {
+      "name": "Lessons Learned Activity",
+      "description": "Lessons Learned activity for Release 0.2.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Release 0.2 Completion",
+      "description": "Release 0.2 completed with Lessons Learned activity continuing.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Release 0.3 System Testing",
+      "description": "Release 0.3 began System Integration Testing.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Transition Assessment",
+      "description": "Transition of M&O from KPMG to Unisys.",
+      "plannedStart": "2018-10-12T00:00:00Z",
+      "plannedEnd": "2018-10-14T00:00:00Z",
+      "completed": true,
+      "actualStart": "2018-10-12T00:00:00Z",
+      "actualEnd": "2018-10-14T00:00:00Z"
+    },
+    {
+      "name": "Knowledge Transfer Sessions",
+      "description": "Planned KT sessions for application support hand-off.",
+      "plannedStart": "2018-10-12T00:00:00Z",
+      "plannedEnd": "2018-10-15T00:00:00Z",
+      "completed": true,
+      "actualStart": "2018-10-12T00:00:00Z",
+      "actualEnd": "2018-10-15T00:00:00Z"
+    },
+    {
+      "name": "BES Kickoff",
+      "description": "The BES project kickoff occurred in August 2018.",
+      "plannedStart": "2018-08-01T00:00:00Z",
+      "plannedEnd": "2018-08-01T00:00:00Z",
+      "completed": true,
+      "actualStart": "2018-08-01T00:00:00Z",
+      "actualEnd": "2018-08-01T00:00:00Z"
+    },
+    {
+      "name": "JAR Sessions",
+      "description": "Joint Application Requirements sessions moved to October 2018.",
+      "plannedStart": "2018-09-01T00:00:00Z",
+      "plannedEnd": "2018-09-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2018-10-01T00:00:00Z",
+      "actualEnd": "2018-10-31T00:00:00Z"
+    }
+  ]
+}

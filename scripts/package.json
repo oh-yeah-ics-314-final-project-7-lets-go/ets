@@ -1,0 +1,13 @@
+{
+  "name": "bulk-import-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "import": "tsx bulk-import.ts",
+    "import:live": "tsx bulk-import.ts --live"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "tsx": "^4.0.0"
+  }
+}
