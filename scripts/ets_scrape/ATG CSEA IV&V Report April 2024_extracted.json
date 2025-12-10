@@ -1,0 +1,90 @@
+{
+  "project": {
+    "name": "KEIKI Replatform Off Mainframe (KROM) Project",
+    "description": "Replatform the KEIKI System and provide ongoing operations support.",
+    "originalContractAward": 6400000.0,
+    "status": "PENDING"
+  },
+  "report": {
+    "yearCreate": 2024,
+    "monthCreate": "APRIL",
+    "paidUpToNow": 0.0,
+    "progress": 0.24,
+    "status": "PENDING"
+  },
+  "issues": [
+    {
+      "description": "Inadequate schedule and resource management practices may lead to project delays.",
+      "remedy": "Project managers should review and refine the schedule regularly with detailed tasks, realistic durations, and adequate resources.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "Additional information is needed regarding Protech's program development and testing approach.",
+      "remedy": "Protech will present their testing approach in May.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "Ineffective project status meetings and reports can lead to delayed decision-making.",
+      "remedy": "Improve project status reports to be clear, concise, and relevant to the audience.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "Untimely project management responsibilities may impact effective project execution.",
+      "remedy": "Assess the need for additional Protech resources and improve project management responsibilities.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "Complex data system migration requirements may lead to project delays.",
+      "remedy": "Develop separate formalized data system migration plans and processes for non-code elements.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "CLOSED"
+    }
+  ],
+  "events": [
+    {
+      "name": "Assessment & Planning",
+      "description": "Initial assessment of project health.",
+      "plannedStart": "2023-10-02T00:00:00Z",
+      "plannedEnd": "2023-10-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-02T00:00:00Z",
+      "actualEnd": "2023-10-31T00:00:00Z"
+    },
+    {
+      "name": "Program Development & Testing",
+      "description": "Development and testing phase.",
+      "plannedStart": "2023-10-02T00:00:00Z",
+      "plannedEnd": "2024-09-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-10-02T00:00:00Z",
+      "actualEnd": null
+    },
+    {
+      "name": "Sys Install",
+      "description": "System installation phase.",
+      "plannedStart": "2024-10-01T00:00:00Z",
+      "plannedEnd": "2024-12-31T00:00:00Z",
+      "completed": false,
+      "actualStart": null,
+      "actualEnd": null
+    },
+    {
+      "name": "Implementation",
+      "description": "Implementation phase.",
+      "plannedStart": "2025-01-01T00:00:00Z",
+      "plannedEnd": "2025-07-31T00:00:00Z",
+      "completed": false,
+      "actualStart": null,
+      "actualEnd": null
+    }
+  ]
+}

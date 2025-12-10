@@ -1,0 +1,1160 @@
+{
+  "project": {
+    "name": "KEIKI Replatform Off Mainframe (KROM) Project",
+    "description": "Replatform the KEIKI System and provide ongoing operations support.",
+    "originalContractAward": 5000000.0,
+    "status": "APPROVED"
+  },
+  "reports": [
+    {
+      "yearCreate": 2024,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.24,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 4200000.0,
+      "progress": 0.73,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "AUGUST",
+      "paidUpToNow": 3400000.0,
+      "progress": 0.41,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 4900000.0,
+      "progress": 0.73,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.06,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "DECEMBER",
+      "paidUpToNow": 3800000.0,
+      "progress": 0.53,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.14,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "FEBRUARY",
+      "paidUpToNow": 4000000.0,
+      "progress": 0.66,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.11,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 3900000.0,
+      "progress": 0.57,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JULY",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.37,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 4800000.0,
+      "progress": 0.73,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JUNE",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.33,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JUNE",
+      "paidUpToNow": 4400000.0,
+      "progress": 0.73,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.17,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "MARCH",
+      "paidUpToNow": 4100000.0,
+      "progress": 0.68,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "MAY",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.25,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "MAY",
+      "paidUpToNow": 4200000.0,
+      "progress": 0.72,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.03,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "NOVEMBER",
+      "paidUpToNow": 3700000.0,
+      "progress": 0.5,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 6400000.0,
+      "progress": 0.02,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "OCTOBER",
+      "paidUpToNow": 3600000.0,
+      "progress": 0.49,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "SEPTEMBER",
+      "paidUpToNow": 3500000.0,
+      "progress": 0.44,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "JANUARY",
+      "paidUpToNow": 5000000.0,
+      "progress": 0.77,
+      "status": "PENDING"
+    }
+  ],
+  "issues": [
+    {
+      "description": "Project managers started meeting regularly to review the project schedule.",
+      "remedy": "Recalibrate the project schedule in May.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Project Schedule Recalibration"
+    },
+    {
+      "description": "CSEA did not start reporting on success metrics in April as planned.",
+      "remedy": "Start reporting on success metrics to improve benefits realization.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Delayed Success Metrics Reporting"
+    },
+    {
+      "description": "Zero float between D-21 approval and Acceptance Testing start.",
+      "remedy": "Schedule adjustments and risk mitigation in May.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Approval and Testing Overlap"
+    },
+    {
+      "description": "Task 546 (Batch Finalization) remains 0% complete.",
+      "remedy": "Focus on prioritizing batch finalization.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Batch Finalization Delay"
+    },
+    {
+      "description": "Deliverable D-21 (System Test Results Report) is only 25% complete.",
+      "remedy": "Complete supporting documentation and traceability.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Incomplete System Test Report"
+    },
+    {
+      "description": "There are 2 blockers to the final decision on test data delivery; date/time issue and packed binary fields.",
+      "remedy": "Key decision on selection of the method for performing data extracts is pending.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Test Data Delivery Blockers"
+    },
+    {
+      "description": "The data extraction process is facing delays due to shared mainframe resources, inefficiencies, and lengthy download/upload times.",
+      "remedy": "CSEA is currently evaluating a SQL replication strategy, involving two dedicated resources and daily meetings to address these issues.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Data Extraction Process Delays"
+    },
+    {
+      "description": "A critical defect in NSDDC01J batch job execution is affecting the Precisely API allocation.",
+      "remedy": "A support ticket was opened in late August to address this with Precisely.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "NSDDC01J Batch Job Defect"
+    },
+    {
+      "description": "SIT is still ongoing at 82% completion with UAT progress at 2.45%.",
+      "remedy": "Continue testing and resolve remaining test scripts.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Testing Progress and Completion"
+    },
+    {
+      "description": "The payment schedule although agreed upon verbally, has not been formally accepted.",
+      "remedy": "Formal acceptance is expected to be concluded in September through a separate change request.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN",
+      "title": "Verbal Payment Schedule Discrepancy"
+    },
+    {
+      "description": "The project schedule does not adequately identify all CSEA tasks and individual resource responsibilities.",
+      "remedy": "Assess the need for additional project support for Protech’s Manager.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Incomplete Task Identification"
+    },
+    {
+      "description": "Resources are overallocated, and tasks continue to be shifted or added impacting project resources.",
+      "remedy": "Revisit project plans and activities to determine appropriate communications and engagement.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Resource Overallocation Management"
+    },
+    {
+      "description": "Testing Progress: Batch testing reached 31%, and FTD execution improved to 35%, but unresolved defects still block 92% of cases, delaying critical test readiness.",
+      "remedy": "Resolve defects to unblock cases and ensure test readiness.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Unresolved Defects Blocking Testing"
+    },
+    {
+      "description": "Data Validation: SQL-to-SQL validation and field alignment issues progressed, but persistent interface data discrepancies and mainframe inefficiencies risk cutover delays.",
+      "remedy": "Address data discrepancies and improve mainframe efficiencies.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Data Validation Discrepancies"
+    },
+    {
+      "description": "Schedule Slippage: The KMS Go-Live date reported in the KEIKI Project Schedule 121824 slipped by 22 days (to October 14, 2025), with further delays possible if dependencies are not resolved.",
+      "remedy": "Resolve dependencies to prevent further schedule slippage.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "KMS Go-Live Date Delay"
+    },
+    {
+      "description": "Interface Integration: Weekly workshops advanced interface testing, but modernization efforts are creating delays due to impact timelines.",
+      "remedy": "Align modernization efforts with interface testing timelines.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Interface Modernization Delays"
+    },
+    {
+      "description": "Resource Constraints: Mainframe adjustments improving efficiency, but skilled resource shortages for existing areas remain a barrier.",
+      "remedy": "Address skilled resource shortages to improve efficiency.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Skilled Resource Shortage Barrier"
+    },
+    {
+      "description": "Project delays have stabilized but are still showing a 17-day project delay.",
+      "remedy": "Project Managers should assess the impact of delays and collaborate on ways to get the project timeline back on track.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Project Timeline Delays"
+    },
+    {
+      "description": "The one-month delayed KEIKI scope validation impacted the timeliness of data extraction testing, requirements documentation, data conversion, refactored application delivery, and user interface refinement.",
+      "remedy": "There needs to be a clearer mutual understanding of how Protech’s development and testing approach will ensure that the new system and user interface will maintain the same functionality as the old system.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Delayed Scope Validation Impact"
+    },
+    {
+      "description": "Batch job validation efforts remain at 38%, impacted by SQL replication failures and data extraction inefficiencies.",
+      "remedy": "Optimize extraction schedules, implement automated validation scripts, and align cross-agency testing efforts to improve accuracy and efficiency.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Batch Job Validation Challenges"
+    },
+    {
+      "description": "The deliverable Knowledge Transfer Plan-Draft v0.1 dated 2/7/2025 has not been completed as of 2/28/2025.",
+      "remedy": "Implement structured knowledge transfer sessions to ensure full alignment on testing methodologies, defect triage, and execution strategies while setting schedule expectations with the test team.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Incomplete Knowledge Transfer Plan"
+    },
+    {
+      "description": "Ineffective project status meetings and reports can lead to delayed decision-making, lack of accountability, and reduced morale.",
+      "remedy": "CSEA should play an active role in refining the project status report and providing topics for weekly project meetings.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Improving Project Status Communication"
+    },
+    {
+      "description": "Testing Progress: Included advancements in system integration testing, defect resolution efforts addressing key functionality gaps, and increased validation coverage for financials and batch processes, though challenges remain with data inconsistencies, prolonged batch job execution times, and dependencies on unresolved interface issues.",
+      "remedy": "Continue defect resolution and increase validation coverage.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "System Testing and Validation Challenges"
+    },
+    {
+      "description": "Data Validation: Incremental improvements through SQL-to-SQL comparisons and refined extraction processes, but persistent discrepancies in interface data, batch outputs, and file formatting continue to pose challenges, requiring further verification and correction efforts.",
+      "remedy": "Further verification and correction efforts.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Persistent Data Discrepancies"
+    },
+    {
+      "description": "Schedule Slippage: The schedule slippage is currently being driven by batch job execution, ongoing data validation challenges, and dependencies on external modernization projects, with critical tasks remaining undefined, as the project team actively working on mitigation strategies to ensure alignment with key milestones.",
+      "remedy": "Mitigation strategies to ensure alignment with key milestones.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Schedule Slippage Mitigation Strategies"
+    },
+    {
+      "description": "The data extraction process is facing delays due to shared mainframe resources, inefficiencies, and lengthy download/upload times.",
+      "remedy": "CSEA is currently evaluating a SQL replication strategy, involving two dedicated resources and daily meetings to address these issues.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Data Extraction Delays Solution"
+    },
+    {
+      "description": "The selection of the method for performing data extracts is scheduled for the first week of August. The preferred method of SQL to SQL is currently not meeting customer expectations.",
+      "remedy": "CSEA and Protech continue to work together to refine the data extraction process, enhancing the effectiveness of data validation.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "SQL Data Extraction Improvement"
+    },
+    {
+      "description": "80-day schedule variance affecting critical path.",
+      "remedy": "Escalation and leadership involvement required.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Critical Path Schedule Delay"
+    },
+    {
+      "description": "Continued system testing delays due to unresolved defects.",
+      "remedy": "Address defects and untested batch jobs.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "System Testing Delay Resolution"
+    },
+    {
+      "description": "Differences between ADABAS and SQL (KROM) record counts.",
+      "remedy": "Resolve discrepancies.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "ADABAS vs SQL Record Discrepancies"
+    },
+    {
+      "description": "Critical defect in NSDDC01J batch job execution affecting Precisely API allocation.",
+      "remedy": "Testing limited to 10 records.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "NSDDC01J Batch Job Defect"
+    },
+    {
+      "description": "Data extraction process is facing delays due to shared mainframe resources, inefficiencies, and lengthy download/upload times.",
+      "remedy": "CSEA is evaluating a SQL replication strategy, involving two dedicated resources and daily meetings to address these issues, with the goal of completing validation by July 31st.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Data Extraction Delays Solution"
+    },
+    {
+      "description": "The project faces a significant risk of incurring extensive costs for delivering the necessary data to test the refactored KEIKI application.",
+      "remedy": "Continue negotiations with ETS to secure financial support for data delivery. Explore alternative solutions with Protech and AWS. Improve performance of data extraction programs.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "High Data Delivery Costs Risk"
+    },
+    {
+      "description": "A new observation was opened this month regarding the classification of defects.",
+      "remedy": "A meeting was held to discuss and align.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Defect Classification Alignment"
+    },
+    {
+      "description": "The current payment process is based on prorated payments to ProTech on an outdated schedule.",
+      "remedy": "Rebaselining is highly recommended to update the project schedule.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Outdated Payment Schedule"
+    },
+    {
+      "description": "The timing of multiple agencies moving off the mainframe at different times will result in the need to modify KEIKI system interfaces after the system has been deployed.",
+      "remedy": "CSEA should coordinate regular meetings with impacted State of Hawaii agencies. Roles, responsibilities, expectations and interface requirements should be clearly defined to ensure information and project status is proactively communicated for the various modernization efforts.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Mainframe Transition Coordination"
+    },
+    {
+      "description": "Inadequate schedule and resource management practices may lead to project delays, missed project activities, unrealistic schedule forecasts, or unidentified causes for delays.",
+      "remedy": "Based on the complexity of the KEIKI project, review and refine the schedule regularly with detailed tasks, realistic durations, and adequate resources.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Inadequate Project Schedule Management"
+    },
+    {
+      "description": "Testing Transition & Execution Risks",
+      "remedy": "Refinement needed for Knowledge Transfer Plan and alignment on testing methodologies.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Testing Transition Risk Alignment"
+    },
+    {
+      "description": "Data Extraction & Validation Inefficiencies",
+      "remedy": "Continue focus on implementing automated validation scripts and refining extract delivery cadence.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Automated Data Validation Enhancement"
+    },
+    {
+      "description": "System Performance and Stability",
+      "remedy": "Batch job execution times improved with hardware upgrades and optimizations.",
+      "severity": "LOW",
+      "likelihood": "MEDIUM",
+      "status": "CLOSED",
+      "title": "Enhanced Batch Job Efficiency"
+    },
+    {
+      "description": "Security & Compliance",
+      "remedy": "Implement data masking protocols and controlled testing environments.",
+      "severity": "MEDIUM",
+      "likelihood": "LOW",
+      "status": "CLOSED",
+      "title": "Data Security Enhancement Measures"
+    },
+    {
+      "description": "Project schedule variance of 17 days.",
+      "remedy": "Establish a process to review payment schedules for changes in deliverable timelines.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Project Schedule Variance Management"
+    },
+    {
+      "description": "80% of test scripts passed showing incremental improvements.",
+      "remedy": "Start more robust reporting on test and defect metrics when system testing begins.",
+      "severity": "LOW",
+      "likelihood": "LOW",
+      "status": "OPEN",
+      "title": "Enhance Test Reporting Metrics"
+    },
+    {
+      "description": "Batch job performance testing and data extract discrepancies.",
+      "remedy": "Iterative retesting cycles.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Batch Job Testing Discrepancies"
+    },
+    {
+      "description": "Critical system testing defects remain unresolved.",
+      "remedy": "Focused retesting cycles.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Unresolved Testing Defects"
+    },
+    {
+      "description": "Absence of an approved, updated project schedule.",
+      "remedy": "Formal schedule realignment.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Project Schedule Realignment"
+    },
+    {
+      "description": "Temporary leave of absence of the CSEA Project Manager.",
+      "remedy": "Interim coverage by CSEA leadership.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Project Management Interim Coverage"
+    },
+    {
+      "description": "Untimely project management responsibilities may impact effective project execution.",
+      "remedy": "Improve the project schedule to address schedule comments. Develop a detailed plan with assigned resources to complete project tasks.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Project Schedule Optimization"
+    },
+    {
+      "description": "Complex data system migration requirements, combined with incomplete documentation and the absence of a formalized process for non-code tasks, may lead to project delays, unmet contract requirements, and quality issues.",
+      "remedy": "Develop separate formalized data system migration plans and processes for non-code elements.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Data Migration Process Gaps"
+    },
+    {
+      "description": "Risks associated with long batch runtimes, data discrepancies, and interface dependencies.",
+      "remedy": "Closely monitor and address risks to maintain Go-Live timeline.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Batch Runtime and Data Risks"
+    },
+    {
+      "description": "Untimely project management responsibilities may impact effective project execution.",
+      "remedy": "CSEA and Protech’s Project Manager are working closely to define deliverables and develop a realistic and achievable timeline.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Project Management Timeliness"
+    },
+    {
+      "description": "Data Integrity: Occasional low values and data inconsistencies.",
+      "remedy": "Continued focus from CSEA to ensure data accuracy and support testing efforts effectively.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Data Integrity Inconsistencies"
+    },
+    {
+      "description": "Interface testing data completeness from external partners has been inconsistent.",
+      "remedy": "Continued collaboration to improve data availability and support smoother testing cycles.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "Inconsistent Data from Partners"
+    },
+    {
+      "description": "There is one blocker remaining to the final decision on test data delivery, date/time issue.",
+      "remedy": "The key decision on selection of the method for performing data extracts is pending.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Test Data Delivery Blocker"
+    },
+    {
+      "description": "System Integration Testing is still ongoing at 93% completion.",
+      "remedy": "Continue testing and address remaining defects.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN",
+      "title": "System Testing Progress Update"
+    },
+    {
+      "description": "UAT script failure rate is approximately 40%.",
+      "remedy": "Improve UAT execution and defect resolution.",
+      "severity": "MEDIUM",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "High UAT Script Failure Rate"
+    },
+    {
+      "description": "Deliverable #9, the Disaster Recovery Plan, has not been received by CSEA.",
+      "remedy": "Ensure delivery and approval of the Disaster Recovery Plan.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN",
+      "title": "Disaster Recovery Plan Delay"
+    }
+  ],
+  "events": [
+    {
+      "name": "KEIKI System Data Extraction",
+      "description": "The KEIKI system data was extracted and loaded into the SQL database.",
+      "plannedStart": "2024-04-01T00:00:00Z",
+      "plannedEnd": "2024-04-30T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-04-01T00:00:00Z",
+      "actualEnd": "2024-04-30T00:00:00Z"
+    },
+    {
+      "name": "Protech Testing Approach Presentation",
+      "description": "Protech will present their testing approach in May.",
+      "plannedStart": "2024-05-01T00:00:00Z",
+      "plannedEnd": "2024-05-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-01T00:00:00Z",
+      "actualEnd": "2024-05-31T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing (SIT) Iteration 2",
+      "description": "Completed with 119 test scripts executed and a 100% pass rate.",
+      "plannedStart": "2024-04-01T00:00:00Z",
+      "plannedEnd": "2024-04-30T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-04-01T00:00:00Z",
+      "actualEnd": "2024-04-30T00:00:00Z"
+    },
+    {
+      "name": "Acceptance Testing Preparation",
+      "description": "Reached 74% completion.",
+      "plannedStart": "2024-04-01T00:00:00Z",
+      "plannedEnd": "2024-04-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-04-01T00:00:00Z",
+      "actualEnd": "2024-04-30T00:00:00Z"
+    },
+    {
+      "name": "Go-Live Playbook Execution",
+      "description": "Scheduled for October 31.",
+      "plannedStart": "2025-10-31T00:00:00Z",
+      "plannedEnd": "2025-11-04T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-10-31T00:00:00Z",
+      "actualEnd": "2025-11-04T00:00:00Z"
+    },
+    {
+      "name": "Application Code Delivery",
+      "description": "Delivered on 8/22/24. Deployment was completed on 8/23/24.",
+      "plannedStart": "2024-08-22T00:00:00Z",
+      "plannedEnd": "2024-08-23T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-08-22T00:00:00Z",
+      "actualEnd": "2024-08-23T00:00:00Z"
+    },
+    {
+      "name": "New version of eafileConverter",
+      "description": "Delivered on 8/28/24.",
+      "plannedStart": "2024-08-28T00:00:00Z",
+      "plannedEnd": "2024-08-28T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-08-28T00:00:00Z",
+      "actualEnd": "2024-08-28T00:00:00Z"
+    },
+    {
+      "name": "User Acceptance Testing (UAT)",
+      "description": "The project advanced to User Acceptance Testing (UAT) on August 18, 2025.",
+      "plannedStart": "2025-08-18T00:00:00Z",
+      "plannedEnd": "2025-12-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-08-18T00:00:00Z",
+      "actualEnd": "2025-12-31T00:00:00Z"
+    },
+    {
+      "name": "Memorandum of Understanding (MOU)",
+      "description": "A MOU was accepted on August 29, 2025 to proceed with the User Acceptance Testing (UAT).",
+      "plannedStart": "2025-08-29T00:00:00Z",
+      "plannedEnd": "2025-08-29T00:00:00Z",
+      "completed": true,
+      "actualStart": "2025-08-29T00:00:00Z",
+      "actualEnd": "2025-08-29T00:00:00Z"
+    },
+    {
+      "name": "Automated Application Assessment",
+      "description": "The Automated Application Assessment process was executed well and completed.",
+      "plannedStart": "2023-12-01T00:00:00Z",
+      "plannedEnd": "2023-12-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-12-01T00:00:00Z",
+      "actualEnd": "2023-12-31T00:00:00Z"
+    },
+    {
+      "name": "Project Schedule Approval",
+      "description": "The project schedule was approved with a September 22, 2025 Go-Live date.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2023-10-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2023-10-31T00:00:00Z"
+    },
+    {
+      "name": "Batch Testing Progress",
+      "description": "Inefficiencies in data extraction and unresolved SQL replication issues.",
+      "plannedStart": "2024-04-30T00:00:00Z",
+      "plannedEnd": "2024-06-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-04-30T00:00:00Z",
+      "actualEnd": "2024-06-30T00:00:00Z"
+    },
+    {
+      "name": "Financial Test Deck (FTD) Execution",
+      "description": "Unresolved defects blocking 92% of test cases.",
+      "plannedStart": "2025-07-03T00:00:00Z",
+      "plannedEnd": "2025-08-10T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-07-03T00:00:00Z",
+      "actualEnd": "2025-08-10T00:00:00Z"
+    },
+    {
+      "name": "Interface Integration Validation",
+      "description": "Dependencies on partner agency modernization and incomplete workshops.",
+      "plannedStart": "2024-03-19T00:00:00Z",
+      "plannedEnd": "2024-05-25T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-03-19T00:00:00Z",
+      "actualEnd": "2024-05-25T00:00:00Z"
+    },
+    {
+      "name": "KEIKI Database Migration",
+      "description": "SQL replication discrepancies and validation inconsistencies.",
+      "plannedStart": "2024-02-07T00:00:00Z",
+      "plannedEnd": "2024-03-15T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-02-07T00:00:00Z",
+      "actualEnd": "2024-03-15T00:00:00Z"
+    },
+    {
+      "name": "Go-Live Certification",
+      "description": "Slippage in testing and integration milestones.",
+      "plannedStart": "2025-09-22T00:00:00Z",
+      "plannedEnd": "2025-10-14T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-09-22T00:00:00Z",
+      "actualEnd": "2025-10-14T00:00:00Z"
+    },
+    {
+      "name": "Resource and Dependency Management",
+      "description": "Resource shortages and unresolved dependencies such as interface discrepancies.",
+      "plannedStart": "2025-10-06T00:00:00Z",
+      "plannedEnd": "2025-11-10T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-10-06T00:00:00Z",
+      "actualEnd": "2025-11-10T00:00:00Z"
+    },
+    {
+      "name": "KEIKI Application Assessment Validation",
+      "description": "The KEIKI application assessment validation was completed in February; however, this 1-month delay impacted the timeliness of data extraction programming and testing.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-02-01T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-02-29T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing (SIT)",
+      "description": "Testing execution continues to advance, with System Integration Testing (SIT) at 82% completion.",
+      "plannedStart": "2024-10-02T00:00:00Z",
+      "plannedEnd": "2025-02-28T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-10-02T00:00:00Z",
+      "actualEnd": "2025-02-28T00:00:00Z"
+    },
+    {
+      "name": "Financial Test Deck (FTD) Validation",
+      "description": "Financial Test Deck (FTD) testing has reached 75%.",
+      "plannedStart": "2024-10-02T00:00:00Z",
+      "plannedEnd": "2025-02-28T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-10-02T00:00:00Z",
+      "actualEnd": "2025-02-28T00:00:00Z"
+    },
+    {
+      "name": "Go-Live Cutover Planning & Readiness",
+      "description": "The cutover timeline is actively being refined, with a focus on long weekend deployment and mock deployment planning.",
+      "plannedStart": "2025-02-20T00:00:00Z",
+      "plannedEnd": "2025-09-08T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-02-20T00:00:00Z",
+      "actualEnd": "2025-09-08T00:00:00Z"
+    },
+    {
+      "name": "Project Assessment",
+      "description": "Assessment of project health and progress.",
+      "plannedStart": "2023-10-31T00:00:00Z",
+      "plannedEnd": "2024-09-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-10-31T00:00:00Z",
+      "actualEnd": "2024-09-30T00:00:00Z"
+    },
+    {
+      "name": "Assessment & Planning",
+      "description": "Initial phase of the project focusing on planning and assessment.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Program Development & Testing",
+      "description": "Development and testing phase of the project.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2025-08-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2025-08-01T00:00:00Z"
+    },
+    {
+      "name": "System Install",
+      "description": "Installation of the system components.",
+      "plannedStart": "2025-08-01T00:00:00Z",
+      "plannedEnd": "2025-09-22T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-08-01T00:00:00Z",
+      "actualEnd": "2025-09-22T00:00:00Z"
+    },
+    {
+      "name": "Implementation",
+      "description": "Implementation phase of the project.",
+      "plannedStart": "2025-09-22T00:00:00Z",
+      "plannedEnd": "2025-11-07T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-09-22T00:00:00Z",
+      "actualEnd": "2025-11-07T00:00:00Z"
+    },
+    {
+      "name": "System Testing",
+      "description": "System testing continues and it is scheduled to run until March 2025.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2025-03-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": null
+    },
+    {
+      "name": "Assessment & Planning",
+      "description": "Initial assessment of project health.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2023-10-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2023-10-31T00:00:00Z"
+    },
+    {
+      "name": "Project Schedule - Baseline",
+      "description": "Baseline project schedule set in September 2023.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2025-07-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2025-07-31T00:00:00Z"
+    },
+    {
+      "name": "Project Schedule - Rebaselined",
+      "description": "Rebaselined schedule following DDI Project Management Plan approval.",
+      "plannedStart": "2024-01-08T00:00:00Z",
+      "plannedEnd": "2025-09-22T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-08T00:00:00Z",
+      "actualEnd": "2025-09-22T00:00:00Z"
+    },
+    {
+      "name": "Project Schedule - Revised",
+      "description": "Current schedule based on April 10, 2025, no-cost change request.",
+      "plannedStart": "2025-04-10T00:00:00Z",
+      "plannedEnd": "2025-10-26T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-04-10T00:00:00Z",
+      "actualEnd": "2025-10-26T00:00:00Z"
+    },
+    {
+      "name": "System Testing",
+      "description": "System testing began in June 2024 and is scheduled to run until March 2025.",
+      "plannedStart": "2024-06-01T00:00:00Z",
+      "plannedEnd": "2025-03-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-06-01T00:00:00Z",
+      "actualEnd": "2025-03-31T00:00:00Z"
+    },
+    {
+      "name": "Go-Live",
+      "description": "The Go-Live date has been shifted to the Labor Day long weekend in September 2025.",
+      "plannedStart": "2025-09-01T00:00:00Z",
+      "plannedEnd": "2025-09-02T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-09-01T00:00:00Z",
+      "actualEnd": "2025-09-02T00:00:00Z"
+    },
+    {
+      "name": "System Install",
+      "description": "Installation of the system components.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-07-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-07-01T00:00:00Z"
+    },
+    {
+      "name": "Program Development & Testing",
+      "description": "Development and testing of the program.",
+      "plannedStart": "2024-07-01T00:00:00Z",
+      "plannedEnd": "2025-01-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-07-01T00:00:00Z",
+      "actualEnd": "2025-01-01T00:00:00Z"
+    },
+    {
+      "name": "Assessment & Planning",
+      "description": "Initial assessment of project health and planning activities.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2024-05-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2024-05-01T00:00:00Z"
+    },
+    {
+      "name": "Program Development & Testing",
+      "description": "Development and testing of the KEIKI system.",
+      "plannedStart": "2024-05-01T00:00:00Z",
+      "plannedEnd": "2024-12-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-01T00:00:00Z",
+      "actualEnd": "2024-12-01T00:00:00Z"
+    },
+    {
+      "name": "System Installation",
+      "description": "Installation of the KEIKI system.",
+      "plannedStart": "2024-12-01T00:00:00Z",
+      "plannedEnd": "2025-07-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-12-01T00:00:00Z",
+      "actualEnd": "2025-07-01T00:00:00Z"
+    },
+    {
+      "name": "Implementation",
+      "description": "Implementation of the KEIKI system.",
+      "plannedStart": "2025-07-01T00:00:00Z",
+      "plannedEnd": "2025-09-22T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-07-01T00:00:00Z",
+      "actualEnd": "2025-09-22T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing",
+      "description": "Reached 90% completion with all Financial Test Deck scenarios executed.",
+      "plannedStart": "2024-10-01T00:00:00Z",
+      "plannedEnd": "2025-04-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-10-01T00:00:00Z",
+      "actualEnd": "2025-04-30T00:00:00Z"
+    },
+    {
+      "name": "Go-Live",
+      "description": "Revised Go-Live date of November 11, 2025, proposed for operational risk reduction.",
+      "plannedStart": "2025-11-11T00:00:00Z",
+      "plannedEnd": "2025-11-11T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-11-11T00:00:00Z",
+      "actualEnd": "2025-11-11T00:00:00Z"
+    },
+    {
+      "name": "Pre-delivery Testing",
+      "description": "Testing on the initial KEIKI application build.",
+      "plannedStart": "2024-06-01T00:00:00Z",
+      "plannedEnd": "2024-06-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-06-01T00:00:00Z",
+      "actualEnd": "2024-06-30T00:00:00Z"
+    },
+    {
+      "name": "Testing Overview Presentation",
+      "description": "Presentation to explain how the project’s testing will ensure the new system and user interface maintain the same functionality as the old system.",
+      "plannedStart": "2024-06-01T00:00:00Z",
+      "plannedEnd": "2024-06-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-06-01T00:00:00Z",
+      "actualEnd": "2024-06-30T00:00:00Z"
+    },
+    {
+      "name": "System Testing",
+      "description": "Retesting of critical defects and data discrepancies.",
+      "plannedStart": "2024-05-01T00:00:00Z",
+      "plannedEnd": "2024-05-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-01T00:00:00Z",
+      "actualEnd": "2024-05-28T00:00:00Z"
+    },
+    {
+      "name": "UAT Environment Build-out",
+      "description": "Finalizing build configurations and data extract readiness.",
+      "plannedStart": "2024-05-01T00:00:00Z",
+      "plannedEnd": "2024-05-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-01T00:00:00Z",
+      "actualEnd": "2024-05-28T00:00:00Z"
+    },
+    {
+      "name": "Assessment and Requirements",
+      "description": "Completion of a two-month assessment of Technology and the beginning of a two-month assessment of Process.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2023-11-30T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2023-11-30T00:00:00Z"
+    },
+    {
+      "name": "Data Conversion",
+      "description": "Data Conversion activities will begin in December 2023.",
+      "plannedStart": "2023-12-01T00:00:00Z",
+      "plannedEnd": "2024-03-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2023-12-01T00:00:00Z",
+      "actualEnd": "2024-03-01T00:00:00Z"
+    },
+    {
+      "name": "Project Assessment & Planning",
+      "description": "Initial project assessment and planning phase.",
+      "plannedStart": "2023-10-01T00:00:00Z",
+      "plannedEnd": "2024-01-01T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-01T00:00:00Z",
+      "actualEnd": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "Program Development & Testing",
+      "description": "Development and testing of program components.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2025-08-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2025-08-01T00:00:00Z"
+    },
+    {
+      "name": "Project Kick-off Meeting",
+      "description": "The project held a kick-off meeting and is starting to define key project activities and artifacts.",
+      "plannedStart": "2023-10-02T00:00:00Z",
+      "plannedEnd": "2023-10-02T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-02T00:00:00Z",
+      "actualEnd": "2023-10-02T00:00:00Z"
+    },
+    {
+      "name": "Code Delivery",
+      "description": "Latest code delivery (v1.0.1.14) started deployment.",
+      "plannedStart": "2024-10-31T00:00:00Z",
+      "plannedEnd": "2024-10-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-10-31T00:00:00Z",
+      "actualEnd": "2024-10-31T00:00:00Z"
+    },
+    {
+      "name": "Assessment & Planning",
+      "description": "Initial assessment of project health.",
+      "plannedStart": "2023-10-31T00:00:00Z",
+      "plannedEnd": "2023-10-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-10-31T00:00:00Z",
+      "actualEnd": "2023-10-31T00:00:00Z"
+    },
+    {
+      "name": "UI Refinement Plan",
+      "description": "The UI refinement plan reached 84% completion and is under review.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-09-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-09-30T00:00:00Z"
+    },
+    {
+      "name": "Batch Execution Review and Plan",
+      "description": "Batch Execution Review and Plan was completed by September 24, 2024.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-09-24T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-09-24T00:00:00Z"
+    },
+    {
+      "name": "Assessment & Planning",
+      "description": "Initial project assessment and planning phase.",
+      "plannedStart": "2024-01-01T00:00:00Z",
+      "plannedEnd": "2024-07-01T00:00:00Z",
+      "completed": true,
+      "actualStart": "2024-01-01T00:00:00Z",
+      "actualEnd": "2024-07-01T00:00:00Z"
+    },
+    {
+      "name": "Program Development & Testing",
+      "description": "Development and testing of the program.",
+      "plannedStart": "2024-07-01T00:00:00Z",
+      "plannedEnd": "2025-08-01T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-07-01T00:00:00Z",
+      "actualEnd": "2025-08-01T00:00:00Z"
+    },
+    {
+      "name": "System Installation",
+      "description": "Installation of the system components.",
+      "plannedStart": "2025-08-01T00:00:00Z",
+      "plannedEnd": "2025-12-31T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-08-01T00:00:00Z",
+      "actualEnd": "2025-12-31T00:00:00Z"
+    },
+    {
+      "name": "Implementation",
+      "description": "Implementation of the system.",
+      "plannedStart": "2026-01-01T00:00:00Z",
+      "plannedEnd": "2026-03-03T00:00:00Z",
+      "completed": false,
+      "actualStart": "2026-01-01T00:00:00Z",
+      "actualEnd": "2026-03-03T00:00:00Z"
+    }
+  ]
+}

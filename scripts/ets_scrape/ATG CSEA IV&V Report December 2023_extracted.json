@@ -1,0 +1,42 @@
+{
+  "project": {
+    "name": "KEIKI Replatform Off Mainframe (KROM) Project",
+    "description": "Replatform the Keiki System and provide ongoing operations support.",
+    "originalContractAward": 6400000.0,
+    "status": "APPROVED"
+  },
+  "report": {
+    "yearCreate": 2024,
+    "monthCreate": "JANUARY",
+    "paidUpToNow": 0.0,
+    "progress": 0.06,
+    "status": "APPROVED"
+  },
+  "issues": [
+    {
+      "description": "Complex data system migration requirements, combined with incomplete documentation and the absence of a formalized process for non-code tasks, may lead to project delays, unmet contract requirements, and quality issues.",
+      "remedy": "Develop separate formalized data system migration plans and processes for non-code elements.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "Untimely project management responsibilities may impact effective project execution.",
+      "remedy": "Improve the project schedule to address schedule constraints.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    }
+  ],
+  "events": [
+    {
+      "name": "Automated Application Assessment",
+      "description": "The Automated Application Assessment process was executed well and completed.",
+      "plannedStart": "2023-12-01T00:00:00Z",
+      "plannedEnd": "2023-12-31T00:00:00Z",
+      "completed": true,
+      "actualStart": "2023-12-01T00:00:00Z",
+      "actualEnd": "2023-12-31T00:00:00Z"
+    }
+  ]
+}

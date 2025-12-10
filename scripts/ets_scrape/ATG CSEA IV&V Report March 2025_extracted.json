@@ -1,0 +1,65 @@
+{
+  "project": {
+    "name": "KEIKI Replatform Off Mainframe (KROM) Project",
+    "description": "Replatform the KEIKI System and provide ongoing operations support.",
+    "originalContractAward": 4100000.0,
+    "status": "PENDING"
+  },
+  "report": {
+    "yearCreate": 2025,
+    "monthCreate": "MARCH",
+    "paidUpToNow": 6400000.0,
+    "progress": 0.68,
+    "status": "PENDING"
+  },
+  "issues": [
+    {
+      "description": "Testing Transition & Execution Risks",
+      "remedy": "Ensure full alignment on testing methodologies, defect triage, and execution strategies.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "Data Extraction & Validation Inefficiencies",
+      "remedy": "Implement automated validation scripts, formalize error handling protocols.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "description": "System Performance and Stability",
+      "remedy": "Continue real-time monitoring and tuning, supported by hardware upgrades.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "CLOSED"
+    },
+    {
+      "description": "Security & Compliance",
+      "remedy": "Implement data masking protocols and scoped out controlled testing environments.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "CLOSED"
+    }
+  ],
+  "events": [
+    {
+      "name": "System Integration Testing",
+      "description": "Reached 90% completion with all Financial Test Deck scenarios executed.",
+      "plannedStart": "2024-10-01T00:00:00Z",
+      "plannedEnd": "2025-04-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-10-01T00:00:00Z",
+      "actualEnd": null
+    },
+    {
+      "name": "Go-Live",
+      "description": "Revised Go-Live date to provide a long weekend contingency for potential unanticipated cutover issues.",
+      "plannedStart": "2025-11-11T00:00:00Z",
+      "plannedEnd": "2025-11-11T00:00:00Z",
+      "completed": false,
+      "actualStart": null,
+      "actualEnd": null
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "project": {
+    "name": "Hawaii Department of Human Services Systems Modernization Project",
+    "description": "The project involves the modernization of systems for the Hawaii Department of Human Services, focusing on the implementation of the BES Pilot and addressing DHS Change Requests.",
+    "originalContractAward": 0.0,
+    "status": "PENDING"
+  },
+  "reports": [
+    {
+      "yearCreate": 2024,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2025,
+      "monthCreate": "APRIL",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    },
+    {
+      "yearCreate": 2024,
+      "monthCreate": "AUGUST",
+      "paidUpToNow": 0.0,
+      "progress": 0.0,
+      "status": "PENDING"
+    }
+  ],
+  "issues": [
+    {
+      "title": "High SIT Failure Rate",
+      "description": "The System Integration Testing (SIT) failure rate for Epics ranges from 51% to 83%, with the highest being eligibility client correspondence, at 83%. There are over 800 defects found in SIT, possibly impacting the Project’s ability to enter Final Acceptance Testing (FAT).",
+      "remedy": "Address defects and improve testing processes.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Incomplete SSP Documentation",
+      "description": "The Independent Security Assessment team has requested 60 documents supporting the System Security Plan (SSP), highlighting the risk of the SSP and supporting documentation not being completed for federal reviews.",
+      "remedy": "Complete and submit required SSP documentation.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Schedule Variances Increasing",
+      "description": "The schedule variances are increasing, with some task completion dates delayed twenty days or more, potentially revealing unexpected complexity and an increased level of effort.",
+      "remedy": "Reassess schedule and adjust resources to meet deadlines.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Findings Unresolved",
+      "description": "80 security findings remain unresolved, delaying approval from federal data sources.",
+      "remedy": "Prioritize remediation of security findings to meet required timeframes.",
+      "severity": "HIGH",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Requirements Management Delays",
+      "description": "Increased meeting frequency has delayed the development of the Requirements Traceability Matrix.",
+      "remedy": "Streamline meetings to expedite RTM development.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Interface Testing Incomplete",
+      "description": "Functional and technical testing of interfaces did not progress, impacting SIT readiness.",
+      "remedy": "Complete interface testing to ensure SIT readiness.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Testing Process Challenges",
+      "description": "Defects from past UAT activities remain unresolved, affecting future testing effectiveness.",
+      "remedy": "Revise testing processes to enhance effectiveness and reporting.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "FNS Approval Delays",
+      "description": "Delays in obtaining FNS approval for eDRS interface may impact SIT readiness.",
+      "remedy": "Obtain Form #674 approval to proceed with eDRS interface testing.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "High Defect Count",
+      "description": "The project has been focused on resolving the high number of defects in the Final Acceptance Testing cycle.",
+      "remedy": "Redirect and hire additional resources.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    },
+    {
+      "title": "Delayed Deliverables",
+      "description": "Contract required Deliverables to include the final Requirements Traceability Matrix (RTM) and Conversion results were not delivered on their due dates.",
+      "remedy": "Ensure timely delivery of required documents.",
+      "severity": "MEDIUM",
+      "likelihood": "MEDIUM",
+      "status": "OPEN"
+    },
+    {
+      "title": "Security Assessment Pending",
+      "description": "The BES third-party security assessment report was recently submitted, with 34 critical and 204 high findings.",
+      "remedy": "Complete security awareness training for DHS.",
+      "severity": "HIGH",
+      "likelihood": "HIGH",
+      "status": "OPEN"
+    }
+  ],
+  "events": [
+    {
+      "name": "Final Acceptance Testing Start",
+      "description": "FAT for BES 1.0 scheduled to start.",
+      "plannedStart": "2024-05-13T00:00:00Z",
+      "plannedEnd": "2024-05-20T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-05-13T00:00:00Z",
+      "actualEnd": "2024-05-20T00:00:00Z"
+    },
+    {
+      "name": "System Integration Testing",
+      "description": "Preparation for System Integration Testing (SIT) planned to begin on June 23, 2025.",
+      "plannedStart": "2025-06-23T00:00:00Z",
+      "plannedEnd": "2025-06-30T00:00:00Z",
+      "completed": false,
+      "actualStart": "2025-06-23T00:00:00Z",
+      "actualEnd": "2025-06-30T00:00:00Z"
+    },
+    {
+      "name": "BES Pilot Start",
+      "description": "Discussions to possibly delay the start of the BES Pilot.",
+      "plannedStart": "2024-09-16T00:00:00Z",
+      "plannedEnd": "2024-09-16T00:00:00Z",
+      "completed": false,
+      "actualStart": "2024-09-16T00:00:00Z",
+      "actualEnd": "2024-09-16T00:00:00Z"
+    }
+  ]
+}
