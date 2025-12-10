@@ -68,7 +68,7 @@ const ProjectItem = ({
         <td>{formatCurrency(totalPaidOut)}</td>
         <td>
           <div style={{ minWidth: '120px' }}>
-            <ProgressBar style={{ height: '20px' }}>
+            <ProgressBar className="position-relative" style={{ height: '20px' }}>
               <ProgressBar
                 now={progress}
                 className={`mb-2 ${getProgressVariant(progress) === 'warning' && 'text-dark'}`}
@@ -78,7 +78,7 @@ const ProjectItem = ({
               />
               {progress < 20 && (
                 <div
-                  className="position-relative start-50"
+                  className="position-absolute start-50"
                   style={{ transform: 'translate(-50%, 5%)' }}
                 >
                   {progress.toFixed(1)}
