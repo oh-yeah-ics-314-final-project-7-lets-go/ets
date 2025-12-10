@@ -30,7 +30,10 @@ const ListPage = async () => {
     include: {
       creator: true,
       reports: {
-        orderBy: { monthCreate: 'desc' },
+        orderBy: [
+          { yearCreate: 'desc' },
+          { monthCreate: 'desc' },
+        ],
         select: { progress: true, paidUpToNow: true },
         take: 1,
       },
