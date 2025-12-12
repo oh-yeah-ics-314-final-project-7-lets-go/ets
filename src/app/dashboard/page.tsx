@@ -5,7 +5,7 @@ import ReportsSearch from '@/components/overview/ReportsSearch';
 import { countReports, findReports, ReportWithProject } from '@/lib/dbActions';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import {
   ChevronBarLeft,
@@ -162,4 +162,10 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+const SuspensedSP = () => (
+  <Suspense>
+    <SearchPage />
+  </Suspense>
+);
+
+export default SuspensedSP;
