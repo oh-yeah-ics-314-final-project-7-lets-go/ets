@@ -9,6 +9,7 @@ import {
   Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Row } from 'react-bootstrap';
 import { Pencil, Trash } from 'react-bootstrap-icons';
 import { formatCurrency, formatDate, reportName } from '@/lib/util';
+import { useSession } from 'next-auth/react';
 import StatusTooltip from '../StatusTooltip';
 
 interface ReportProjectProps {
@@ -17,6 +18,8 @@ interface ReportProjectProps {
 }
 
 const ReportPage = ({ report, project }: ReportProjectProps) => {
+  const { data: session } = useSession();
+  const isVendor = (session?.user as { randomKey: string })?.randomKey === 'VENDOR';
   const isApproved = report.status === ProjectStatus.APPROVED;
 
   const handleDeleteSubmit = async () => {
@@ -52,7 +55,7 @@ const ReportPage = ({ report, project }: ReportProjectProps) => {
                   </h4>
                 </div>
                 <ButtonGroup className="gap-1">
-                  {!isApproved && (
+                  {!isApproved && isVendor && (
                   <Link href={`/project/${project.id}/report/${report.id}/edit`}>
                     <Button
                       variant="warning"

@@ -1,6 +1,7 @@
 'use client';
 
 import { Event } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Col, FormSelect, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 
@@ -11,6 +12,7 @@ interface EventTableProps {
 }
 
 const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
+  const { data: session } = useSession();
   const [filter, setFilter] = useState<string>('MOST_URGENT');
 
   const getFilteredEvents = () => {
@@ -69,7 +71,7 @@ const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
                 <option value="MOST_URGENT">Most Urgent</option>
               </FormSelect>
             </div>
-            {!isApproved && (
+            {!isApproved && (session?.user as { randomKey: string })?.randomKey === 'VENDOR' && (
             <Button
               variant="outline-primary"
               size="sm"
