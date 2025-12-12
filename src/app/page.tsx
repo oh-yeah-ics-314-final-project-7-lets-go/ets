@@ -92,36 +92,40 @@ const Home = () => (
           <Row className="text-center align-items-center">
             <Col md={6} className="p-3 d-flex flex-column justify-content-center">
               <p className="mt-2">
-                Placeholder for future graph 2 and description
+                This graph is a semi-circular progress chart showing the overall project completion.
+                The green portion represents the percentage of work completed,
+                while the gray portion shows the remaining tasks yet to be finished.
               </p>
             </Col>
 
             <Col md={6} className="p-3">
               <Image
-                src="/Screenshot 2025-11-08 071927.png"
+                src="/Screenshot_10-12-2025_115020_pseudo-hacc-ets.vercel.app.jpeg"
                 alt="Graph 2"
                 width={600}
-                height={220}
+                height={230}
                 style={{
                   width: '100%',
                   height: '230px',
                   objectFit: 'cover',
+                  objectPosition: 'top',
                   borderRadius: '8px',
                 }}
               />
             </Col>
+
           </Row>
 
           <Row className="text-center align-items-center">
             <Col md={6} className="p-3">
               <Image
-                src="/Screenshot 2025-11-08 224257.png"
+                src="/Screenshot_10-12-2025_11468_pseudo-hacc-ets.vercel.app.jpeg"
                 alt="Graph 3"
                 width={600}
-                height={300}
+                height={420}
                 style={{
                   width: '100%',
-                  height: '260px',
+                  height: '420px',
                   objectFit: 'cover',
                   borderRadius: '8px',
                 }}
@@ -129,37 +133,17 @@ const Home = () => (
             </Col>
             <Col md={6} className="p-3 d-flex flex-column justify-content-center">
               <p className="mt-2">
-                Placeholder for future graph 3 and description
+                This bar graph compares project spending to the original contract amount.
+                The left bar shows how much has been spent so far,
+                while the right bar represents the total funding provided in the original contract.
               </p>
-            </Col>
-          </Row>
-
-          <Row className="text-center align-items-center">
-            <Col md={6} className="p-3 d-flex flex-column justify-content-center">
-              <p className="mt-2">
-                Placeholder for future graph 4 and description
-              </p>
-            </Col>
-            <Col md={6} className="p-3">
-              <Image
-                src="/Screenshot 2025-11-08 072936.png"
-                alt="Graph 4"
-                width={600}
-                height={250}
-                style={{
-                  width: '100%',
-                  height: '240px',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                }}
-              />
             </Col>
           </Row>
 
           <Row className="text-center">
             <Col className="p-3">
               <Image
-                src="/Screenshot 2025-11-08 224333.png"
+                src="/Screenshot_10-12-2025_115143_pseudo-hacc-ets.vercel.app.jpeg"
                 alt="Graph 5"
                 width={600}
                 height={300}
@@ -170,7 +154,10 @@ const Home = () => (
                   borderRadius: '8px',
                 }}
               />
-              <p className="mt-2">Placeholder for future graph 5 and description</p>
+              <p className="mt-2">
+                This timeline displays the key events and milestones of the project in chronological order,
+                showing when major tasks were started, completed, or scheduled.
+              </p>
             </Col>
           </Row>
         </Col>
