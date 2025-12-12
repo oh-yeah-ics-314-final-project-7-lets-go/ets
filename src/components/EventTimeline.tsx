@@ -2,6 +2,8 @@
 
 import { truncate } from '@/lib/util';
 import { Event, Issue } from '@prisma/client';
+import { useEffect, useRef, useState } from 'react';
+import { FormSelect } from 'react-bootstrap';
 
 interface EventTimelineProps {
   events: Event[];
@@ -10,45 +12,103 @@ interface EventTimelineProps {
 }
 
 const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
-  // Convert issues to event-like objects for timeline display (exclude closed issues)
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [filter, setFilter] = useState<string>('12_MONTHS');
   const today = new Date();
-  const issuesAsEvents = issues.filter(issue => issue.status !== 'CLOSED').map((issue) => ({
-    id: issue.id, // Keep issue ID as number
-    name: truncate(issue.title, 100), // Use remedy as the name
+
+  const getFilteredData = () => {
+    const sixMonthsBefore = new Date(today.getFullYear(), today.getMonth() - 6, today.getDate());
+    const sixMonthsAfter = new Date(today.getFullYear(), today.getMonth() + 6, today.getDate());
+    const threeMonthsBefore = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+    const threeMonthsAfter = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
+    const oneMonthBefore = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+    const oneMonthAfter = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    const currentYearStart = new Date(today.getFullYear(), 0, 1);
+    const currentYearEnd = new Date(today.getFullYear(), 11, 31);
+
+    let filteredEvents = [...events];
+    let filteredIssues = [...issues];
+
+    switch (filter) {
+      case '12_MONTHS':
+        filteredEvents = events.filter(event => (
+          new Date(event.plannedEnd) >= sixMonthsBefore && new Date(event.plannedStart) <= sixMonthsAfter
+        ));
+        filteredIssues = issues.filter(issue => (
+          new Date(issue.updatedAt) >= sixMonthsBefore && new Date(issue.firstRaised) <= sixMonthsAfter
+        ));
+        break;
+      case '6_MONTHS':
+        filteredEvents = events.filter(event => (
+          new Date(event.plannedEnd) >= threeMonthsBefore && new Date(event.plannedStart) <= threeMonthsAfter
+        ));
+        filteredIssues = issues.filter(issue => (
+          new Date(issue.updatedAt) >= threeMonthsBefore && new Date(issue.firstRaised) <= threeMonthsAfter
+        ));
+        break;
+      case '2_MONTHS':
+        filteredEvents = events.filter(event => (
+          new Date(event.plannedEnd) >= oneMonthBefore && new Date(event.plannedStart) <= oneMonthAfter
+        ));
+        filteredIssues = issues.filter(issue => (
+          new Date(issue.updatedAt) >= oneMonthBefore && new Date(issue.firstRaised) <= oneMonthAfter
+        ));
+        break;
+      case 'CURRENT_YEAR':
+        filteredEvents = events.filter(event => (
+          new Date(event.plannedStart) >= currentYearStart && new Date(event.plannedEnd) <= currentYearEnd
+        ));
+        filteredIssues = issues.filter(issue => (
+          new Date(issue.firstRaised) >= currentYearStart && new Date(issue.updatedAt) <= currentYearEnd
+        ));
+        break;
+      case 'ACTIVE_ONLY':
+        filteredEvents = events.filter(event => !event.completed);
+        filteredIssues = issues.filter(issue => issue.status !== 'CLOSED');
+        break;
+      case 'ALL':
+      default:
+
+        break;
+    }
+
+    return { filteredEvents, filteredIssues };
+  };
+
+  const { filteredEvents, filteredIssues } = getFilteredData();
+
+  const filteredIssuesAsEvents = filteredIssues.filter(issue => issue.status !== 'CLOSED').map((issue) => ({
+    id: issue.id,
+    name: truncate(issue.title, 100),
     projectId: issue.projectId,
-    description: truncate(issue.description, 150), // Use issue title
-    plannedStart: issue.firstRaised, // Use firstRaised as start
-    plannedEnd: issue.status === 'CLOSED' ? issue.updatedAt : today, // Use updatedAt if closed, today if open
-    completed: issue.status === 'CLOSED', // Use status to determine completion
+    description: truncate(issue.description, 150),
+    plannedStart: issue.firstRaised,
+    plannedEnd: issue.status === 'CLOSED' ? issue.updatedAt : today,
+    completed: issue.status === 'CLOSED',
     actualStart: null,
     actualEnd: null,
-    isIssue: true, // Flag to identify as issue for styling
-    originalIssue: issue, // Keep reference to original issue
+    isIssue: true,
+    originalIssue: issue,
   }));
 
-  // Combine events and issues, then sort by start date
-  const allItems = [...events, ...issuesAsEvents];
+  const allItems = [...filteredEvents, ...filteredIssuesAsEvents];
   const sortedEvents = allItems.sort((a, b) => new Date(a.plannedStart).getTime() - new Date(b.plannedStart).getTime());
 
-  // Format date for display
   const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
 
-  // Calculate timeline range and positions based on actual dates
   const getTimelineData = () => {
     if (sortedEvents.length === 0) return { startDate: new Date(), endDate: new Date(), months: [] };
 
     const startDate = new Date(sortedEvents[0].plannedStart);
     const endDate = new Date(sortedEvents[sortedEvents.length - 1].plannedEnd);
 
-    // Add some padding (1 month before and after)
     const paddedStart = new Date(startDate.getFullYear(), startDate.getMonth() - 1, 1);
     const paddedEnd = new Date(endDate.getFullYear(), endDate.getMonth() + 1, 1);
 
-    // Generate month markers
     const months = [];
     const current = new Date(paddedStart);
     while (current <= paddedEnd) {
@@ -61,41 +121,34 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
 
   const timelineData = getTimelineData();
 
-  // Calculate position relative to today's position on timeline
   const getEventPosition = (eventDate: Date | string) => {
     if (sortedEvents.length === 0) return 50;
 
     const currentDate = new Date();
     const date = new Date(eventDate);
-    const todayPosition = 50; // Today is always at 50% (center of timeline)
-    const pixelsPerDay = 1; // 1% per day spacing
-
-    // Calculate days difference from today
+    const todayPosition = 50;
+    const pixelsPerDay = 1;
     const daysDifference = (date.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-    // Calculate position: today's position + (days difference * pixels per day)
     const position = todayPosition + (daysDifference * pixelsPerDay);
 
-    return Math.max(5, Math.min(95, position)); // Keep events within visible bounds
+    return Math.max(5, Math.min(95, position));
   };
 
   const getMonthPosition = (monthDate: Date) => {
     if (sortedEvents.length === 0) return 0;
 
     const currentDate = new Date();
-    const todayPosition = 50; // Today is always at 50% (center of timeline)
-    const pixelsPerDay = 1; // 1% per day spacing (same as events)
+    const todayPosition = 50;
+    const pixelsPerDay = 1;
 
-    // Calculate days difference from today
     const daysDifference = (monthDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-    // Calculate position: today's position + (days difference * pixels per day)
     const position = todayPosition + (daysDifference * pixelsPerDay);
 
-    return Math.max(5, Math.min(95, position)); // Keep months within visible bounds
+    return Math.max(5, Math.min(95, position));
   };
 
-  // Calculate event levels to avoid overlaps
   const getEventLevels = () => {
     const levels: { event: Event; level: number; }[] = [];
     const occupiedRanges: { start: number; end: number; level: number; }[] = [];
@@ -106,7 +159,6 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
       const eventStart = Math.min(startPos, endPos);
       const eventEnd = Math.max(startPos, endPos);
 
-      // Find the lowest available level
       let level = 0;
       let foundLevel = false;
 
@@ -133,8 +185,23 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   const maxLevel = eventLevels.length > 0 ? Math.max(...eventLevels.map(el => el.level)) : 0;
   const centerLevel = maxLevel / 2;
 
-  // Always position Today at the center of the timeline container
-  const todayPosition = 50; // Always at 50% (center)
+  const todayPosition = 50;
+
+  useEffect(() => {
+    if (timelineRef.current && sortedEvents.length > 0) {
+      const container = timelineRef.current;
+      const containerHeight = container.clientHeight;
+      const containerWidth = container.clientWidth;
+      const timelineHeight = 200 + (maxLevel * 40);
+
+      const verticalCenter = (timelineHeight / 2) - (containerHeight / 2);
+      container.scrollTop = Math.max(0, verticalCenter);
+
+      const timelineWidth = container.scrollWidth;
+      const horizontalCenter = (timelineWidth * 0.5) - (containerWidth / 2);
+      container.scrollLeft = Math.max(0, horizontalCenter);
+    }
+  }, [sortedEvents.length, maxLevel, filter]);
 
   if (sortedEvents.length === 0) {
     return (
@@ -148,27 +215,45 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
   return (
     <div className="timeline-container">
       {/* Timeline Header */}
-      <div className="mb-3">
-        <h5>
+      <div className="mb-3 d-flex gap-2 align-items-center">
+        <h5 className="mb-0">
           Timeline (
-          {events.length}
+          {filteredEvents.length}
           {' '}
           events,
           {' '}
-          {issues.filter(issue => issue.status !== 'CLOSED').length}
+          {filteredIssues.filter(issue => issue.status !== 'CLOSED').length}
           {' '}
           open issues)
         </h5>
+        <div className="ms-auto">
+          <FormSelect
+            size="sm"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            style={{ width: 'auto' }}
+          >
+            <option value="12_MONTHS">12 Months</option>
+            <option value="6_MONTHS">6 Months</option>
+            <option value="2_MONTHS">2 Months</option>
+            <option value="CURRENT_YEAR">Current Year</option>
+            <option value="ACTIVE_ONLY">Active Only</option>
+            <option value="ALL">All</option>
+          </FormSelect>
+        </div>
       </div>
 
       {/* Timeline Visualization */}
       <div
+        ref={timelineRef}
         className="position-relative"
         style={{
-          minHeight: `${200 + (maxLevel * 40)}px`,
+          minHeight: '400px',
+          maxHeight: '600px',
+          height: `${200 + (maxLevel * 40)}px`,
           marginBottom: '20px',
           overflowX: 'auto',
-          overflowY: 'visible',
+          overflowY: 'auto',
           border: '1px solid #dee2e6',
           borderRadius: '4px',
           padding: '10px 0',
@@ -176,8 +261,8 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
       >
         <div
           style={{
-            width: '300%', // Make timeline 3x wider than container
-            minWidth: '1200px', // Ensure minimum width for small events
+            width: '300%',
+            minWidth: '1200px',
             position: 'relative',
             height: '100%',
           }}
@@ -190,7 +275,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
               left: '20px',
               right: '20px',
               height: '2px',
-              backgroundColor: '#dee2e6',
+              backgroundColor: '#17828c',
               zIndex: 1,
             }}
           />
@@ -200,28 +285,28 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             style={{
               position: 'absolute',
               left: `${todayPosition}%`,
-              top: '20px',
-              bottom: '20px',
+              top: '0px',
               transform: 'translateX(-50%)',
-              zIndex: 4,
+              zIndex: 1,
+              height: `${200 + (maxLevel * 40) + 40}px`,
             }}
           >
             {/* Vertical Line */}
-            {/* <div
-            style={{
-              width: '3px',
-              height: '100%',
-              backgroundColor: '#dc3545',
-              opacity: 0.8,
-              borderRadius: '1.5px'
-            }}
-          /> */}
+            <div
+              style={{
+                width: '2px',
+                height: '100%',
+                backgroundColor: '#dc3545',
+                opacity: 0.6,
+                borderRadius: '1px',
+              }}
+            />
 
             {/* Today Label */}
             <div
               style={{
                 position: 'absolute',
-                top: '-25px',
+                top: '10px',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 backgroundColor: '#dc3545',
@@ -232,6 +317,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                 fontWeight: 'bold',
                 whiteSpace: 'nowrap',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                zIndex: 5,
               }}
             >
               {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -241,7 +327,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             <div
               style={{
                 position: 'absolute',
-                top: '-7px',
+                top: '28px',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 width: 0,
@@ -249,6 +335,7 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
                 borderLeft: '4px solid transparent',
                 borderRight: '4px solid transparent',
                 borderTop: '6px solid #dc3545',
+                zIndex: 5,
               }}
             />
           </div>
@@ -288,20 +375,16 @@ const EventTimeline = ({ events, issues, projectId }: EventTimelineProps) => {
             const isCompleted = event.completed;
             const isIssue = (event as any).isIssue || false;
 
-            // Color logic: yellow for issues, green/blue for events
             // eslint-disable-next-line no-nested-ternary
             const itemColor = isIssue ? '#ffc107' : (isCompleted ? '#198754' : '#0d6efd');
 
-            // Calculate event duration in days
             const durationInDays = (new Date(event.plannedEnd)
               .getTime() - new Date(event.plannedStart)
               .getTime()) / (1000 * 60 * 60 * 24);
 
-            // Calculate vertical position from center
             const eventTop = 90 + (level * 40);
-            const dotTop = eventTop - 9; // Center dot on line
+            const dotTop = eventTop - 9;
 
-            // For events shorter than 5 days OR events that ended 2+ months ago, show single dot
             const currentDate = new Date();
             const eventEndDate = new Date(event.plannedEnd);
             const twoMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 2, currentDate.getDate());
