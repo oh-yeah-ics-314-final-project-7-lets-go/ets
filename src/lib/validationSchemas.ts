@@ -57,7 +57,6 @@ export const EditIssueSchema = Yup.object({
 });
 
 export const AddCommentSchema = Yup.object({
-  authorId: Yup.number().required(),
   content: Yup.string()
     .required('You must enter your comment')
     .min(10, 'Comments must be at least 10 characters long.'),

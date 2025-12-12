@@ -25,10 +25,7 @@ const EditProjectForm = ({ project }: { project: Project }) => {
   } = useForm<EditProjectFormData>({
     resolver: yupResolver(EditProjectSchema),
     defaultValues: {
-      id: project.id,
-      name: project.name,
-      description: project.description,
-      originalContractAward: project.originalContractAward,
+      ...project,
     },
   });
 

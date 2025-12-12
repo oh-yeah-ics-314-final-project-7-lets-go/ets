@@ -5,12 +5,12 @@ import { reportName } from '@/lib/util';
 import { ProjectStatus, Report } from '@prisma/client';
 import { Button } from 'react-bootstrap';
 
-const DenyReportBtn = ({ id, report, author }: { id: number; report: Report; author: number; }) => (
+const DenyReportBtn = ({ id, report }: { id: number; report: Report; }) => (
   <Button
     variant="danger"
     className="me-2"
     onClick={async () => {
-      await addComment({ projectId: report.projectId, authorId: author, content: `Denied ${reportName(report)}` });
+      await addComment({ projectId: report.projectId, content: `Denied ${reportName(report)}` });
       await changeReportStatus(id, ProjectStatus.DENIED);
     }}
   >

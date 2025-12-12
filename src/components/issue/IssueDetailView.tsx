@@ -8,6 +8,7 @@ import {
   Breadcrumb,
   BreadcrumbItem, Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Row } from 'react-bootstrap';
 import { CheckCircle, Pencil, Trash } from 'react-bootstrap-icons';
+import { useSession } from 'next-auth/react';
 
 interface IssueDetailViewProps {
   issue: Issue;
@@ -15,6 +16,8 @@ interface IssueDetailViewProps {
 }
 
 const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
+  const { data: session } = useSession();
+  const isVendor = (session?.user as { randomKey: string })?.randomKey === 'VENDOR';
   const formatDate = (date: Date | string) => new Date(date).toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -106,6 +109,7 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                 </div>
               </div>
               <ButtonGroup className="gap-1">
+                {isVendor && (
                 <Link href={`/project/${project.id}/issue/${issue.id}/edit`}>
                   <Button
                     variant="warning"
@@ -117,6 +121,7 @@ const IssueDetailView = ({ issue, project }: IssueDetailViewProps) => {
                     Edit
                   </Button>
                 </Link>
+                )}
                 <form action={handleDeleteSubmit} className="d-inline">
                   <Button
                     variant="danger"

@@ -6,6 +6,8 @@ import { Project } from '@prisma/client';
 import Link from 'next/link';
 import { formatCurrency, formatDateShort, getProgressVariant } from '@/lib/util';
 import { deleteProject } from '@/lib/dbActions';
+import { Pencil, Trash } from 'react-bootstrap-icons';
+import { useSession } from 'next-auth/react';
 import StatusTooltip from './StatusTooltip';
 
 interface ProjectItemProps extends Project {
@@ -25,6 +27,8 @@ const ProjectItem = ({
   updatedAt,
   creatorEmail,
 }: ProjectItemProps) => {
+  const { data: session } = useSession();
+  const isVendor = (session?.user as { randomKey: string })?.randomKey === 'VENDOR';
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleDeleteClick = () => {
@@ -93,8 +97,14 @@ const ProjectItem = ({
         <td>{creatorEmail}</td>
         <td onClick={(e) => e.stopPropagation()}>
           <div className="d-flex gap-2">
-            <Button variant="outline-secondary" size="sm" href={`/project/${id}/edit/`}>Edit</Button>
-            <Button variant="outline-danger" size="sm" onClick={handleDeleteClick}>Delete</Button>
+            {isVendor && (
+            <Button variant="warning" size="sm" href={`/project/${id}/edit/`}>
+              <Pencil />
+            </Button>
+            )}
+            <Button variant="danger" size="sm" onClick={handleDeleteClick}>
+              <Trash />
+            </Button>
           </div>
         </td>
       </tr>

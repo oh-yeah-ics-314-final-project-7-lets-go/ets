@@ -34,7 +34,6 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
   if (!project || !report) notFound();
 
   let statusBanner = null;
-  const userId = parseInt((session?.user as { id: string; }).id ?? '0', 10) ?? 0;
 
   const isApproved = report.status === ProjectStatus.APPROVED;
   const isETS = (session?.user as { randomKey: string; }).randomKey === 'ETS';
@@ -45,8 +44,8 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
         <Banner className="mt-3 border-start-0 border-end-0" variant="warning" dismissible={false}>
           This report is being revised and is pending approval.
           <br />
-          <ApproveReportBtn report={report} author={userId} id={report.id} />
-          <DenyReportBtn report={report} author={userId} id={report.id} />
+          <ApproveReportBtn report={report} id={report.id} />
+          <DenyReportBtn report={report} id={report.id} />
         </Banner>
       );
     } else {
@@ -62,7 +61,7 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
         <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
           This report was rejected.
           <br />
-          <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
+          <PendingReportBtn report={report} id={report.id} isETS={isETS} />
         </Banner>
       );
     } else {
@@ -70,7 +69,7 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
         <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
           This report was rejected. Please see the comments for more information.
           <br />
-          <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
+          <PendingReportBtn report={report} id={report.id} isETS={isETS} />
         </Banner>
       );
     }
@@ -82,7 +81,7 @@ const EditReportPage = async ({ params }: { params: { project: string | string[]
       <ReportPage report={report} project={project} />
       {isETS && isApproved && (
         <Container className="text-center mt-3">
-          <PendingReportBtn report={report} author={userId} id={report.id} isETS={isETS} />
+          <PendingReportBtn report={report} id={report.id} isETS={isETS} />
         </Container>
       )}
     </main>

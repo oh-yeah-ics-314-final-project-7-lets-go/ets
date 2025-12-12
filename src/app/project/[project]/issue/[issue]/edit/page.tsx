@@ -1,14 +1,16 @@
-import { getServerSession } from 'next-auth';
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
-import { Issue, Project } from '@prisma/client';
+import { Issue, Project, Role } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import EditIssueForm from '@/components/issue/EditIssueForm';
+import { Container } from 'react-bootstrap';
+import { SessionWithRole } from '@/lib/dbActions';
 
 const EditIssue = async ({ params }: { params: { project: string | string[]; issue: string | string[] } }) => {
   // Protect the page, only logged in users can access it.
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession<NextAuthOptions, SessionWithRole>(authOptions);
   loggedInProtectedPage(
     session as {
       user: { email: string; id: string; randomKey: string };
@@ -27,6 +29,14 @@ const EditIssue = async ({ params }: { params: { project: string | string[]; iss
   });
 
   if (!project || !issue) notFound();
+
+  if (session?.user?.randomKey !== Role.VENDOR || session.user.id !== project.creatorId.toString()) {
+    return (
+      <Container className="my-auto">
+        <h2 className="text-center">You do not have permission to edit this issue</h2>
+      </Container>
+    );
+  }
 
   return (
     <main>

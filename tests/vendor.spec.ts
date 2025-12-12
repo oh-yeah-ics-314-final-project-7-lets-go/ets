@@ -27,7 +27,7 @@ test('test issue creation', async ({ getUserPage }) => {
   await page.locator('#projects-nav').click();
   await page.getByRole('link', { name: 'Give Keiki Cookies' }).click();
   await page.getByRole('button', { name: 'Add Issue' }).click();
-  await page.getByRole('button', { name: 'Submit Issue' }).click();
+  await page.getByRole('button', { name: 'Create Issue' }).click();
   await expect(page.getByText('description is a required')).toBeVisible();
   await expect(page.getByText('remedy is a required field')).toBeVisible();
   await page.getByRole('textbox', { name: 'Enter description of issue' }).click();
@@ -68,7 +68,7 @@ test('test report creation', async ({ getUserPage }) => {
   await page.locator('#projects-nav').click();
   await page.getByRole('link', { name: 'Give Keiki Cookies' }).click();
   await page.getByRole('button', { name: 'Add Report' }).click();
-  await page.getByRole('button', { name: 'Submit Report' }).click();
+  await page.getByRole('button', { name: 'Create Report' }).click();
   await expect(page.getByText('yearCreate must be a `number')).toBeVisible();
   await expect(page.getByText('Please choose one of the 12')).toBeVisible();
   await expect(page.getByText('paidUpToNow must be a `number')).toBeVisible();
@@ -89,9 +89,7 @@ test('test report creation', async ({ getUserPage }) => {
   await page.getByPlaceholder('Cumulative Progress').click();
   await page.getByPlaceholder('Cumulative Progress').fill('99');
 
-  await page.locator('div').filter({ hasText: 'Submit IV&V Project' }).nth(1).click();
-  await page.locator('div').filter({ hasText: 'Submit IV&V Project' }).nth(1).click();
-  await page.getByRole('button', { name: 'Submit Report' }).click();
+  await page.getByRole('button', { name: 'Create Report' }).click();
   await expect(page.getByText('A report with this year and').nth(1)).toBeVisible();
   await expect(page.getByText('yearCreate must be a `number')).not.toBeVisible();
   await expect(page.getByText('Please choose one of the 12')).not.toBeVisible();

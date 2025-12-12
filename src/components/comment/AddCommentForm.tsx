@@ -49,11 +49,6 @@ const AddCommentForm = ({ project }: { project: Project }) => {
         <Card.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <input type="hidden" {...register('projectId')} value={project.id} />
-            <input
-              type="hidden"
-              {...register('authorId')}
-              value={(data.user as { id: string }).id}
-            />
             <Row>
               <Col>
                 <Form.Group>

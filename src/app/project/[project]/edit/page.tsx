@@ -1,14 +1,16 @@
-import { getServerSession } from 'next-auth';
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { Project } from '@prisma/client';
+import { Project, Role } from '@prisma/client';
 import authOptions from '@/lib/authOptions';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import EditProjectForm from '@/components/project/EditProjectForm';
+import { SessionWithRole } from '@/lib/dbActions';
+import { Container } from 'react-bootstrap';
 
 export default async function EditProjectPage({ params }: { params: { project: string | string[] } }) {
   // Protect the page, only logged in users can access it.
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession<NextAuthOptions, SessionWithRole>(authOptions);
   loggedInProtectedPage(
     session as {
       user: { email: string; id: string; randomKey: string };
@@ -23,6 +25,14 @@ export default async function EditProjectPage({ params }: { params: { project: s
   // console.log(project);
   if (!project) {
     return notFound();
+  }
+
+  if (session?.user?.randomKey !== Role.VENDOR || session.user.id !== project.creatorId.toString()) {
+    return (
+      <Container className="my-auto">
+        <h2 className="text-center">You do not have permission to edit this project</h2>
+      </Container>
+    );
   }
 
   return (

@@ -9,6 +9,7 @@ import {
 import { CheckCircle, Pencil, Trash } from 'react-bootstrap-icons';
 import Link from 'next/link';
 import { formatDate, formatDateShort } from '@/lib/util';
+import { useSession } from 'next-auth/react';
 
 interface EventDetailViewProps {
   event: Event;
@@ -16,6 +17,8 @@ interface EventDetailViewProps {
 }
 
 const EventDetailView = ({ event, project }: EventDetailViewProps) => {
+  const { data: session } = useSession();
+  const isVendor = (session?.user as { randomKey: string })?.randomKey === 'VENDOR';
   const handleDeleteSubmit = async () => {
     await deleteEvent(event.id);
   };
@@ -65,6 +68,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                 </div>
               </div>
               <ButtonGroup className="gap-1">
+                {isVendor && (
                 <Link href={`/project/${project.id}/event/${event.id}/edit`}>
                   <Button
                     variant="warning"
@@ -76,6 +80,7 @@ const EventDetailView = ({ event, project }: EventDetailViewProps) => {
                     Edit
                   </Button>
                 </Link>
+                )}
                 <form action={handleDeleteSubmit} className="d-inline">
                   <Button
                     variant="danger"

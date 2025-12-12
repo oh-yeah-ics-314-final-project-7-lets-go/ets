@@ -1,6 +1,6 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
+import { getServerSession, NextAuthOptions, Session } from 'next-auth';
 import { Project,
   Event, Issue, Severity, Likelihood, Status, Comment, Role, User, ProjectStatus,
   Month,
@@ -12,17 +12,10 @@ import { revalidatePath } from 'next/cache';
 import authOptions from './authOptions';
 import { prisma } from './prisma';
 
-/**
- * Adds a new project to the database for IV&V reporting.
- * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
- */
-export async function addProject(project: {
-  name: string;
-  description: string;
-  originalContractAward: number;
-}) {
-  // Get the currently logged-in user
-  const session = await getServerSession(authOptions);
+export type SessionWithRole = Session & { user?: { randomKey?: Role; id: string; } };
+
+async function getUserOrThrow(): Promise<User> {
+  const session = await getServerSession<NextAuthOptions, SessionWithRole>(authOptions);
   if (!session?.user?.email) {
     throw new Error('Not authenticated');
   }
@@ -35,6 +28,51 @@ export async function addProject(project: {
   if (!user) {
     throw new Error('User not found');
   }
+
+  return user;
+}
+
+async function isAuthorOrETS(id: string) {
+  // Get the currently logged-in user
+  const user = await getUserOrThrow();
+  const session = await getServerSession<NextAuthOptions, SessionWithRole>(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  if (session.user.randomKey === Role.ETS) return true;
+  if (
+    session.user.randomKey === Role.VENDOR
+    && user.id.toString() === id
+  ) return true;
+
+  throw new Error('Insufficient permissions');
+}
+
+async function forceRole(...roles: Role[]) {
+  // Get the currently logged-in user
+  const session = await getServerSession<NextAuthOptions, SessionWithRole>(authOptions);
+  if (!session?.user?.email) {
+    throw new Error('Not authenticated');
+  }
+
+  for (const role of roles) {
+    if (session.user.randomKey === role) return true;
+  }
+  throw new Error('Insufficient permissions');
+}
+
+/**
+ * Adds a new project to the database for IV&V reporting.
+ * @param project, an object with project details: name, originalContractAward, totalPaidOut, progress.
+ */
+export async function addProject(project: {
+  name: string;
+  description: string;
+  originalContractAward: number;
+}) {
+  const user = await getUserOrThrow();
+  await forceRole(Role.VENDOR);
 
   // Create the project and assign the current user as creator
   await prisma.project.create({
@@ -55,6 +93,15 @@ export async function addProject(project: {
  * @param project, an object with the project data to update.
  */
 export async function editProject(project: Project) {
+  const user = await getUserOrThrow();
+  await forceRole(Role.VENDOR);
+  if (user.id !== project.creatorId) {
+    throw new Error('You are not the author');
+  }
+  if (project.status === ProjectStatus.APPROVED) {
+    throw new Error("Project can't be edited after approval");
+  }
+
   // console.log(`editProject data: ${JSON.stringify(project, null, 2)}`);
   await prisma.project.update({
     where: { id: project.id },
@@ -74,6 +121,7 @@ export async function editProject(project: Project) {
  * @param id, the id of the project to delete.
  */
 export async function deleteProject(id: number) {
+  await forceRole(Role.ETS);
   // Delete associated events and issues first due to foreign key constraints
   await prisma.event.deleteMany({
     where: { projectId: id },
@@ -95,6 +143,11 @@ export async function deleteProject(id: number) {
 }
 
 export async function changeProjectStatus(id: number, status: ProjectStatus) {
+  if (status === ProjectStatus.PENDING) {
+    await forceRole(Role.ETS, Role.VENDOR);
+  } else {
+    await forceRole(Role.ETS);
+  }
   await prisma.project.update({
     where: { id },
     data: {
@@ -206,27 +259,18 @@ export async function addReport(report: {
   progress: number,
   projectId: number,
 }) {
-  // Get the currently logged-in user
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) {
-    throw new Error('Not authenticated');
-  }
-
-  // Find the user in the database
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
-  });
-
-  if (!user) {
-    throw new Error('User not found');
-  }
-
+  const user = await getUserOrThrow();
+  await forceRole(Role.VENDOR);
   const project = await prisma.project.findUnique({
     where: { id: report.projectId },
   });
 
   if (!project) {
     throw new Error('Project not found');
+  }
+
+  if (user.id !== project?.creatorId) {
+    throw new Error('You are not the author');
   }
 
   // Create the project and assign the current user as creator
@@ -248,19 +292,22 @@ export async function editReport(report: {
   paidUpToNow: number,
   progress: number,
 }) {
-  // Get the currently logged-in user
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) {
-    throw new Error('Not authenticated');
-  }
-
-  // Find the user in the database
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
+  const user = await getUserOrThrow();
+  await forceRole(Role.VENDOR);
+  const foundReport = await prisma.report.findUnique({
+    where: { id: report.id },
+    include: {
+      project: true,
+    },
   });
-
-  if (!user) {
-    throw new Error('User not found');
+  if (user.id !== foundReport?.project.creatorId) {
+    throw new Error('You are not the author');
+  }
+  if (!foundReport) {
+    throw new Error('Report not found');
+  }
+  if (foundReport.status === ProjectStatus.APPROVED) {
+    throw new Error("Report can't be edited after approval");
   }
 
   // Create the project and assign the current user as creator
@@ -275,6 +322,12 @@ export async function editReport(report: {
 }
 
 export async function changeReportStatus(id: number, status: ProjectStatus) {
+  if (status === ProjectStatus.PENDING) {
+    await forceRole(Role.ETS, Role.VENDOR);
+  } else {
+    await forceRole(Role.ETS);
+  }
+
   const report = await prisma.report.update({
     where: { id },
     data: {
@@ -286,6 +339,7 @@ export async function changeReportStatus(id: number, status: ProjectStatus) {
 }
 
 export async function deleteReport(id: number) {
+  await forceRole(Role.ETS, Role.VENDOR);
   const report = await prisma.report.delete({
     where: { id },
   });
@@ -307,6 +361,8 @@ export async function reportAlreadyExists(report: {
   progress: number,
   projectId: number,
 }) {
+  await forceRole(Role.VENDOR);
+
   const checkForReport = await prisma.report.findFirst({
     where: {
       yearCreate: report.yearCreate,
@@ -319,13 +375,14 @@ export async function reportAlreadyExists(report: {
 }
 
 export async function addComment(comment: {
-  authorId: number;
   content: string;
   projectId: number;
 }) {
+  const user = await getUserOrThrow();
+
   await prisma.comment.create({
     data: {
-      authorId: comment.authorId,
+      authorId: user.id,
       projectId: comment.projectId,
       content: comment.content,
     },
@@ -333,6 +390,11 @@ export async function addComment(comment: {
 }
 
 export async function editComment(comment: Comment) {
+  const user = await getUserOrThrow();
+  if (user.id !== comment.authorId) {
+    throw new Error('User ID doesn\'t match');
+  }
+
   await prisma.comment.update({
     where: { id: comment.id },
     data: {
@@ -342,7 +404,17 @@ export async function editComment(comment: Comment) {
 }
 
 export async function deleteComment(id: number) {
-  const cmt = await prisma.comment.delete({
+  const cmt = await prisma.comment.findUnique({
+    where: { id },
+  });
+
+  if (!cmt) {
+    throw new Error('Comment not found');
+  }
+
+  await isAuthorOrETS(cmt.authorId.toString());
+
+  await prisma.comment.delete({
     where: { id },
   });
 
@@ -364,6 +436,7 @@ export async function addEvent(event: {
   actualStart?: Date | null;
   actualEnd?: Date | null;
 }) {
+  await forceRole(Role.VENDOR);
   await prisma.event.create({
     data: {
       projectId: event.projectId,
@@ -387,6 +460,7 @@ export async function addEvent(event: {
  * Edits an existing event in the database.
  */
 export async function editEvent(event: Event) {
+  await forceRole(Role.VENDOR);
   await prisma.event.update({
     where: { id: event.id },
     data: {
@@ -410,6 +484,7 @@ export async function editEvent(event: Event) {
  * @param id, the id of the event to delete.
  */
 export async function deleteEvent(id: number) {
+  await forceRole(Role.ETS, Role.VENDOR);
   const event = await prisma.event.delete({
     where: { id },
   });
@@ -430,6 +505,7 @@ export async function addIssue(issue: {
   likelihood: string;
   status: string;
 }) {
+  await forceRole(Role.VENDOR);
   let severity: Severity = 'HIGH';
   switch (issue.severity) {
     case 'medium':
@@ -488,6 +564,7 @@ export async function addIssue(issue: {
  * Edits an existing event in the database.
  */
 export async function editIssue(issue: Issue) {
+  await forceRole(Role.VENDOR);
   await prisma.issue.update({
     where: { id: issue.id },
     data: {
@@ -508,6 +585,7 @@ export async function editIssue(issue: Issue) {
  * @param id, the id of the issue to delete.
  */
 export async function deleteIssue(id: number) {
+  await forceRole(Role.ETS, Role.VENDOR);
   const issue = await prisma.issue.delete({
     where: { id },
   });
@@ -522,6 +600,7 @@ export async function deleteIssue(id: number) {
 export async function createUser(credentials: {
   firstName: string; lastName: string; email: string; role: Role;
 }) {
+  await forceRole(Role.ETS);
   // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
   const password = crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
   const hashed = await hash(password, 10);
@@ -539,6 +618,7 @@ export async function createUser(credentials: {
 }
 
 export async function resetPassword(id: number) {
+  await forceRole(Role.ETS);
   const password = crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
   const hashed = await hash(password, 10);
   await prisma.user.update({
@@ -563,6 +643,7 @@ export async function updateUser(userId: number, data: {
   email: string;
   role: Role;
 }) {
+  await forceRole(Role.ETS);
   const updatedUser = await prisma.user.update({
     where: { id: userId },
     data,
@@ -577,6 +658,7 @@ export async function updateUser(userId: number, data: {
 const DELETED_USER_ID = 0;
 
 export async function deleteUser(userId: number) {
+  await forceRole(Role.ETS);
   // Reassign comments
   await prisma.comment.updateMany({
     where: { authorId: userId },
@@ -608,6 +690,11 @@ export async function deleteUser(userId: number) {
  * @param credentials, an object with the following properties: email, password.
  */
 export async function changePassword(credentials: { email: string; password: string }) {
+  const user = await getUserOrThrow();
+  if (user.email !== credentials.email) {
+    throw new Error('Users don\'t match');
+  }
+
   // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
   const password = await hash(credentials.password, 10);
   await prisma.user.update({

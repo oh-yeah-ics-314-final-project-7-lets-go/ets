@@ -69,7 +69,6 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
   const isETS = (session?.user as { randomKey: string; }).randomKey === 'ETS';
 
   let statusBanner = null;
-  const userId = parseInt((session?.user as { id: string; }).id ?? '0', 10) ?? 0;
   if (project.status === ProjectStatus.PENDING) {
     if (isETS) {
       statusBanner = (
@@ -88,8 +87,8 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
             )
           </i>
           <br />
-          <ApproveProjectBtn author={userId} id={project.id} />
-          <DenyProjectBtn author={userId} id={project.id} />
+          <ApproveProjectBtn id={project.id} />
+          <DenyProjectBtn id={project.id} />
         </Banner>
       );
     } else {
@@ -105,7 +104,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
         <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
           This project was rejected.
           <br />
-          <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
+          <PendingProjectBtn id={project.id} isETS={isETS} />
         </Banner>
       );
     } else {
@@ -113,7 +112,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
         <Banner className="mt-3 border-start-0 border-end-0" variant="danger">
           This project was rejected. Please see the comments for more information.
           <br />
-          <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
+          <PendingProjectBtn id={project.id} isETS={isETS} />
         </Banner>
       );
     }
@@ -187,7 +186,7 @@ const ProjectOverviewPage = async ({ params }: ProjectOverviewPageProps) => {
         <CommentTable project={project} comments={project.comments || []} />
         {isETS && isApproved && (
         <Container className="text-center mt-3">
-          <PendingProjectBtn author={userId} id={project.id} isETS={isETS} />
+          <PendingProjectBtn id={project.id} isETS={isETS} />
         </Container>
         )}
       </Container>

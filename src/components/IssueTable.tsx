@@ -2,6 +2,7 @@
 
 import { truncate } from '@/lib/util';
 import { Issue, Severity } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Col, FormSelect, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
@@ -13,6 +14,7 @@ interface IssueTableProps {
 }
 
 const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
+  const { data: session } = useSession();
   const [filter, setFilter] = useState<string>('OPEN');
 
   const getFilteredIssues = () => {
@@ -76,7 +78,7 @@ const IssueTable = ({ projectId, isApproved, issues }: IssueTableProps) => {
                 <option value="ALL_OPEN_BY_SEVERITY">All Open (by Severity)</option>
               </FormSelect>
             </div>
-            {!isApproved && (
+            {!isApproved && (session?.user as { randomKey: string })?.randomKey === 'VENDOR' && (
             <Button
               variant="outline-primary"
               size="sm"
