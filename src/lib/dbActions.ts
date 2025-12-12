@@ -121,7 +121,11 @@ export async function editProject(project: Project) {
  * @param id, the id of the project to delete.
  */
 export async function deleteProject(id: number) {
-  await forceRole(Role.ETS);
+  const project = await prisma.project.findUnique({
+    where: { id },
+  });
+  if (!project) throw new Error("Project doesn't exist");
+  await isAuthorOrETS(project.creatorId.toString());
   // Delete associated events and issues first due to foreign key constraints
   await prisma.event.deleteMany({
     where: { projectId: id },

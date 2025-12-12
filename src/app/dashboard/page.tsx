@@ -4,6 +4,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import ReportsSearch from '@/components/overview/ReportsSearch';
 import { countReports, findReports, ReportWithProject } from '@/lib/dbActions';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import {
@@ -21,11 +22,12 @@ const oneoffSchema = Yup.object({
 });
 
 const SearchPage = () => {
+  const params = useSearchParams();
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const totalPages = Math.ceil(total / 9);
   const [prevQuery, setPrevQuery] = useState<string>();
-  const [query, setQuery] = useState<string>();
+  const [query, setQuery] = useState<string>(params.get('search') ?? '');
   const [results, setResults] = useState<ReportWithProject[]>();
   const [loading, setLoading] = useState<boolean>();
 
@@ -144,6 +146,7 @@ const SearchPage = () => {
                 {...register('content')}
                 className={`rounded-end-0 form-control ${errors.content ? 'is-invalid' : ''}`}
                 placeholder="Search..."
+                defaultValue={query}
               />
               <Button type="submit" variant="primary" size="lg">
                 <Search />

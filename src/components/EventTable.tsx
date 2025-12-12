@@ -2,6 +2,7 @@
 
 import { Event } from '@prisma/client';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Col, FormSelect, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 
@@ -88,7 +89,12 @@ const EventTable = ({ projectId, isApproved, events }: EventTableProps) => {
                   <div className="d-flex w-100 justify-content-between align-items-start">
                     <div>
                       <h6 className="mb-1">
-                        <span className="align-middle">{event.name}</span>
+                        <Link
+                          className="text-body text-decoration-none"
+                          href={`/project/${event.projectId}/event/${event.id}`}
+                        >
+                          <span className="align-middle">{event.name}</span>
+                        </Link>
                         {event.completed && (
                           <span className="badge bg-success ms-2">Completed</span>
                         )}
