@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ets
+      NEXTAUTH_SECRET: secret
+      NEXTAUTH_URL: http://localhost:3000
     services:
       postgres:
         image: postgres:15
@@ -20,7 +22,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U postgres"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -34,12 +36,6 @@ jobs:
         run: npm ci
       - name: Run ESLint
         run: npm run lint
-      - name: Wait for Postgres
-        run: |
-          until pg_isready -h localhost -p 5432; do
-            echo "Waiting for Postgres..."
-            sleep 2
-          done
       - name: Migrate Schema
         run: npx prisma migrate deploy
       - name: Seed database
