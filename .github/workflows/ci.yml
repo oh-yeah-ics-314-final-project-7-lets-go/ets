@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ets
-      NEXTAUTH_SECRET: secret
+      NEXTAUTH_SECRET: "Wnubkg0L2LLmpEvY+wPDkIs0S2KfS9391KthBwskfIs="
       NEXTAUTH_URL: http://localhost:3000
     services:
       postgres:
