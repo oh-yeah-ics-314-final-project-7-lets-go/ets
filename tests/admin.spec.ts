@@ -6,9 +6,6 @@ test('test user creation form', async ({ getUserPage }) => {
   const adminPage = await getUserPage('admin@hawaii.gov', 'changeme');
 
   await adminPage.locator('#basic-navbar-nav').getByRole('link', { name: 'User Management' }).click();
-
-  console.log('Current URL:', adminPage.url());
-
   await expect(adminPage.getByRole('button', { name: 'Create User' })).toBeVisible();
   await adminPage.getByRole('button', { name: 'Create User' }).click();
 

@@ -160,7 +160,7 @@ test('test malicious XSS input in issue form', async ({ getUserPage }) => {
 
   // Verify the saved description is displayed
   await expect(
-    page.getByText('<script>alert("XSS")</script>', { exact: true }),
+    page.getByText('<script>alert("XSS")</script>', { exact: true }).first(),
   ).toBeVisible();
 
   // Verify the malicious JavaScript did not execute
@@ -224,7 +224,7 @@ test('test malicious XSS input in event form', async ({ getUserPage }) => {
 
   // Verify malicious input is displayed as text
   await expect(
-    page.getByText(maliciousInput, { exact: true }),
+    page.getByText(maliciousInput, { exact: true }).first(),
   ).toBeVisible();
 
   // Fail if the XSS alert executed
