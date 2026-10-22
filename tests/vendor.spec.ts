@@ -259,3 +259,13 @@ test('test issue submission success message', async ({ getUserPage }) => {
     page.getByText('Issue has been submitted'),
   ).toBeVisible({ timeout: 10000 });
 });
+
+test('vendor cannot access administrator page directly', async ({ getUserPage }) => {
+  const page = await getUserPage('cookie_rep@site.com', 'changeme');
+
+  // Attempt to bypass navigation restrictions
+  await page.goto('http://localhost:3000/admin');
+
+  // Verify the vendor is not allowed to remain on the admin page
+  await expect(page).not.toHaveURL(/\/admin\/?$/);
+});
